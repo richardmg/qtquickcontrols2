@@ -88,13 +88,12 @@ QSGNode *QQuickStyleItem::updatePaintNode(QSGNode *oldNode, QQuickItem::UpdatePa
         node = window()->createNinePatchNode();
 
     auto texture = window()->createTextureFromImage(m_paintedImage, QQuickWindow::TextureCanUseAtlas);
+    const QSize padding = m_useNinePatchImage ? m_controlGeometry.imageSize / 2 : QSize(0, 0);
+
     node->setTexture(texture);
     node->setBounds(boundingRect());
     node->setDevicePixelRatio(window()->devicePixelRatio());
-    node->setPadding(m_controlGeometry.ninePatchPadding.left(),
-                     m_controlGeometry.ninePatchPadding.top(),
-                     m_controlGeometry.ninePatchPadding.right(),
-                     m_controlGeometry.ninePatchPadding.bottom());
+    node->setPadding(padding.width(), padding.height(), padding.width(), padding.height());
     node->update();
 
     return node;

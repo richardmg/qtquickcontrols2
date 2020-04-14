@@ -64,11 +64,6 @@ struct ControlGeometry
     QRect contentRect;
     QSize imageSize;
 
-    void centerNinePatchPadding() {
-        const QSize half = imageSize / 2;
-        ninePatchPadding = QMargins(half.width(), half.height(), half.width(), half.height());
-    }
-
     QMargins contentPadding() const
     {
         QMargins m;

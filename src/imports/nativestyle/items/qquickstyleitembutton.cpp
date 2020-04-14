@@ -50,8 +50,6 @@ ControlGeometry QQuickStyleItemButton::calculateControlGeometry()
     ControlGeometry cg;
 
     cg.imageSize = style()->sizeFromContents(QStyle::CT_PushButton, &styleOption, QSize());
-    cg.centerNinePatchPadding();
-
     cg.controlSize = style()->sizeFromContents(QStyle::CT_PushButton, &styleOption, contentSize());
 
     styleOption.rect = QRect(QPoint(0, 0), cg.controlSize);
