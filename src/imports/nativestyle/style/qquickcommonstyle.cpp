@@ -3762,15 +3762,18 @@ NinePatchGeometry QCommonStyle::ninePatchGeometryFromContents(
 
 NinePatchGeometry QCommonStyle::ninePatchGeometry(QStyle::ContentsType ct, SubControl sc, const QStyleOption *opt)
 {
+    // NinePatchGeometry is an addition to the QStyle API in QQC2 that doesn't exist in the
+    // original widgets QStyle API.
     // We use QStyle in controls different than in widgets, since we want to be able to
     // draw and scale the background independently of the contents using a nine patch image.
-    // For that reason we need to know how small those images can be, while still look correct
-    // when scaled up. This is different from a e.g a controls Layout.minimumWidth, since this
-    // is typically based on the size of the contents, and set from the application.
+    // For that reason we need to know how small those images can be, while making sure that
+    // they still look correct when scaled up. This is different from a controls
+    // Layout.minimumWidth, since that is based on the size of the contents, which can be
+    // much bigger than what a scalable background image needs to be.
     // A sensible minimum size for an image can be calculated by using a smallest thinkable
     // content size, and calling sizeFromContents(). But some controls don't have contents
-    // (e.g slider), and for others that default calculation becomes inaccurate. For those
-    // cases, this function can be overriden by a specific style to return the exact values.
+    // (e.g slider), and for others, that default calculation becomes inaccurate. For those
+    // cases, this function can be overriden by a sub style to return the exact values.
     return ninePatchGeometryFromContents(ct, sc, opt, QSize(1, 1));
 }
 
