@@ -61,9 +61,6 @@ public:
     QRect subControlRect(ComplexControl cc, const QStyleOptionComplex *opt, SubControl sc) const override;
 
     QSize sizeFromContents(ContentsType ct, const QStyleOption *opt, const QSize &contentsSize) const override;
-    NinePatchGeometry ninePatchGeometry(ContentsType ct, SubControl sc, const QStyleOption *opt) override;
-    NinePatchGeometry ninePatchGeometryFromContents(
-            QStyle::ContentsType ct, SubControl sc, const QStyleOption *opt, const QSize &minContentSize);
 
     int pixelMetric(PixelMetric m, const QStyleOption *opt = nullptr) const override;
     int styleHint(StyleHint sh, const QStyleOption *opt = nullptr, QStyleHintReturn *shret = nullptr) const override;

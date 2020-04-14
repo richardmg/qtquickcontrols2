@@ -3745,38 +3745,6 @@ QStyle::SubControl QCommonStyle::hitTestComplexControl(ComplexControl cc, const 
     return sc;
 }
 
-NinePatchGeometry QCommonStyle::ninePatchGeometryFromContents(
-        QStyle::ContentsType ct, QStyle::SubControl sc,
-    const QStyleOption *opt, const QSize &minContentSize)
-{
-    Q_UNUSED(sc);
-    NinePatchGeometry ninePatch;
-
-    const QSize minControlSize = sizeFromContents(ct, opt, minContentSize);
-    ninePatch.imageSize = minControlSize;
-    QSize padding = minControlSize / 2;
-    ninePatch.padding = QMargins(padding.width(), padding.height(), padding.width(), padding.height());
-
-    return ninePatch;
-}
-
-NinePatchGeometry QCommonStyle::ninePatchGeometry(QStyle::ContentsType ct, SubControl sc, const QStyleOption *opt)
-{
-    // NinePatchGeometry is an addition to the QStyle API in QQC2 that doesn't exist in the
-    // original widgets QStyle API.
-    // We use QStyle in controls different than in widgets, since we want to be able to
-    // draw and scale the background independently of the contents using a nine patch image.
-    // For that reason we need to know how small those images can be, while making sure that
-    // they still look correct when scaled up. This is different from a controls
-    // Layout.minimumWidth, since that is based on the size of the contents, which can be
-    // much bigger than what a scalable background image needs to be.
-    // A sensible minimum size for an image can be calculated by using a smallest thinkable
-    // content size, and calling sizeFromContents(). But some controls don't have contents
-    // (e.g slider), and for others, that default calculation becomes inaccurate. For those
-    // cases, this function can be overriden by a sub style to return the exact values.
-    return ninePatchGeometryFromContents(ct, sc, opt, QSize(1, 1));
-}
-
 /*!
     \reimp
 */
@@ -4646,8 +4614,11 @@ QSize QCommonStyle::sizeFromContents(ContentsType ct, const QStyleOption *opt, c
             sz += QSize(2*f->lineWidth, 2*f->lineWidth);
         break;
     case CT_GroupBox:
-        if (const QStyleOptionGroupBox *styleOpt = qstyleoption_cast<const QStyleOptionGroupBox *>(opt))
+        if (const QStyleOptionGroupBox *styleOpt = qstyleoption_cast<const QStyleOptionGroupBox *>(opt)) {
+            if (sz.isEmpty())
+                sz = QSize(20, 20);
             sz += QSize(styleOpt->features.testFlag(QStyleOptionFrame::Flat) ? 0 : 16, 0);
+        }
         break;
     case CT_MdiControls:
         if (const QStyleOptionComplex *styleOpt = qstyleoption_cast<const QStyleOptionComplex *>(opt)) {

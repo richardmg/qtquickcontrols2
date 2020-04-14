@@ -6216,31 +6216,6 @@ QSize QMacStyle::sizeFromContents(ContentsType ct, const QStyleOption *opt, cons
     return sz;
 }
 
-NinePatchGeometry QMacStyle::ninePatchGeometry(ContentsType ct, QStyle::SubControl sc, const QStyleOption *opt)
-{
-    NinePatchGeometry ninePatch;
-
-    switch (ct) {
-    case CT_Slider:
-        if (sc == SC_SliderGroove) {
-            auto styleOption = static_cast<const QStyleOptionComplex *>(opt);
-            const QRect grooveRect = subControlRect(QStyle::CC_Slider, styleOption, sc);
-            ninePatch.imageSize = grooveRect.size();
-            break;
-        } else if (sc == SC_SliderHandle) {
-            auto styleOption = static_cast<const QStyleOptionComplex *>(opt);
-            const QRect grooveRect = subControlRect(QStyle::CC_Slider, styleOption, sc);
-            ninePatch.imageSize = grooveRect.size();
-            break;
-        }
-    default:
-        ninePatch = QCommonStyle::ninePatchGeometry(ct, sc, opt);
-        break;
-    }
-
-    return ninePatch;
-}
-
 void QMacStyle::drawItemText(QPainter *p, const QRect &r, int flags, const QPalette &pal,
                              bool enabled, const QString &text, QPalette::ColorRole textRole) const
 {

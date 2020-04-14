@@ -47,12 +47,16 @@ ControlGeometry QQuickStyleItemButton::calculateControlGeometry()
 {
     QStyleOptionButton styleOption;
     initStyleOption(styleOption);
-
     ControlGeometry cg;
-    cg.ninePatchGeometry = style()->ninePatchGeometry(QStyle::CT_PushButton, QStyle::SC_None, &styleOption);
+
+    cg.ninePatchGeometry.imageSize = style()->sizeFromContents(QStyle::CT_PushButton, &styleOption, QSize());
+    cg.ninePatchGeometry.centerPaddingOnImage();
+
     cg.controlSize = style()->sizeFromContents(QStyle::CT_PushButton, &styleOption, m_contentSize.toSize());
+
     styleOption.rect = QRect(QPoint(0, 0), cg.controlSize);
     cg.contentRect = style()->subElementRect(QStyle::SE_PushButtonContents, &styleOption);
+
     return cg;
 }
 

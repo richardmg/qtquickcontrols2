@@ -62,6 +62,11 @@ struct NinePatchGeometry
 {
     QSize imageSize;
     QMargins padding;
+
+    void centerPaddingOnImage() {
+        const QSize half = imageSize / 2;
+        padding = QMargins(half.width(), half.height(), half.width(), half.height());
+    }
 };
 
 struct ControlGeometry
@@ -803,8 +808,6 @@ public:
     virtual QRect subControlRect(ComplexControl cc, const QStyleOptionComplex *opt, SubControl sc) const = 0;
 
     virtual QSize sizeFromContents(ContentsType ct, const QStyleOption *opt, const QSize &contentsSize) const = 0;
-
-    virtual NinePatchGeometry ninePatchGeometry(ContentsType ct, SubControl sc, const QStyleOption *opt) = 0;
 
     virtual SubControl hitTestComplexControl(ComplexControl cc, const QStyleOptionComplex *opt, const QPoint &pt) const = 0;
 
