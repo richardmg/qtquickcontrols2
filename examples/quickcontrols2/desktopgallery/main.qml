@@ -11,7 +11,6 @@ ApplicationWindow {
 
     TabBar {
         id: bar
-        currentIndex: 1
         width: parent.width
         TabButton {
             text: qsTr("Buttons")

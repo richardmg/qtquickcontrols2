@@ -64,9 +64,10 @@ T.GroupBox {
 //        verticalAlignment: Text.AlignVCenter
 //    }
 
-//    background: Style.GroupBox {
-//        y: control.topPadding - control.bottomPadding
-//        width: parent.width
-//        height: parent.height - control.topPadding + control.bottomPadding
-//    }
+    background: Style.GroupBox {
+        control: control
+        y: control.topPadding - control.bottomPadding
+        width: parent.width
+        height: parent.height - control.topPadding + control.bottomPadding
+    }
 }
