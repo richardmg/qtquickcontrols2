@@ -49,10 +49,10 @@ ControlGeometry QQuickStyleItemButton::calculateControlGeometry()
     initStyleOption(styleOption);
     ControlGeometry cg;
 
-    cg.ninePatchGeometry.imageSize = style()->sizeFromContents(QStyle::CT_PushButton, &styleOption, QSize());
-    cg.ninePatchGeometry.centerPaddingOnImage();
+    cg.imageSize = style()->sizeFromContents(QStyle::CT_PushButton, &styleOption, QSize());
+    cg.centerNinePatchPadding();
 
-    cg.controlSize = style()->sizeFromContents(QStyle::CT_PushButton, &styleOption, m_contentSize.toSize());
+    cg.controlSize = style()->sizeFromContents(QStyle::CT_PushButton, &styleOption, contentSize());
 
     styleOption.rect = QRect(QPoint(0, 0), cg.controlSize);
     cg.contentRect = style()->subElementRect(QStyle::SE_PushButtonContents, &styleOption);

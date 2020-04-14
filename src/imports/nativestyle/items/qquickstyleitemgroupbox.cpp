@@ -44,11 +44,11 @@ ControlGeometry QQuickStyleItemGroupBox::calculateControlGeometry()
     ControlGeometry cg;
     const QSize minimumSize = style()->sizeFromContents(QStyle::CT_GroupBox, &styleOption, QSize());
     styleOption.rect.setSize(minimumSize);
-    cg.ninePatchGeometry.imageSize = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxFrame).size();
-    cg.ninePatchGeometry.centerPaddingOnImage();
+    cg.imageSize = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxFrame).size();
+    cg.centerNinePatchPadding();
     // Since a groupbox doesn't have contents, we report it's size to be the
     // minimum size instead, which should be equal to the image size.
-    cg.controlSize = cg.ninePatchGeometry.imageSize;
+    cg.controlSize = cg.imageSize;
     return cg;
 }
 

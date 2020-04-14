@@ -405,13 +405,14 @@ bool QStylePrivate::useFullScreenForPopup()
     return theme && theme->themeHint(QPlatformTheme::UseFullScreenForPopupMenu).toBool();
 }
 
-QDebug operator<<(QDebug debug, const NinePatchGeometry &cg)
+QDebug operator<<(QDebug debug, const ControlGeometry &cg)
 {
     QDebugStateSaver saver(debug);
     debug.nospace();
-    debug << "NinePatchGeometry(";
-    debug << "size:" << cg.imageSize;
-    debug << ", padding:" << cg.padding;
+    debug << "ControlGeometry(";
+    debug << "controlSize:" << cg.controlSize << ", ";
+    debug << "contentRect:" << cg.contentRect << ", ";
+    debug << "imageSize:" << cg.imageSize << ", ";
     debug << ')';
     return debug;
 }

@@ -125,15 +125,10 @@ protected:
     virtual ControlGeometry calculateControlGeometry() = 0;
 
     void initStyleOptionBase(QStyleOption &styleOption);
-    QMarginsF getPadding(const QRect &controlRect, const QRect &contentRect);
 
     inline static QStyle *style() { return s_style; }
+    inline QSize contentSize() { return m_contentSize.toSize(); }
     template <class T> inline const T* control() const { return static_cast<T *>(m_control.data()); }
-
-protected:
-    QSizeF m_contentSize;
-    QMargins m_padding;
-    NinePatchGeometry m_ninePatchGeometry;
 
 #ifdef QT_DEBUG
     bool m_debug = false;
@@ -146,6 +141,8 @@ private:
 private:
     QPointer<QQuickControl> m_control;
     QImage m_paintedImage;
+    ControlGeometry m_controlGeometry;
+    QSizeF m_contentSize;
 
     DirtyFlags m_dirty = Everything;
     bool m_useNinePatchImage = true;

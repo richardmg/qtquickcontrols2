@@ -91,10 +91,10 @@ QSGNode *QQuickStyleItem::updatePaintNode(QSGNode *oldNode, QQuickItem::UpdatePa
     node->setTexture(texture);
     node->setBounds(boundingRect());
     node->setDevicePixelRatio(window()->devicePixelRatio());
-    node->setPadding(m_ninePatchGeometry.padding.left(),
-                     m_ninePatchGeometry.padding.top(),
-                     m_ninePatchGeometry.padding.right(),
-                     m_ninePatchGeometry.padding.bottom());
+    node->setPadding(m_controlGeometry.ninePatchPadding.left(),
+                     m_controlGeometry.ninePatchPadding.top(),
+                     m_controlGeometry.ninePatchPadding.right(),
+                     m_controlGeometry.ninePatchPadding.bottom());
     node->update();
 
     return node;
@@ -105,7 +105,7 @@ void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
     styleOption.control = m_control;
     styleOption.window = window();
     styleOption.palette = QQuickItemPrivate::get(m_control)->palette()->toQPalette();
-    styleOption.rect = QRect(QPoint(0, 0), m_ninePatchGeometry.imageSize);
+    styleOption.rect = QRect(QPoint(0, 0), m_controlGeometry.imageSize);
     styleOption.direction = m_control->isMirrored() ? Qt::RightToLeft : Qt::LeftToRight;
 
     styleOption.state = QStyle::State_None;
@@ -155,43 +155,36 @@ void QQuickStyleItem::updateControlGeometry()
     m_dirty.setFlag(DirtyFlag::Geometry, false);
     // Clear these properties, so we don't use their old values by
     // accident anywhere while calculating the new ones.
-    m_ninePatchGeometry = NinePatchGeometry();
-    m_padding = QMargins();
-
-    ControlGeometry cg = calculateControlGeometry();
+    const QMargins oldContentPadding = m_controlGeometry.contentPadding();
+    m_controlGeometry = calculateControlGeometry();
 
 #ifdef QT_DEBUG
-    if (cg.controlSize.isEmpty())
+    if (m_controlGeometry.controlSize.isEmpty())
         qmlWarning(this) << "controlSize is not set (or is empty)";
-    if (cg.ninePatchGeometry.imageSize.isEmpty())
+    if (m_controlGeometry.imageSize.isEmpty())
         qmlWarning(this) << "imageSize is not set (or is empty)";
 #endif
 
-    const QMargins newPadding = cg.contentPadding();
-    if (m_padding != newPadding) {
-        m_padding = newPadding;
+    if (m_controlGeometry.contentPadding() != oldContentPadding)
         emit paddingChanged();
-    }
 
-    setImplicitSize(cg.controlSize.width(), cg.controlSize.height());
+    setImplicitSize(m_controlGeometry.controlSize.width(), m_controlGeometry.controlSize.height());
     // Clear the dirty flag after setting implicit size, since the call
     // to geometryChanged() will set it again, which is unnecessary.
     m_dirty.setFlag(DirtyFlag::Geometry, false);
 
-    if (m_useNinePatchImage)
-        m_ninePatchGeometry = cg.ninePatchGeometry;
-    else
-        m_ninePatchGeometry.imageSize = size().toSize();
+    if (!m_useNinePatchImage)
+        m_controlGeometry.imageSize = size().toSize();
 }
 
 void QQuickStyleItem::paintControlToImage()
 {
-    if (m_ninePatchGeometry.imageSize.isEmpty())
+    if (m_controlGeometry.imageSize.isEmpty())
         return;
 
     m_dirty.setFlag(DirtyFlag::Image, false);
     const qreal scale = window()->devicePixelRatio();
-    m_paintedImage = QImage(m_ninePatchGeometry.imageSize * scale, QImage::Format_ARGB32_Premultiplied);
+    m_paintedImage = QImage(m_controlGeometry.imageSize * scale, QImage::Format_ARGB32_Premultiplied);
     m_paintedImage.setDevicePixelRatio(scale);
     m_paintedImage.fill(Qt::transparent);
 
@@ -252,22 +245,22 @@ void QQuickStyleItem::setContentHeight(qreal contentHeight)
 
 int QQuickStyleItem::topPadding()
 {
-    return m_padding.top();
+    return m_controlGeometry.contentPadding().top();
 }
 
 int QQuickStyleItem::bottomPadding()
 {
-    return m_padding.bottom();
+    return m_controlGeometry.contentPadding().bottom();
 }
 
 int QQuickStyleItem::leftPadding()
 {
-    return m_padding.left();
+    return m_controlGeometry.contentPadding().left();
 }
 
 int QQuickStyleItem::rightPadding()
 {
-    return m_padding.right();
+    return m_controlGeometry.contentPadding().right();
 }
 
 QT_END_NAMESPACE

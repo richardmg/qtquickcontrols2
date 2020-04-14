@@ -58,22 +58,16 @@ class QStyleOption;
 class QStyleOptionComplex;
 class QStylePrivate;
 
-struct NinePatchGeometry
-{
-    QSize imageSize;
-    QMargins padding;
-
-    void centerPaddingOnImage() {
-        const QSize half = imageSize / 2;
-        padding = QMargins(half.width(), half.height(), half.width(), half.height());
-    }
-};
-
 struct ControlGeometry
 {
-    NinePatchGeometry ninePatchGeometry;
     QSize controlSize;
     QRect contentRect;
+    QSize imageSize;
+
+    void centerNinePatchPadding() {
+        const QSize half = imageSize / 2;
+        ninePatchPadding = QMargins(half.width(), half.height(), half.width(), half.height());
+    }
 
     QMargins contentPadding() const
     {
@@ -844,7 +838,7 @@ private:
 Q_DECLARE_OPERATORS_FOR_FLAGS(QStyle::State)
 Q_DECLARE_OPERATORS_FOR_FLAGS(QStyle::SubControls)
 
-QDebug operator<<(QDebug debug, const NinePatchGeometry &cg);
+QDebug operator<<(QDebug debug, const ControlGeometry &cg);
 
 } // namespace QQC2
 

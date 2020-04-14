@@ -57,11 +57,11 @@ ControlGeometry QQuickStyleItemSliderGroove::calculateControlGeometry()
     ControlGeometry cg;
     const QSize minimumSize = style()->sizeFromContents(QStyle::CT_Slider, &styleOption, QSize());
     styleOption.rect.setSize(minimumSize);
-    cg.ninePatchGeometry.imageSize = style()->subControlRect(QStyle::CC_Slider, &styleOption, QStyle::SC_SliderGroove).size();
-    cg.ninePatchGeometry.centerPaddingOnImage();
+    cg.imageSize = style()->subControlRect(QStyle::CC_Slider, &styleOption, QStyle::SC_SliderGroove).size();
+    cg.centerNinePatchPadding();
     // Since the groove doesn't have contents, we report it's size to be the
     // minimum size instead, which should be equal to the image size.
-    cg.controlSize = cg.ninePatchGeometry.imageSize;
+    cg.controlSize = cg.imageSize;
     return cg;
 }
 
