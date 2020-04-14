@@ -215,7 +215,7 @@ void QQuickStyleItem::updatePolish()
 
 void QQuickStyleItem::componentComplete()
 {
-    Q_ASSERT(m_control);
+    Q_ASSERT_X(m_control, Q_FUNC_INFO, "You need to assign a value to property 'control'");
 
     QQuickItem::componentComplete();
     connectToControl();
