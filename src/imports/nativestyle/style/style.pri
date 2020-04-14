@@ -1,6 +1,7 @@
 INCLUDEPATH += $$PWD
 
 HEADERS += \
+    $$PWD/qquicknativestyle.h \
     $$PWD/qquickcommonstyle.h \
     $$PWD/qquickcommonstyle_p.h \
     $$PWD/qquickcommonstylepixmaps_p.h \
@@ -11,6 +12,7 @@ HEADERS += \
     $$PWD/qquickstyleoption.h
 
 SOURCES += \
+    $$PWD/qquicknativestyle.cpp \
     $$PWD/qquickcommonstyle.cpp \
     $$PWD/qquickdrawutil.cpp \
     $$PWD/qquickstyle.cpp \

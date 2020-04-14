@@ -34,55 +34,14 @@
 **
 ****************************************************************************/
 
-#include <QtQml/qqml.h>
-#include <QtQuickControls2/private/qquickstyleplugin_p.h>
-
 #include "qquicknativestyle.h"
-#include "qquickmacstyle_mac_p.h"
 
 QT_BEGIN_NAMESPACE
 
-using namespace QQC2;
+namespace QQC2 {
 
-class QtQuickControls2MacOSStylePlugin : public QQuickStylePlugin
-{
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
+QStyle *QQuickNativeStyle::s_style = nullptr;
 
-public:
-    QtQuickControls2MacOSStylePlugin(QObject *parent = nullptr);
-    ~QtQuickControls2MacOSStylePlugin() override;
-
-    void registerTypes(const char *uri) override;
-    QString name() const override;
-};
-
-QtQuickControls2MacOSStylePlugin::QtQuickControls2MacOSStylePlugin(QObject *parent)
-    : QQuickStylePlugin(parent)
-{
-    // Offer commonstyle as a reference while the various
-    // desktop styles are under development.
-    if (qEnvironmentVariable("QQC2_COMMONSTYLE") == QStringLiteral("true"))
-        QQuickNativeStyle::setStyle(new QCommonStyle);
-    else
-        QQuickNativeStyle::setStyle(new QMacStyle);
-}
-
-QtQuickControls2MacOSStylePlugin::~QtQuickControls2MacOSStylePlugin()
-{
-    QQuickNativeStyle::setStyle(nullptr);
-}
-
-QString QtQuickControls2MacOSStylePlugin::name() const
-{
-    return QStringLiteral("macOS");
-}
-
-void QtQuickControls2MacOSStylePlugin::registerTypes(const char *uri)
-{
-    Q_UNUSED(uri)
-}
+} // namespace QQC2
 
 QT_END_NAMESPACE
-
-#include "qtquickcontrols2macosstyleplugin.moc"

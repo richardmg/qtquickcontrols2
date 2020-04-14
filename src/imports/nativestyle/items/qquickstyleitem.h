@@ -41,6 +41,7 @@
 #include <QtQuick/private/qquickitem_p.h>
 #include <QtQuickTemplates2/private/qquickcontrol_p.h>
 
+#include "qquicknativestyle.h"
 #include "qquickstyle.h"
 #include "qquickstyleoption.h"
 
@@ -126,8 +127,8 @@ protected:
 
     void initStyleOptionBase(QStyleOption &styleOption);
 
-    inline static QStyle *style() { return s_style; }
     inline QSize contentSize() { return m_contentSize.toSize(); }
+    inline static QStyle *style() { return QQuickNativeStyle::style(); }
     template <class T> inline const T* control() const { return static_cast<T *>(m_control.data()); }
 
 #ifdef QT_DEBUG
