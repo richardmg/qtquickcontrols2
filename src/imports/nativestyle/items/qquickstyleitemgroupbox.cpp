@@ -1,0 +1,67 @@
+/****************************************************************************
+**
+** Copyright (C) 2020 The Qt Company Ltd.
+** Contact: http://www.qt.io/licensing/
+**
+** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
+**
+** $QT_BEGIN_LICENSE:LGPL3$
+** Commercial License Usage
+** Licensees holding valid commercial Qt licenses may use this file in
+** accordance with the commercial license agreement provided with the
+** Software or, alternatively, in accordance with the terms contained in
+** a written agreement between you and The Qt Company. For licensing terms
+** and conditions see http://www.qt.io/terms-conditions. For further
+** information use the contact form at http://www.qt.io/contact-us.
+**
+** GNU Lesser General Public License Usage
+** Alternatively, this file may be used under the terms of the GNU Lesser
+** General Public License version 3 as published by the Free Software
+** Foundation and appearing in the file LICENSE.LGPLv3 included in the
+** packaging of this file. Please review the following information to
+** ensure the GNU Lesser General Public License version 3 requirements
+** will be met: https://www.gnu.org/licenses/lgpl.html.
+**
+** GNU General Public License Usage
+** Alternatively, this file may be used under the terms of the GNU
+** General Public License version 2.0 or later as published by the Free
+** Software Foundation and appearing in the file LICENSE.GPL included in
+** the packaging of this file. Please review the following information to
+** ensure the GNU General Public License version 2.0 requirements will be
+** met: http://www.gnu.org/licenses/gpl-2.0.html.
+**
+** $QT_END_LICENSE$
+**
+****************************************************************************/
+
+#include "QQuickStyleItemGroupBox.h"
+
+ControlGeometry QQuickStyleItemGroupBox::calculateControlGeometry()
+{
+    QStyleOptionGroupBox styleOption;
+    initStyleOption(styleOption);
+
+    ControlGeometry cg;
+    const QSize minimumSize = style()->sizeFromContents(QStyle::CT_GroupBox, &styleOption, QSize());
+    styleOption.rect.setSize(minimumSize);
+    cg.ninePatchGeometry.imageSize = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxFrame).size();
+    cg.ninePatchGeometry.centerPaddingOnImage();
+    // Since a groupbox doesn't have contents, we report it's size to be the
+    // minimum size instead, which should be equal to the image size.
+    cg.controlSize = cg.ninePatchGeometry.imageSize;
+    return cg;
+}
+
+void QQuickStyleItemGroupBox::paintEvent(QPainter *painter)
+{
+    QStyleOptionGroupBox styleOption;
+    initStyleOption(styleOption);
+    style()->drawComplexControl(QStyle::CC_GroupBox, &styleOption, painter);
+}
+
+void QQuickStyleItemGroupBox::initStyleOption(QStyleOptionGroupBox &styleOption)
+{
+    initStyleOptionBase(styleOption);
+    styleOption.subControls = QStyle::SC_GroupBoxFrame;
+    styleOption.lineWidth = 1;
+}
