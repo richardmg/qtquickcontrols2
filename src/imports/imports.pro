@@ -12,7 +12,6 @@ SUBDIRS += \
     controls/material/material.pro \
     controls/universal/universal.pro
 
-macos {
-    SUBDIRS += controls/macos/macos.pro
-}
+macos: SUBDIRS += controls/macos/macos.pro
+windows: SUBDIRS += controls/windows/windows.pro
 

@@ -4,12 +4,16 @@
 
 int main(int argc, char *argv[])
 {
-#ifdef Q_OS_OSX
     // Todo: rename the "default" style to e.g "simple"
     // and use "default" as a phony style name instad
     // to mean "get me the default style on the current
     // platform".
-    QQuickStyle::setStyle("macos");
+#if defined(Q_OS_OSX)
+    QQuickStyle::setStyle("macOS");
+#elif defined(Q_OS_WINDOWS)
+    QQuickStyle::setStyle("Windows");
+#else
+    QQuickStyle::setStyle("FusionDesktop");
 #endif
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

@@ -31,65 +31,13 @@
 ** met: http://www.gnu.org/licenses/gpl-2.0.html.
 **
 ** $QT_END_LICENSE$
-**
+**R
 ****************************************************************************/
 
-#include <QtQml/qqml.h>
-#include <QtQuickControls2/private/qquickstyleplugin_p.h>
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Controls.impl 2.12
+import QtQuick.NativeStyle 6.0 as NativeStyle
 
-#include "qquicknativestyle.h"
-#include "qquickmacstyle_mac_p.h"
-
-QT_BEGIN_NAMESPACE
-
-using namespace QQC2;
-
-class QtQuickControls2NativeStylePlugin : public QQuickStylePlugin
-{
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
-
-public:
-    ~QtQuickControls2NativeStylePlugin() override;
-
-    void initializeEngine(QQmlEngine *engine, const char *uri) override;
-    void registerTypes(const char *uri) override;
-    QString name() const override;
-};
-
-QtQuickControls2NativeStylePlugin::~QtQuickControls2NativeStylePlugin()
-{
-    QQuickNativeStyle::setStyle(nullptr);
+NativeStyle.DefaultButton {
 }
-
-QString QtQuickControls2NativeStylePlugin::name() const
-{
-    return QStringLiteral("NativeStyle");
-}
-
-void QtQuickControls2NativeStylePlugin::initializeEngine(QQmlEngine *engine, const char *uri)
-{
-    Q_UNUSED(engine);
-    Q_UNUSED(uri);
-    // Enable commonstyle as a reference style while
-    // the native styles are under development.
-    if (qEnvironmentVariable("QQC2_COMMONSTYLE") == QStringLiteral("true"))
-        QQuickNativeStyle::setStyle(new QCommonStyle);
-    else
-#if defined(Q_OS_OSX)
-        QQuickNativeStyle::setStyle(new QMacStyle);
-#elif defined(Q_OS_WINDOWS)
-        QQuickNativeStyle::setStyle(new QCommonStyle);
-#else
-        QQuickNativeStyle::setStyle(new QCommonStyle);
-#endif
-}
-
-void QtQuickControls2NativeStylePlugin::registerTypes(const char *uri)
-{
-    Q_UNUSED(uri);
-}
-
-QT_END_NAMESPACE
-
-#include "qtquickcontrols2nativestyleplugin.moc"
