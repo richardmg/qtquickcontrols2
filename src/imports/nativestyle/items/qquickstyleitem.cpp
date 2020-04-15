@@ -209,6 +209,9 @@ void QQuickStyleItem::componentComplete()
 {
     Q_ASSERT_X(m_control, Q_FUNC_INFO, "You need to assign a value to property 'control'");
 
+    if (qEnvironmentVariable("QQC2_USE_NINEPATCH_IMAGE") == QStringLiteral("false"))
+        m_useNinePatchImage = false;
+
     QQuickItem::componentComplete();
     connectToControl();
     polish();
