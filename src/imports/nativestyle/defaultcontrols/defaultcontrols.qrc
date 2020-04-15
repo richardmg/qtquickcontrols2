@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource prefix="/NativeStyle/DefaultControls">
+<file alias="DefaultButton.qml">../../nativestyle/defaultcontrols/DefaultButton.qml</file>
+<file alias="qmldir">../../nativestyle/defaultcontrols/qmldir</file>
+</qresource>
+</RCC>
+

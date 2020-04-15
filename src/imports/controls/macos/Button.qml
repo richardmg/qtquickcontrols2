@@ -39,6 +39,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.impl 2.12
 import QtQuick.Templates 2.12 as T
 import QtQuick.Controls.macOS 6.0 as Style
+import NativeStyle.DefaultControls 6.0
 
-Style.DefaultButton {
+DefaultButton {
 }

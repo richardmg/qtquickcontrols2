@@ -35,6 +35,7 @@
 ****************************************************************************/
 
 #include <QtQml/qqml.h>
+#include <QtQml/qqmlengine.h>
 #include <QtQuickControls2/private/qquickstyleplugin_p.h>
 
 #include "qquicknativestyle.h"
@@ -77,6 +78,9 @@ void QtQuickControls2MacOSStylePlugin::initializeEngine(QQmlEngine *engine, cons
         QQuickNativeStyle::setStyle(new QCommonStyle);
     else
         QQuickNativeStyle::setStyle(new QMacStyle);
+
+    engine->addImportPath(QStringLiteral("qrc:/"));
+    engine->addImportPath(QStringLiteral("qrc:/NativeStyle/DefaultControls"));
 }
 
 void QtQuickControls2MacOSStylePlugin::registerTypes(const char *uri)

@@ -4,6 +4,7 @@
 
 int main(int argc, char *argv[])
 {
+    qputenv("QML2_IMPORT_PATH", "qrc:/");
 #ifdef Q_OS_OSX
     // Todo: rename the "default" style to e.g "simple"
     // and use "default" as a phony style name instad

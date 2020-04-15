@@ -1,0 +1,3 @@
+module NativeStyle.DefaultControls
+DefaultButton.qml 6.0 DefaultButton
+
