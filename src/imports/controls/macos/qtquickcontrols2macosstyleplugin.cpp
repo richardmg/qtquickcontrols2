@@ -50,23 +50,12 @@ class QtQuickControls2MacOSStylePlugin : public QQuickStylePlugin
     Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
 
 public:
-    QtQuickControls2MacOSStylePlugin(QObject *parent = nullptr);
     ~QtQuickControls2MacOSStylePlugin() override;
 
+    void initializeEngine(QQmlEngine *engine, const char *uri) override;
     void registerTypes(const char *uri) override;
     QString name() const override;
 };
-
-QtQuickControls2MacOSStylePlugin::QtQuickControls2MacOSStylePlugin(QObject *parent)
-    : QQuickStylePlugin(parent)
-{
-    // Offer commonstyle as a reference while the various
-    // desktop styles are under development.
-    if (qEnvironmentVariable("QQC2_COMMONSTYLE") == QStringLiteral("true"))
-        QQuickNativeStyle::setStyle(new QCommonStyle);
-    else
-        QQuickNativeStyle::setStyle(new QMacStyle);
-}
 
 QtQuickControls2MacOSStylePlugin::~QtQuickControls2MacOSStylePlugin()
 {
@@ -76,6 +65,18 @@ QtQuickControls2MacOSStylePlugin::~QtQuickControls2MacOSStylePlugin()
 QString QtQuickControls2MacOSStylePlugin::name() const
 {
     return QStringLiteral("macOS");
+}
+
+void QtQuickControls2MacOSStylePlugin::initializeEngine(QQmlEngine *engine, const char *uri)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(uri);
+    // Enable commonstyle as a reference style while
+    // the mac style is under development.
+    if (qEnvironmentVariable("QQC2_COMMONSTYLE") == QStringLiteral("true"))
+        QQuickNativeStyle::setStyle(new QCommonStyle);
+    else
+        QQuickNativeStyle::setStyle(new QMacStyle);
 }
 
 void QtQuickControls2MacOSStylePlugin::registerTypes(const char *uri)
