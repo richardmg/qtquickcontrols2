@@ -40,5 +40,26 @@ import QtQuick.Controls.impl 2.12
 import QtQuick.Templates 2.12 as T
 import QtQuick.Controls.macOS 6.0 as Style
 
-Style.DefaultButton {
+T.Slider {
+    id: control
+
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitHandleWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitHandleHeight + topPadding + bottomPadding)
+
+    background: Style.SliderGroove {
+        control: control
+        // We cannot use a nine patch image since the style fills up
+        // the groove with a different color on each side of the handle
+        // (and sometimes draw tickmarks), which makes it unscalable.
+        useNinePatchImage: false
+    }
+
+    handle: Style.SliderHandle {
+        control: control
+        x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
+        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height))
+        useNinePatchImage: false
+    }
 }

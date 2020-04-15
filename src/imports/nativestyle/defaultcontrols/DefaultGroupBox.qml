@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2020 The Qt Company Ltd.
+** Copyright (C) 2017 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -31,7 +31,7 @@
 ** met: http://www.gnu.org/licenses/gpl-2.0.html.
 **
 ** $QT_END_LICENSE$
-**R
+**
 ****************************************************************************/
 
 import QtQuick 2.12
@@ -40,5 +40,34 @@ import QtQuick.Controls.impl 2.12
 import QtQuick.Templates 2.12 as T
 import QtQuick.Controls.macOS 6.0 as Style
 
-Style.DefaultButton {
+T.GroupBox {
+    id: control
+
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            contentWidth + leftPadding + rightPadding,
+                            implicitLabelWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             contentHeight + topPadding + bottomPadding)
+
+    spacing: 6
+    padding: 12
+    topPadding: padding + (implicitLabelWidth > 0 ? implicitLabelHeight + spacing : 0)
+
+//    label: Text {
+//        x: control.leftPadding
+//        width: control.availableWidth
+
+//        text: control.title
+//        font: control.font
+//        color: control.palette.windowText
+//        elide: Text.ElideRight
+//        verticalAlignment: Text.AlignVCenter
+//    }
+
+    background: Style.GroupBox {
+        control: control
+        y: control.topPadding - control.bottomPadding
+        width: parent.width
+        height: parent.height - control.topPadding + control.bottomPadding
+    }
 }
