@@ -4,6 +4,7 @@ SUBDIRS += \
     calendar \
     platform \
     templates
+    nativestyle
 
 SUBDIRS += \
     controls/fusion/fusion.pro \

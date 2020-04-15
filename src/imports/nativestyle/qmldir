@@ -1,0 +1,8 @@
+module QtQuick.NativeStyle
+plugin qtquickcontrols2nativestyleplugin
+classname QtQuickControls2NativeStylePlugin
+depends QtQuick.Controls 2.5
+
+DefaultButton 6.0 DefaultButton.qml
+DefaultSlider 6.0 DefaultSlider.qml
+DefaultGroupBox 6.0 DefaultGroupBox.qml

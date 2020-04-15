@@ -37,7 +37,52 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.impl 2.12
+import QtQuick.Templates 2.12 as T
 import QtQuick.NativeStyle 6.0 as NativeStyle
 
-NativeStyle.DefaultButton {
+T.Button {
+    id: control
+
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+
+    padding: 5
+
+    icon.width: 24
+    icon.height: 24
+    icon.color: control.checked || control.highlighted ? control.palette.brightText :
+                control.flat && !control.down ? (control.visualFocus ? control.palette.highlight : control.palette.windowText) : control.palette.buttonText
+
+    states: State {
+        when: background instanceof NativeStyle.StyleItem
+        PropertyChanges {
+            target: control
+            implicitWidth: implicitBackgroundWidth + leftInset + rightInset
+            implicitHeight: implicitBackgroundHeight + topInset + bottomInset
+            leftPadding: background.leftPadding
+            rightPadding: background.rightPadding
+            topPadding: background.topPadding
+            bottomPadding: background.bottomPadding
+        }
+    }
+
+    background: NativeStyle.Button {
+        control: control
+        contentWidth: contentItem.implicitWidth
+        contentHeight: contentItem.implicitHeight
+    }
+
+    contentItem: IconLabel {
+        spacing: control.spacing
+        mirrored: control.mirrored
+        display: control.display
+
+        icon: control.icon
+        text: control.text
+        font: control.font
+        color: control.checked || control.highlighted ? control.palette.brightText :
+                                                        control.flat && !control.down ? (control.visualFocus ? control.palette.highlight : control.palette.windowText) : control.palette.buttonText
+    }
 }

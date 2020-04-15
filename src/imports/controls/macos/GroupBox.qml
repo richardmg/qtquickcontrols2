@@ -37,37 +37,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.impl 2.12
-import QtQuick.Templates 2.12 as T
-import QtQuick.Controls.macOS 6.0 as Style
+import QtQuick.NativeStyle 6.0 as NativeStyle
 
-T.GroupBox {
-    id: control
-
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            contentWidth + leftPadding + rightPadding,
-                            implicitLabelWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                             contentHeight + topPadding + bottomPadding)
-
-    spacing: 6
-    padding: 12
-    topPadding: padding + (implicitLabelWidth > 0 ? implicitLabelHeight + spacing : 0)
-
-//    label: Text {
-//        x: control.leftPadding
-//        width: control.availableWidth
-
-//        text: control.title
-//        font: control.font
-//        color: control.palette.windowText
-//        elide: Text.ElideRight
-//        verticalAlignment: Text.AlignVCenter
-//    }
-
-    background: Style.GroupBox {
-        control: control
-        y: control.topPadding - control.bottomPadding
-        width: parent.width
-        height: parent.height - control.topPadding + control.bottomPadding
-    }
+NativeStyle.DefaultGroupBox {
 }

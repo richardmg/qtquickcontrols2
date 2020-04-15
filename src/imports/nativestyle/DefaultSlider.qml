@@ -37,7 +37,31 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.impl 2.12
+import QtQuick.Templates 2.12 as T
 import QtQuick.NativeStyle 6.0 as NativeStyle
 
-NativeStyle.DefaultButton {
+T.Slider {
+    id: control
+
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitHandleWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitHandleHeight + topPadding + bottomPadding)
+
+    background: NativeStyle.SliderGroove {
+        control: control
+        // We normally cannot use a nine patch image for the
+        // groove if we draw tickmarks (since then the scaling
+        // would scale the tickmarks too). The groove might
+        // also use a different background color before, and
+        // after, the handle.
+        useNinePatchImage: false
+    }
+
+    handle: NativeStyle.SliderHandle {
+        control: control
+        x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
+        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height))
+        useNinePatchImage: false
+    }
 }
