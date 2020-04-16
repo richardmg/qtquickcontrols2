@@ -13,5 +13,6 @@ SUBDIRS += \
     controls/universal/universal.pro
 
 macos: SUBDIRS += controls/macos/macos.pro
-windows: SUBDIRS += controls/windows/windows.pro
+win32: SUBDIRS += controls/windows/windows.pro
+unix: SUBDIRS += controls/fusiondesktop/fusiondesktop.pro
 
