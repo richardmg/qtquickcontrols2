@@ -124,7 +124,10 @@ void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
     if (m_control->metaObject()->indexOfProperty("qqc2_style_mini") != -1)
         styleOption.state |= QStyle::State_Mini;
 
-    QQC2_DEBUG(styleOption);
+#ifdef QT_DEBUG
+    if (m_debug)
+        qDebug() << styleOption;
+#endif
 }
 
 void QQuickStyleItem::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
@@ -209,8 +212,13 @@ void QQuickStyleItem::componentComplete()
 {
     Q_ASSERT_X(m_control, Q_FUNC_INFO, "You need to assign a value to property 'control'");
 
+#ifdef QT_DEBUG
     if (qEnvironmentVariable("QQC2_USE_NINEPATCH_IMAGE") == QStringLiteral("false"))
         m_useNinePatchImage = false;
+    if (qEnvironmentVariable("QQC2_DEBUG") == QStringLiteral("true")
+            && m_control->objectName() == QLatin1String("debug"))
+        m_debug = true;
+#endif
 
     QQuickItem::componentComplete();
     connectToControl();

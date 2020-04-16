@@ -53,12 +53,6 @@
 #define QML_UNCREATABLE(NAME)
 #endif
 
-#ifdef QT_DEBUG
-#define QQC2_DEBUG(MSG) if (m_debug) qDebug() << MSG;
-#else
-#define QQC2_DEBUG(MSG)
-#endif
-
 QT_BEGIN_NAMESPACE
 
 using namespace QQC2;
@@ -77,12 +71,6 @@ class QQuickStyleItem : public QQuickItem
     Q_PROPERTY(int rightPadding READ rightPadding() NOTIFY paddingChanged)
 
     Q_PROPERTY(bool useNinePatchImage MEMBER m_useNinePatchImage)
-
-#ifdef QT_DEBUG
-    // Can be set per control to draw and
-    // print extra info for debugging purposes.
-    Q_PROPERTY(bool debug MEMBER m_debug)
-#endif
 
     QML_NAMED_ELEMENT(StyleItem)
     QML_UNCREATABLE("StyleItem is an abstract base class.")
