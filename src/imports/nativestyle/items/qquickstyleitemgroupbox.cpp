@@ -34,7 +34,7 @@
 **
 ****************************************************************************/
 
-#include "QQuickStyleItemGroupBox.h"
+#include "qquickstyleitemgroupbox.h"
 
 ControlGeometry QQuickStyleItemGroupBox::calculateControlGeometry()
 {
