@@ -145,18 +145,7 @@ void QQuickStyleItem::geometryChanged(const QRectF &newGeometry, const QRectF &o
 
 void QQuickStyleItem::updateControlGeometry()
 {
-    // The cg.controlSize size should reflect the preferred size of the control, taking
-    // the given content size (as set from QML) into account. (But note that not all
-    // controls have contents, e.g slider).
-    // cg.ninePatchGeometry.imageSize size should be the minimum possible size that an
-    // image needs to have (_without_ taking content size into consideration) to be able
-    // to paint the control onto it, and scale it correctly (taking to content rect into
-    // consideration). If the style tells us to not use a nine patch image, the image size
-    // will be overwritten below to be the same as the control size (since we we're not
-    // supposed to scale the image).
     m_dirty.setFlag(DirtyFlag::Geometry, false);
-    // Clear these properties, so we don't use their old values by
-    // accident anywhere while calculating the new ones.
     const QMargins oldContentPadding = m_controlGeometry.contentPadding();
     m_controlGeometry = calculateControlGeometry();
 

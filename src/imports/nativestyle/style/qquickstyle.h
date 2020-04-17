@@ -60,6 +60,25 @@ class QStylePrivate;
 
 struct ControlGeometry
 {
+    // 'controlSize' should reflect the preferred size of the control, taking the
+    // given content size (as set from QML) into account (But note that not all controls
+    // have contents, e.g slider).
+
+    // 'styleItemRect' should reflect where inside the control a style item should be
+    // placed. Even if the item draws the background, the background will sometimes not
+    // cover the whole control (e.g for a GroupBox with a title, the background frame
+    // will be below the title).
+
+    // 'imageSize' size should be the minimum possible size that an image needs to have
+    // (_without_ taking content size into consideration) to be able to paint the control
+    // onto it, and scale it correctly (by taking to content rect into consideration). If the
+    // QQuickStyleItem::useNinePatchImage is set to false, the image size will be overwritten
+    // to be the same as the control size (since we we're then not supposed to scale the image).
+
+    // 'contentPadding()' is the space between the outer edge of the control and the inner contents.
+    // Note that the padding between the edge of the control and the style item will instead
+    // be set implicitt as the items x, y, implicitWidth, and implicitHeight.
+
     QSize controlSize;
     QRect contentRect;
     QRect styleItemRect;
