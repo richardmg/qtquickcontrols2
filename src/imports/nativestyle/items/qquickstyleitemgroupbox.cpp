@@ -42,10 +42,19 @@ ControlGeometry QQuickStyleItemGroupBox::calculateControlGeometry()
     initStyleOption(styleOption);
 
     ControlGeometry cg;
-    const QSize minimumSize = style()->sizeFromContents(QStyle::CT_GroupBox, &styleOption, QSize());
-    styleOption.rect.setSize(minimumSize);
-    cg.imageSize = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxFrame).size();
-    cg.controlSize = cg.imageSize;
+    cg.imageSize = style()->sizeFromContents(QStyle::CT_GroupBox, &styleOption, QSize());
+
+    if (!control<QQuickGroupBox>()->title().isEmpty()) {
+        // We don't draw the title, but we need to take
+        // it into calculation for the control size
+        styleOption.text = QStringLiteral(" ");
+        styleOption.subControls |= QStyle::SC_GroupBoxLabel;
+    }
+
+    cg.controlSize = style()->sizeFromContents(QStyle::CT_GroupBox, &styleOption, contentSize());
+    styleOption.rect.setSize(cg.controlSize);
+    cg.contentRect = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxContents);
+    cg.styleItemRect = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxFrame);
     return cg;
 }
 

@@ -62,6 +62,7 @@ struct ControlGeometry
 {
     QSize controlSize;
     QRect contentRect;
+    QRect styleItemRect;
     QSize imageSize;
 
     QMargins contentPadding() const
