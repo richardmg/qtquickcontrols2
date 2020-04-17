@@ -64,10 +64,11 @@ struct ControlGeometry
     // given content size (as set from QML) into account (But note that not all controls
     // have contents, e.g slider).
 
-    // 'styleItemRect' should reflect where inside the control a style item should be
-    // placed. Even if the item draws the background, the background will sometimes not
-    // cover the whole control (e.g for a GroupBox with a title, the background frame
-    // will be below the title).
+    // 'backgroundRect' should reflect where inside the control the background/QQuickItem
+    // should be placed. Often this is the same as the control rect, but sometimes the
+    // background will not cover the whole control. E.g for a GroupBox with a title, the
+    // control rect will include both the title and the background frame, but the background
+    // frame will usually be below the title).
 
     // 'imageSize' size should be the minimum possible size that an image needs to have
     // (_without_ taking content size into consideration) to be able to paint the control
@@ -76,8 +77,8 @@ struct ControlGeometry
     // to be the same as the control size (since we we're then not supposed to scale the image).
 
     QSize controlSize;
+    QRect backgroundRect;
     QRect contentRect;
-    QRect styleItemRect;
     QSize imageSize;
 };
 

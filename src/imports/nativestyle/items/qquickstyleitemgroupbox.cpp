@@ -54,7 +54,7 @@ ControlGeometry QQuickStyleItemGroupBox::calculateControlGeometry()
     cg.controlSize = style()->sizeFromContents(QStyle::CT_GroupBox, &styleOption, contentSize());
     styleOption.rect.setSize(cg.controlSize);
     cg.contentRect = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxContents);
-    cg.styleItemRect = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxFrame);
+    cg.backgroundRect = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxFrame);
     return cg;
 }
 

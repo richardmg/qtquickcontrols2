@@ -184,8 +184,8 @@ void QQuickStyleItem::updateControlGeometry()
     }
 
     // Place this item at the correct position inside the control
-    setPosition(m_controlGeometry.styleItemRect.topLeft());
-    setImplicitSize(m_controlGeometry.styleItemRect.width(), m_controlGeometry.styleItemRect.height());
+    setPosition(m_controlGeometry.backgroundRect.topLeft());
+    setImplicitSize(m_controlGeometry.backgroundRect.width(), m_controlGeometry.backgroundRect.height());
     // Clear the dirty flag after setting implicit size, since the call
     // to geometryChanged() might set it again, which is unnecessary.
     m_dirty.setFlag(DirtyFlag::Geometry, false);
