@@ -134,13 +134,18 @@ void QQuickStyleItem::geometryChanged(const QRectF &newGeometry, const QRectF &o
 {
     QQuickItem::geometryChanged(newGeometry, oldGeometry);
 
-    m_dirty.setFlag(DirtyFlag::Geometry);
+    // Note that a change in geometry should not lead us into
+    // recalculating the styling based geometry, as that will
+    // change our implicitSize and controlSize, which will
+    // cause a binding loop.
     if (!m_useNinePatchImage) {
         // Since the image has the same size as
         // the control, we need to repaint it.
         m_dirty.setFlag(DirtyFlag::Image);
+        polish();
+    } else {
+        update();
     }
-    polish();
 }
 
 void QQuickStyleItem::updateControlGeometry()
