@@ -68,10 +68,10 @@ class QQuickStyleItem : public QQuickItem
     Q_PROPERTY(qreal controlWidth READ controlWidth NOTIFY controlWidthChanged)
     Q_PROPERTY(qreal controlHeight READ controlHeight NOTIFY controlHeightChanged)
 
-    Q_PROPERTY(int topPadding READ topPadding() NOTIFY paddingChanged)
-    Q_PROPERTY(int bottomPadding READ bottomPadding() NOTIFY paddingChanged)
-    Q_PROPERTY(int leftPadding READ leftPadding() NOTIFY paddingChanged)
-    Q_PROPERTY(int rightPadding READ rightPadding() NOTIFY paddingChanged)
+    Q_PROPERTY(int contentPaddingLeft READ contentPaddingLeft() NOTIFY contentPaddingLeftChanged)
+    Q_PROPERTY(int contentPaddingRight READ contentPaddingRight() NOTIFY contentPaddingRightChanged)
+    Q_PROPERTY(int contentPaddingTop READ contentPaddingTop() NOTIFY contentPaddingTopChanged)
+    Q_PROPERTY(int contentPaddingBottom READ contentPaddingBottom() NOTIFY contentPaddingBottomChanged)
 
     Q_PROPERTY(bool useNinePatchImage MEMBER m_useNinePatchImage)
 
@@ -98,16 +98,19 @@ public:
     qreal controlWidth();
     qreal controlHeight();
 
-    int topPadding();
-    int bottomPadding();
-    int leftPadding();
-    int rightPadding();
+    int contentPaddingTop();
+    int contentPaddingBottom();
+    int contentPaddingLeft();
+    int contentPaddingRight();
 
     void markGeometryDirty();
     void markImageDirty();
 
 signals:
-    void paddingChanged();
+    void contentPaddingLeftChanged();
+    void contentPaddingRightChanged();
+    void contentPaddingTopChanged();
+    void contentPaddingBottomChanged();
     void controlWidthChanged();
     void controlHeightChanged();
 

@@ -161,8 +161,12 @@ void QQuickStyleItem::updateControlGeometry()
         qmlWarning(this) << "imageSize is not set (or is empty)";
 #endif
 
-    if (m_controlGeometry.contentPadding() != oldGeometry.contentPadding())
-        emit paddingChanged();
+    if (m_controlGeometry.contentPadding() != oldGeometry.contentPadding()) {
+        emit contentPaddingLeftChanged();
+        emit contentPaddingRightChanged();
+        emit contentPaddingTopChanged();
+        emit contentPaddingBottomChanged();
+    }
 
     if (m_controlGeometry.controlSize != oldGeometry.controlSize) {
         emit controlWidthChanged();
@@ -269,22 +273,22 @@ qreal QQuickStyleItem::controlHeight()
     return m_controlGeometry.controlSize.height();
 }
 
-int QQuickStyleItem::topPadding()
+int QQuickStyleItem::contentPaddingTop()
 {
     return m_controlGeometry.contentPadding().top();
 }
 
-int QQuickStyleItem::bottomPadding()
+int QQuickStyleItem::contentPaddingBottom()
 {
     return m_controlGeometry.contentPadding().bottom();
 }
 
-int QQuickStyleItem::leftPadding()
+int QQuickStyleItem::contentPaddingLeft()
 {
     return m_controlGeometry.contentPadding().left();
 }
 
-int QQuickStyleItem::rightPadding()
+int QQuickStyleItem::contentPaddingRight()
 {
     return m_controlGeometry.contentPadding().right();
 }
