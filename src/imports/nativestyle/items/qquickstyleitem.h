@@ -37,6 +37,7 @@
 #ifndef QQUICKSTYLEITEM_H
 #define QQUICKSTYLEITEM_H
 
+#include <QtCore/qdebug.h>
 #include <QtQml/qqml.h>
 #include <QtQuick/private/qquickitem_p.h>
 #include <QtQuickTemplates2/private/qquickcontrol_p.h>
@@ -57,6 +58,34 @@ QT_BEGIN_NAMESPACE
 
 using namespace QQC2;
 
+class QQuickStylePadding
+{
+    Q_GADGET
+
+    Q_PROPERTY(int left READ left())
+    Q_PROPERTY(int right READ right())
+    Q_PROPERTY(int top READ top())
+    Q_PROPERTY(int bottom READ bottom())
+
+    QML_NAMED_ELEMENT(StylePadding)
+
+public:
+    QQuickStylePadding(const QQuickStylePadding &other) : m_margins(other.m_margins) {}
+    QQuickStylePadding(const QMargins &margins) : m_margins(margins) {}
+    inline void operator=(const QQuickStylePadding &other) { m_margins = other.m_margins; }
+    inline bool operator==(const QQuickStylePadding &other) const { return other.m_margins == m_margins; }
+    inline bool operator!=(const QQuickStylePadding &other) const { return other.m_margins != m_margins; }
+
+    inline int left() const { return m_margins.left(); }
+    inline int right() const { return m_margins.right(); }
+    inline int top() const { return m_margins.top(); }
+    inline int bottom() const { return m_margins.bottom(); }
+
+    QMargins m_margins;
+};
+
+QDebug operator<<(QDebug debug, const QQuickStylePadding &padding);
+
 class QQuickStyleItem : public QQuickItem
 {
     Q_OBJECT
@@ -68,10 +97,7 @@ class QQuickStyleItem : public QQuickItem
     Q_PROPERTY(qreal controlWidth READ controlWidth NOTIFY controlWidthChanged)
     Q_PROPERTY(qreal controlHeight READ controlHeight NOTIFY controlHeightChanged)
 
-    Q_PROPERTY(int contentPaddingLeft READ contentPaddingLeft() NOTIFY contentPaddingLeftChanged)
-    Q_PROPERTY(int contentPaddingRight READ contentPaddingRight() NOTIFY contentPaddingRightChanged)
-    Q_PROPERTY(int contentPaddingTop READ contentPaddingTop() NOTIFY contentPaddingTopChanged)
-    Q_PROPERTY(int contentPaddingBottom READ contentPaddingBottom() NOTIFY contentPaddingBottomChanged)
+    Q_PROPERTY(QQuickStylePadding contentPadding READ contentPadding() NOTIFY contentPaddingChanged)
 
     Q_PROPERTY(bool useNinePatchImage MEMBER m_useNinePatchImage)
 
@@ -98,19 +124,13 @@ public:
     qreal controlWidth();
     qreal controlHeight();
 
-    int contentPaddingTop();
-    int contentPaddingBottom();
-    int contentPaddingLeft();
-    int contentPaddingRight();
+    QQuickStylePadding contentPadding() const;
 
     void markGeometryDirty();
     void markImageDirty();
 
 signals:
-    void contentPaddingLeftChanged();
-    void contentPaddingRightChanged();
-    void contentPaddingTopChanged();
-    void contentPaddingBottomChanged();
+    void contentPaddingChanged();
     void controlWidthChanged();
     void controlHeightChanged();
 

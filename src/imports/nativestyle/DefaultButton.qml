@@ -61,10 +61,10 @@ T.Button {
             target: control
             implicitWidth: background.controlWidth + leftInset + rightInset
             implicitHeight: background.controlHeight + topInset + bottomInset
-            leftPadding: background.leftPadding
-            rightPadding: background.rightPadding
-            topPadding: background.topPadding
-            bottomPadding: background.bottomPadding
+            leftPadding: background.contentPadding.left
+            rightPadding: background.contentPadding.right
+            topPadding: background.contentPadding.top
+            bottomPadding: background.contentPadding.bottom
         }
     }
 

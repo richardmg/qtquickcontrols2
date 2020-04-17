@@ -68,10 +68,10 @@ T.GroupBox {
         when: background instanceof NativeStyle.StyleItem
         PropertyChanges {
             target: control
-            leftPadding: background.leftPadding
-            rightPadding: background.rightPadding
-            topPadding: background.topPadding
-            bottomPadding: background.bottomPadding
+            leftPadding: background.contentPadding.left
+            rightPadding: background.contentPadding.right
+            topPadding: background.contentPadding.top
+            bottomPadding: background.contentPadding.bottom
         }
     }
 

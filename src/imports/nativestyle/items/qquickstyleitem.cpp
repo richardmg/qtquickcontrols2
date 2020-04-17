@@ -52,6 +52,19 @@ QT_BEGIN_NAMESPACE
 
 QStyle *QQuickStyleItem::s_style = nullptr;
 
+QDebug operator<<(QDebug debug, const QQuickStylePadding &padding)
+{
+    QDebugStateSaver saver(debug);
+    debug.nospace();
+    debug << "StylePadding(";
+    debug << padding.left() << ", ";
+    debug << padding.top() << ", ";
+    debug << padding.right() << ", ";
+    debug << padding.bottom();
+    debug << ')';
+    return debug;
+}
+
 QQuickStyleItem::QQuickStyleItem()
 {
     setFlag(QQuickItem::ItemHasContents);
@@ -152,6 +165,7 @@ void QQuickStyleItem::updateControlGeometry()
 {
     m_dirty.setFlag(DirtyFlag::Geometry, false);
     const ControlGeometry oldGeometry = m_controlGeometry;
+    const QQuickStylePadding oldContentPadding = contentPadding();
     m_controlGeometry = calculateControlGeometry();
 
 #ifdef QT_DEBUG
@@ -161,12 +175,8 @@ void QQuickStyleItem::updateControlGeometry()
         qmlWarning(this) << "imageSize is not set (or is empty)";
 #endif
 
-    if (m_controlGeometry.contentPadding() != oldGeometry.contentPadding()) {
-        emit contentPaddingLeftChanged();
-        emit contentPaddingRightChanged();
-        emit contentPaddingTopChanged();
-        emit contentPaddingBottomChanged();
-    }
+    if (contentPadding() != oldContentPadding)
+        emit contentPaddingChanged();
 
     if (m_controlGeometry.controlSize != oldGeometry.controlSize) {
         emit controlWidthChanged();
@@ -273,24 +283,15 @@ qreal QQuickStyleItem::controlHeight()
     return m_controlGeometry.controlSize.height();
 }
 
-int QQuickStyleItem::contentPaddingTop()
+QQuickStylePadding QQuickStyleItem::contentPadding() const
 {
-    return m_controlGeometry.contentPadding().top();
-}
-
-int QQuickStyleItem::contentPaddingBottom()
-{
-    return m_controlGeometry.contentPadding().bottom();
-}
-
-int QQuickStyleItem::contentPaddingLeft()
-{
-    return m_controlGeometry.contentPadding().left();
-}
-
-int QQuickStyleItem::contentPaddingRight()
-{
-    return m_controlGeometry.contentPadding().right();
+    QMargins m;
+    const ControlGeometry &cg = m_controlGeometry;
+    m.setLeft(cg.contentRect.left());
+    m.setTop(cg.contentRect.top());
+    m.setRight(cg.controlSize.width() - (cg.contentRect.x() + cg.contentRect.width()));
+    m.setBottom(cg.controlSize.height() - (cg.contentRect.y() + cg.contentRect.height()));
+    return QQuickStylePadding(m);
 }
 
 QT_END_NAMESPACE

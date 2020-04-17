@@ -75,24 +75,10 @@ struct ControlGeometry
     // QQuickStyleItem::useNinePatchImage is set to false, the image size will be overwritten
     // to be the same as the control size (since we we're then not supposed to scale the image).
 
-    // 'contentPadding()' is the space between the outer edge of the control and the inner contents.
-    // Note that the padding between the edge of the control and the style item will instead
-    // be set implicitt as the items x, y, implicitWidth, and implicitHeight.
-
     QSize controlSize;
     QRect contentRect;
     QRect styleItemRect;
     QSize imageSize;
-
-    QMargins contentPadding() const
-    {
-        QMargins m;
-        m.setLeft(contentRect.left());
-        m.setTop(contentRect.top());
-        m.setRight(controlSize.width() - (contentRect.x() + contentRect.width()));
-        m.setBottom(controlSize.height() - (contentRect.y() + contentRect.height()));
-        return m;
-    }
 };
 
 class QStyle : public QObject
