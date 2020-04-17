@@ -64,10 +64,24 @@ T.GroupBox {
 //        verticalAlignment: Text.AlignVCenter
 //    }
 
+    states: State {
+        when: background instanceof NativeStyle.StyleItem
+        PropertyChanges {
+            target: control
+            leftPadding: background.leftPadding
+            rightPadding: background.rightPadding
+            topPadding: background.topPadding
+            bottomPadding: background.bottomPadding
+        }
+    }
+
     background: NativeStyle.GroupBox {
         control: control
         y: control.topPadding - control.bottomPadding
         width: parent.width
         height: parent.height - control.topPadding + control.bottomPadding
+
+        contentWidth: contentItem.width
+        contentHeight: contentItem.height
     }
 }
