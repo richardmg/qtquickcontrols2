@@ -7,12 +7,10 @@ Item {
     GroupBox {
         anchors.top: parent.top
         anchors.left: parent.left
-        anchors.right: parent.right
         anchors.margins: 50
-        height: 250
         title: "Buttons"
 
-        Column {
+        ColumnLayout {
             spacing: 15
 
             Row {
