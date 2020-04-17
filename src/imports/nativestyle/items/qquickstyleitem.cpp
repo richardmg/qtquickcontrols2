@@ -292,8 +292,8 @@ QQuickStylePadding QQuickStyleItem::contentPadding() const
     const ControlGeometry &cg = m_controlGeometry;
     m.setLeft(cg.contentRect.left());
     m.setTop(cg.contentRect.top());
-    m.setRight(cg.controlSize.width() - (cg.contentRect.x() + cg.contentRect.width()));
-    m.setBottom(cg.controlSize.height() - (cg.contentRect.y() + cg.contentRect.height()));
+    m.setRight(cg.controlSize.width() - cg.contentRect.right() - 1);
+    m.setBottom(cg.controlSize.height() - cg.contentRect.bottom() - 1);
     return QQuickStylePadding(m);
 }
 
