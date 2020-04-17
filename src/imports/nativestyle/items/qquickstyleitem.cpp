@@ -212,13 +212,14 @@ void QQuickStyleItem::paintControlToImage()
     m_paintedImage.setDevicePixelRatio(scale);
     m_paintedImage.fill(Qt::transparent);
 
-#ifdef QT_DEBUG
-    if (m_debug)
-        m_paintedImage.fill(QColor(rand() % 255, rand() % 255, rand() % 255, 50));
-#endif
-
     QPainter painter(&m_paintedImage);
     paintEvent(&painter);
+
+#ifdef QT_DEBUG
+    if (m_debug)
+        painter.fillRect(m_paintedImage.rect(), QColor(rand() % 255, rand() % 255, rand() % 255, 50));
+#endif
+
     update();
 }
 
