@@ -126,7 +126,7 @@ void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
 
 #ifdef QT_DEBUG
     if (m_debug)
-        qDebug() << styleOption;
+        qDebug() << Q_FUNC_INFO << styleOption;
 #endif
 }
 
@@ -151,7 +151,7 @@ void QQuickStyleItem::geometryChanged(const QRectF &newGeometry, const QRectF &o
 void QQuickStyleItem::updateControlGeometry()
 {
     m_dirty.setFlag(DirtyFlag::Geometry, false);
-    const QMargins oldContentPadding = m_controlGeometry.contentPadding();
+    const ControlGeometry oldGeometry = m_controlGeometry;
     m_controlGeometry = calculateControlGeometry();
 
 #ifdef QT_DEBUG
@@ -161,16 +161,28 @@ void QQuickStyleItem::updateControlGeometry()
         qmlWarning(this) << "imageSize is not set (or is empty)";
 #endif
 
-    if (m_controlGeometry.contentPadding() != oldContentPadding)
+    if (m_controlGeometry.contentPadding() != oldGeometry.contentPadding())
         emit paddingChanged();
 
-    setImplicitSize(m_controlGeometry.controlSize.width(), m_controlGeometry.controlSize.height());
+    if (m_controlGeometry.controlSize != oldGeometry.controlSize) {
+        emit controlWidthChanged();
+        emit controlHeightChanged();
+    }
+
+    // Place this item at the correct position inside the control
+    setPosition(m_controlGeometry.styleItemRect.topLeft());
+    setImplicitSize(m_controlGeometry.styleItemRect.width(), m_controlGeometry.styleItemRect.height());
     // Clear the dirty flag after setting implicit size, since the call
-    // to geometryChanged() will set it again, which is unnecessary.
+    // to geometryChanged() might set it again, which is unnecessary.
     m_dirty.setFlag(DirtyFlag::Geometry, false);
 
     if (!m_useNinePatchImage)
         m_controlGeometry.imageSize = size().toSize();
+
+#ifdef QT_DEBUG
+    if (m_debug)
+        qDebug() << Q_FUNC_INFO << m_controlGeometry << boundingRect();
+#endif
 }
 
 void QQuickStyleItem::paintControlToImage()
@@ -245,6 +257,16 @@ void QQuickStyleItem::setContentHeight(qreal contentHeight)
 
     m_contentSize.setHeight(contentHeight);
     markGeometryDirty();
+}
+
+qreal QQuickStyleItem::controlWidth()
+{
+    return m_controlGeometry.controlSize.width();
+}
+
+qreal QQuickStyleItem::controlHeight()
+{
+    return m_controlGeometry.controlSize.height();
 }
 
 int QQuickStyleItem::topPadding()

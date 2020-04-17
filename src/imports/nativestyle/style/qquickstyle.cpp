@@ -412,6 +412,7 @@ QDebug operator<<(QDebug debug, const ControlGeometry &cg)
     debug << "ControlGeometry(";
     debug << "controlSize:" << cg.controlSize << ", ";
     debug << "contentRect:" << cg.contentRect << ", ";
+    debug << "styleItemRect:" << cg.styleItemRect << ", ";
     debug << "imageSize:" << cg.imageSize << ", ";
     debug << ')';
     return debug;

@@ -65,6 +65,9 @@ class QQuickStyleItem : public QQuickItem
     Q_PROPERTY(qreal contentWidth READ contentWidth WRITE setContentWidth)
     Q_PROPERTY(qreal contentHeight READ contentHeight WRITE setContentHeight)
 
+    Q_PROPERTY(qreal controlWidth READ controlWidth NOTIFY controlWidthChanged)
+    Q_PROPERTY(qreal controlHeight READ controlHeight NOTIFY controlHeightChanged)
+
     Q_PROPERTY(int topPadding READ topPadding() NOTIFY paddingChanged)
     Q_PROPERTY(int bottomPadding READ bottomPadding() NOTIFY paddingChanged)
     Q_PROPERTY(int leftPadding READ leftPadding() NOTIFY paddingChanged)
@@ -92,6 +95,9 @@ public:
     qreal contentHeight();
     void setContentHeight(qreal contentHeight);
 
+    qreal controlWidth();
+    qreal controlHeight();
+
     int topPadding();
     int bottomPadding();
     int leftPadding();
@@ -102,6 +108,8 @@ public:
 
 signals:
     void paddingChanged();
+    void controlWidthChanged();
+    void controlHeightChanged();
 
 protected:
     void componentComplete() override;

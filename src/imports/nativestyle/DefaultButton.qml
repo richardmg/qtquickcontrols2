@@ -59,8 +59,8 @@ T.Button {
         when: background instanceof NativeStyle.StyleItem
         PropertyChanges {
             target: control
-            implicitWidth: implicitBackgroundWidth + leftInset + rightInset
-            implicitHeight: implicitBackgroundHeight + topInset + bottomInset
+            implicitWidth: background.controlWidth + leftInset + rightInset
+            implicitHeight: background.controlHeight + topInset + bottomInset
             leftPadding: background.leftPadding
             rightPadding: background.rightPadding
             topPadding: background.topPadding
