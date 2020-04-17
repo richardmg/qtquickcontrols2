@@ -119,9 +119,6 @@ public:
     qreal contentHeight();
     void setContentHeight(qreal contentHeight);
 
-    qreal controlWidth();
-    qreal controlHeight();
-
     QQuickStylePadding backgroundPadding() const;
     QQuickStylePadding contentPadding() const;
 
@@ -131,8 +128,6 @@ public:
 signals:
     void backgroundPaddingChanged();
     void contentPaddingChanged();
-    void controlWidthChanged();
-    void controlHeightChanged();
 
 protected:
     void componentComplete() override;

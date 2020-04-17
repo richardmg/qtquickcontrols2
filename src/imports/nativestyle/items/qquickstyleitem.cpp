@@ -164,7 +164,6 @@ void QQuickStyleItem::geometryChanged(const QRectF &newGeometry, const QRectF &o
 void QQuickStyleItem::updateControlGeometry()
 {
     m_dirty.setFlag(DirtyFlag::Geometry, false);
-    const ControlGeometry oldGeometry = m_controlGeometry;
     const QQuickStylePadding oldBackgroundPadding = backgroundPadding();
     const QQuickStylePadding oldContentPadding = contentPadding();
     m_controlGeometry = calculateControlGeometry();
@@ -181,11 +180,6 @@ void QQuickStyleItem::updateControlGeometry()
 
     if (contentPadding() != oldContentPadding)
         emit contentPaddingChanged();
-
-    if (m_controlGeometry.controlSize != oldGeometry.controlSize) {
-        emit controlWidthChanged();
-        emit controlHeightChanged();
-    }
 
     // Place this item at the correct position inside the control
     setPosition(m_controlGeometry.backgroundRect.topLeft());
