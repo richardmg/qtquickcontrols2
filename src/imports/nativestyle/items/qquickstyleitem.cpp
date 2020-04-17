@@ -165,6 +165,7 @@ void QQuickStyleItem::updateControlGeometry()
 {
     m_dirty.setFlag(DirtyFlag::Geometry, false);
     const ControlGeometry oldGeometry = m_controlGeometry;
+    const QQuickStylePadding oldBackgroundPadding = backgroundPadding();
     const QQuickStylePadding oldContentPadding = contentPadding();
     m_controlGeometry = calculateControlGeometry();
 
@@ -174,6 +175,9 @@ void QQuickStyleItem::updateControlGeometry()
     if (m_controlGeometry.imageSize.isEmpty())
         qmlWarning(this) << "imageSize is not set (or is empty)";
 #endif
+
+    if (backgroundPadding() != oldBackgroundPadding)
+        emit backgroundPaddingChanged();
 
     if (contentPadding() != oldContentPadding)
         emit contentPaddingChanged();
@@ -273,14 +277,15 @@ void QQuickStyleItem::setContentHeight(qreal contentHeight)
     markGeometryDirty();
 }
 
-qreal QQuickStyleItem::controlWidth()
+QQuickStylePadding QQuickStyleItem::backgroundPadding() const
 {
-    return m_controlGeometry.controlSize.width();
-}
-
-qreal QQuickStyleItem::controlHeight()
-{
-    return m_controlGeometry.controlSize.height();
+    QMargins m;
+    const ControlGeometry &cg = m_controlGeometry;
+    m.setLeft(cg.backgroundRect.left());
+    m.setTop(cg.backgroundRect.top());
+    m.setRight(cg.controlSize.width() - cg.backgroundRect.right() - 1);
+    m.setBottom(cg.controlSize.height() - cg.backgroundRect.bottom() - 1);
+    return QQuickStylePadding(m);
 }
 
 QQuickStylePadding QQuickStyleItem::contentPadding() const

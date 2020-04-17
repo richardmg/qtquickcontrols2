@@ -94,9 +94,7 @@ class QQuickStyleItem : public QQuickItem
     Q_PROPERTY(qreal contentWidth READ contentWidth WRITE setContentWidth)
     Q_PROPERTY(qreal contentHeight READ contentHeight WRITE setContentHeight)
 
-    Q_PROPERTY(qreal controlWidth READ controlWidth NOTIFY controlWidthChanged)
-    Q_PROPERTY(qreal controlHeight READ controlHeight NOTIFY controlHeightChanged)
-
+    Q_PROPERTY(QQuickStylePadding backgroundPadding READ backgroundPadding() NOTIFY backgroundPaddingChanged)
     Q_PROPERTY(QQuickStylePadding contentPadding READ contentPadding() NOTIFY contentPaddingChanged)
 
     Q_PROPERTY(bool useNinePatchImage MEMBER m_useNinePatchImage)
@@ -124,12 +122,14 @@ public:
     qreal controlWidth();
     qreal controlHeight();
 
+    QQuickStylePadding backgroundPadding() const;
     QQuickStylePadding contentPadding() const;
 
     void markGeometryDirty();
     void markImageDirty();
 
 signals:
+    void backgroundPaddingChanged();
     void contentPaddingChanged();
     void controlWidthChanged();
     void controlHeightChanged();
