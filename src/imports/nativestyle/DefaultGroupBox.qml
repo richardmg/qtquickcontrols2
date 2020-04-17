@@ -49,20 +49,16 @@ T.GroupBox {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              contentHeight + topPadding + bottomPadding)
 
-    spacing: 6
-    padding: 12
-    topPadding: padding + (implicitLabelWidth > 0 ? implicitLabelHeight + spacing : 0)
+    label: Text {
+        x: control.leftPadding
+        width: control.availableWidth
 
-//    label: Text {
-//        x: control.leftPadding
-//        width: control.availableWidth
-
-//        text: control.title
-//        font: control.font
-//        color: control.palette.windowText
-//        elide: Text.ElideRight
-//        verticalAlignment: Text.AlignVCenter
-//    }
+        text: control.title
+        font: control.font
+        color: control.palette.windowText
+        elide: Text.ElideRight
+        verticalAlignment: Text.AlignVCenter
+    }
 
     states: State {
         when: background instanceof NativeStyle.StyleItem
@@ -77,11 +73,7 @@ T.GroupBox {
 
     background: NativeStyle.GroupBox {
         control: control
-        y: control.topPadding - control.bottomPadding
-        width: parent.width
-        height: parent.height - control.topPadding + control.bottomPadding
-
-        contentWidth: contentItem.width
-        contentHeight: contentItem.height
+        width: contentItem.width + contentPadding.left + contentPadding.right - backgroundPadding.left - backgroundPadding.right
+        height: contentItem.height + contentPadding.top + contentPadding.bottom - backgroundPadding.top - backgroundPadding.bottom
     }
 }
