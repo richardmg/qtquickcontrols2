@@ -193,7 +193,11 @@ void QQuickStyleItem::updateControlGeometry()
 
 #ifdef QT_DEBUG
     if (m_debug)
-        qDebug() << Q_FUNC_INFO << m_controlGeometry << boundingRect();
+        qDebug() << Q_FUNC_INFO
+                 << m_controlGeometry
+                 << "bounding rect:" << boundingRect()
+                 << "background padding:" << backgroundPadding()
+                 << "content padding:" << contentPadding();
 #endif
 }
 
