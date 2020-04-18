@@ -47,20 +47,6 @@ T.Slider {
                             implicitHandleWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitHandleHeight + topPadding + bottomPadding)
-    states: State {
-        when: background instanceof NativeStyle.StyleItem
-        PropertyChanges {
-            target: control
-            implicitWidth: implicitBackgroundWidth + leftInset + rightInset
-                           + background.backgroundPadding.left + background.backgroundPadding.right
-            implicitHeight: implicitBackgroundHeight + topInset + bottomInset
-                           + background.backgroundPadding.top + background.backgroundPadding.bottom
-            leftPadding: background.contentPadding.left
-            rightPadding: background.contentPadding.right
-            topPadding: background.contentPadding.top
-            bottomPadding: background.contentPadding.bottom
-        }
-    }
 
     background: NativeStyle.SliderGroove {
         control: control
@@ -69,8 +55,6 @@ T.Slider {
         // would scale the tickmarks too). The groove might
         // also use a different background color before, and
         // after, the handle.
-        x: backgroundPadding.left
-        y: backgroundPadding.top
         useNinePatchImage: false
     }
 
