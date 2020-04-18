@@ -4655,11 +4655,14 @@ QSize QCommonStyle::sizeFromContents(ContentsType ct, const QStyleOption *opt, c
             sz += QSize(buttonWidth + 2*fw, 2*fw);
         }
         break;
+    case CT_Slider:
+        if (const QStyleOptionSlider *option = qstyleoption_cast<const QStyleOptionSlider *>(opt))
+            sz = subControlRect(QStyle::CC_Slider, option, QStyle::SC_SliderHandle).size();
+        break;
     case CT_ScrollBar:
     case CT_MenuBar:
     case CT_Menu:
     case CT_MenuBarItem:
-    case CT_Slider:
     case CT_ProgressBar:
     case CT_TabBarTab:
         // just return the contentsSize for now
