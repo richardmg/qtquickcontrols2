@@ -181,10 +181,10 @@ void QQuickStyleItem::updateControlGeometry()
     if (contentPadding() != oldContentPadding)
         emit contentPaddingChanged();
 
-    // Implicitt size is the same as contentRect.size pluss content
-    // padding. Note that this size was calculated from qstyle, and
-    // can differ from the content size assigned to us from QML.
-    setImplicitSize(m_controlGeometry.backgroundRect.width(), m_controlGeometry.backgroundRect.height());
+    // Implicitt size is the size of the whole item, and not only
+    // background that we end up drawing. The size of the latter can
+    // be found by later subtracting backgroundPadding from implicit size.
+    setImplicitSize(m_controlGeometry.controlSize.width(), m_controlGeometry.controlSize.height());
     // Clear the dirty flag after setting implicit size, since the following call
     // to geometryChanged() might set it again, which is unnecessary.
     m_dirty.setFlag(DirtyFlag::Geometry, false);
