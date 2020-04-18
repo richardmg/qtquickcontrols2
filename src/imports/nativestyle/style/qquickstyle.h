@@ -70,6 +70,10 @@ struct ControlGeometry
     // control rect will include both the title and the background frame, but the background
     // frame will usually be below the title).
 
+    // 'contentRect' should be the free space where the contents can be placed. Note that
+    // this rect does not need to have the same size as the contentSize provided as input
+    // to the style item. QStyle will typically calculate a rect that is bigger.
+
     // 'imageSize' size should be the minimum possible size that an image needs to have
     // (_without_ taking content size into consideration) to be able to paint the control
     // onto it, and scale it correctly (by taking to content rect into consideration). If the
