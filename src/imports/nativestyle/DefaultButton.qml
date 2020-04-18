@@ -43,38 +43,28 @@ import QtQuick.NativeStyle 6.0 as NativeStyle
 T.Button {
     id: control
 
+    property bool nativeBackground: background instanceof NativeStyle.StyleItem
+
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    padding: 5
-
-    icon.width: 24
-    icon.height: 24
-    icon.color: control.checked || control.highlighted ? control.palette.brightText :
-                control.flat && !control.down ? (control.visualFocus ? control.palette.highlight : control.palette.windowText) : control.palette.buttonText
-
-    states: State {
-        when: background instanceof NativeStyle.StyleItem
-        PropertyChanges {
-            target: control
-            implicitWidth: implicitBackgroundWidth + leftInset + rightInset
-                           + background.backgroundPadding.left + background.backgroundPadding.right
-            implicitHeight: implicitBackgroundHeight + topInset + bottomInset
-                           + background.backgroundPadding.top + background.backgroundPadding.bottom
-            leftPadding: background.contentPadding.left
-            rightPadding: background.contentPadding.right
-            topPadding: background.contentPadding.top
-            bottomPadding: background.contentPadding.bottom
-        }
-    }
+    leftPadding: nativeBackground ? background.contentPadding.left : 5
+    rightPadding: nativeBackground ? background.contentPadding.right : 5
+    topPadding: nativeBackground ? background.contentPadding.top : 5
+    bottomPadding: nativeBackground ? background.contentPadding.bottom : 5
 
     background: NativeStyle.Button {
         control: control
         contentWidth: contentItem.implicitWidth
         contentHeight: contentItem.implicitHeight
     }
+
+    icon.width: 24
+    icon.height: 24
+    icon.color: control.checked || control.highlighted ? control.palette.brightText :
+                control.flat && !control.down ? (control.visualFocus ? control.palette.highlight : control.palette.windowText) : control.palette.buttonText
 
     contentItem: IconLabel {
         spacing: control.spacing

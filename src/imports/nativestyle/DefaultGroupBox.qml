@@ -43,6 +43,8 @@ import QtQuick.NativeStyle 6.0 as NativeStyle
 T.GroupBox {
     id: control
 
+    property bool nativeBackground: background instanceof NativeStyle.StyleItem
+
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             contentWidth + leftPadding + rightPadding,
                             implicitLabelWidth + leftPadding + rightPadding)
@@ -60,20 +62,20 @@ T.GroupBox {
         verticalAlignment: Text.AlignVCenter
     }
 
-    states: State {
-        when: background instanceof NativeStyle.StyleItem
-        PropertyChanges {
-            target: control
-            leftPadding: background.contentPadding.left
-            rightPadding: background.contentPadding.right
-            topPadding: background.contentPadding.top
-            bottomPadding: background.contentPadding.bottom
-        }
-    }
+    leftPadding: nativeBackground ? background.contentPadding.left : 0
+    rightPadding: nativeBackground ? background.contentPadding.right : 0
+    topPadding: nativeBackground ? background.contentPadding.top : 0
+    bottomPadding: nativeBackground ? background.contentPadding.bottom : 0
 
     background: NativeStyle.GroupBox {
         control: control
-        width: contentItem.width + contentPadding.left + contentPadding.right - backgroundPadding.left - backgroundPadding.right
-        height: contentItem.height + contentPadding.top + contentPadding.bottom - backgroundPadding.top - backgroundPadding.bottom
+
+        x: backgroundPadding.left
+        y: backgroundPadding.top
+        width: contentItem.width + control.leftPadding + control.rightPadding - backgroundPadding.left - backgroundPadding.right
+        height: contentItem.height + control.topPadding + control.bottomPadding - backgroundPadding.top - backgroundPadding.bottom
+
+        contentWidth: contentItem.implicitWidth
+        contentHeight: contentItem.implicitHeight
     }
 }
