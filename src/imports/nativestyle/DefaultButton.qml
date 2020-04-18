@@ -45,10 +45,8 @@ T.Button {
 
     property bool nativeBackground: background instanceof NativeStyle.StyleItem
 
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            implicitContentWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                             implicitContentHeight + topPadding + bottomPadding)
+    implicitWidth: implicitBackgroundWidth + leftInset + rightInset
+    implicitHeight: implicitBackgroundHeight + topInset + bottomInset
 
     leftPadding: nativeBackground ? background.contentPadding.left : 5
     rightPadding: nativeBackground ? background.contentPadding.right : 5
