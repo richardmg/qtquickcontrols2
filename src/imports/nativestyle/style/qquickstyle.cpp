@@ -410,10 +410,10 @@ QDebug operator<<(QDebug debug, const ControlGeometry &cg)
     QDebugStateSaver saver(debug);
     debug.nospace();
     debug << "ControlGeometry(";
-    debug << "controlSize:" << cg.controlSize << ", ";
+    debug << "controlSize:" << cg.implicitSize << ", ";
     debug << "backgroundRect:" << cg.backgroundRect << ", ";
     debug << "contentRect:" << cg.contentRect << ", ";
-    debug << "imageSize:" << cg.imageSize;
+    debug << "imageSize:" << cg.minimumSize;
     debug << ')';
     return debug;
 }

@@ -42,7 +42,7 @@ ControlGeometry QQuickStyleItemGroupBox::calculateControlGeometry()
     initStyleOption(styleOption);
 
     ControlGeometry cg;
-    cg.imageSize = style()->sizeFromContents(QStyle::CT_GroupBox, &styleOption, QSize());
+    cg.minimumSize = style()->sizeFromContents(QStyle::CT_GroupBox, &styleOption, QSize());
 
     if (!control<QQuickGroupBox>()->title().isEmpty()) {
         // We don't draw the title, but we need to take
@@ -51,8 +51,8 @@ ControlGeometry QQuickStyleItemGroupBox::calculateControlGeometry()
         styleOption.subControls |= QStyle::SC_GroupBoxLabel;
     }
 
-    cg.controlSize = style()->sizeFromContents(QStyle::CT_GroupBox, &styleOption, contentSize());
-    styleOption.rect.setSize(cg.controlSize);
+    cg.implicitSize = style()->sizeFromContents(QStyle::CT_GroupBox, &styleOption, contentSize());
+    styleOption.rect.setSize(cg.implicitSize);
     cg.contentRect = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxContents);
     cg.backgroundRect = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxFrame);
     return cg;

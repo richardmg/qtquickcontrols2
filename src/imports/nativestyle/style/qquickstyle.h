@@ -60,7 +60,13 @@ class QStylePrivate;
 
 struct ControlGeometry
 {
-    // 'controlSize' should reflect the preferred size of the control, taking the
+    // 'minimumSize' size should be the minimum possible size that the item can have
+    // (_without_ taking content size into consideration) and still render correctly.
+    // This will also then be the size of the nine patch image. If the
+    // QQuickStyleItem::useNinePatchImage is set to false, the image size will be overwritten
+    // to be the same as the control size (since we we're then not supposed to scale the image).
+
+    // 'implicitSize' should reflect the preferred size of the item, taking the
     // given content size (as set from QML) into account (But note that not all controls
     // have contents, e.g slider).
 
@@ -74,16 +80,11 @@ struct ControlGeometry
     // this rect does not need to have the same size as the contentSize provided as input
     // to the style item. QStyle will typically calculate a rect that is bigger.
 
-    // 'imageSize' size should be the minimum possible size that an image needs to have
-    // (_without_ taking content size into consideration) to be able to paint the control
-    // onto it, and scale it correctly (by taking to content rect into consideration). If the
-    // QQuickStyleItem::useNinePatchImage is set to false, the image size will be overwritten
-    // to be the same as the control size (since we we're then not supposed to scale the image).
 
-    QSize controlSize;
+    QSize minimumSize;
+    QSize implicitSize;
     QRect backgroundRect;
     QRect contentRect;
-    QSize imageSize;
 };
 
 class QStyle : public QObject

@@ -101,7 +101,7 @@ QSGNode *QQuickStyleItem::updatePaintNode(QSGNode *oldNode, QQuickItem::UpdatePa
         node = window()->createNinePatchNode();
 
     auto texture = window()->createTextureFromImage(m_paintedImage, QQuickWindow::TextureCanUseAtlas);
-    const QSize padding = m_useNinePatchImage ? m_controlGeometry.imageSize / 2 : QSize(0, 0);
+    const QSize padding = m_useNinePatchImage ? m_controlGeometry.minimumSize / 2 : QSize(0, 0);
 
     node->setTexture(texture);
     node->setBounds(boundingRect());
@@ -117,7 +117,7 @@ void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
     styleOption.control = m_control;
     styleOption.window = window();
     styleOption.palette = QQuickItemPrivate::get(m_control)->palette()->toQPalette();
-    styleOption.rect = QRect(QPoint(0, 0), m_controlGeometry.imageSize);
+    styleOption.rect = QRect(QPoint(0, 0), m_controlGeometry.minimumSize);
     styleOption.direction = m_control->isMirrored() ? Qt::RightToLeft : Qt::LeftToRight;
 
     styleOption.state = QStyle::State_None;
@@ -169,9 +169,9 @@ void QQuickStyleItem::updateControlGeometry()
     m_controlGeometry = calculateControlGeometry();
 
 #ifdef QT_DEBUG
-    if (m_controlGeometry.controlSize.isEmpty())
+    if (m_controlGeometry.implicitSize.isEmpty())
         qmlWarning(this) << "controlSize is not set (or is empty)";
-    if (m_controlGeometry.imageSize.isEmpty())
+    if (m_controlGeometry.minimumSize.isEmpty())
         qmlWarning(this) << "imageSize is not set (or is empty)";
 #endif
 
@@ -184,13 +184,13 @@ void QQuickStyleItem::updateControlGeometry()
     // Implicitt size is the size of the whole item, and not only
     // background that we end up drawing. The size of the latter can
     // be found by later subtracting backgroundPadding from implicit size.
-    setImplicitSize(m_controlGeometry.controlSize.width(), m_controlGeometry.controlSize.height());
+    setImplicitSize(m_controlGeometry.implicitSize.width(), m_controlGeometry.implicitSize.height());
     // Clear the dirty flag after setting implicit size, since the following call
     // to geometryChanged() might set it again, which is unnecessary.
     m_dirty.setFlag(DirtyFlag::Geometry, false);
 
     if (!m_useNinePatchImage)
-        m_controlGeometry.imageSize = size().toSize();
+        m_controlGeometry.minimumSize = size().toSize();
 
 #ifdef QT_DEBUG
     if (m_debug)
@@ -204,12 +204,12 @@ void QQuickStyleItem::updateControlGeometry()
 
 void QQuickStyleItem::paintControlToImage()
 {
-    if (m_controlGeometry.imageSize.isEmpty())
+    if (m_controlGeometry.minimumSize.isEmpty())
         return;
 
     m_dirty.setFlag(DirtyFlag::Image, false);
     const qreal scale = window()->devicePixelRatio();
-    m_paintedImage = QImage(m_controlGeometry.imageSize * scale, QImage::Format_ARGB32_Premultiplied);
+    m_paintedImage = QImage(m_controlGeometry.minimumSize * scale, QImage::Format_ARGB32_Premultiplied);
     m_paintedImage.setDevicePixelRatio(scale);
     m_paintedImage.fill(Qt::transparent);
 
@@ -283,8 +283,8 @@ QQuickStylePadding QQuickStyleItem::backgroundPadding() const
     const ControlGeometry &cg = m_controlGeometry;
     m.setLeft(cg.backgroundRect.left());
     m.setTop(cg.backgroundRect.top());
-    m.setRight(cg.controlSize.width() - cg.backgroundRect.right() - 1);
-    m.setBottom(cg.controlSize.height() - cg.backgroundRect.bottom() - 1);
+    m.setRight(cg.implicitSize.width() - cg.backgroundRect.right() - 1);
+    m.setBottom(cg.implicitSize.height() - cg.backgroundRect.bottom() - 1);
     return QQuickStylePadding(m);
 }
 
@@ -294,8 +294,8 @@ QQuickStylePadding QQuickStyleItem::contentPadding() const
     const ControlGeometry &cg = m_controlGeometry;
     m.setLeft(cg.contentRect.left());
     m.setTop(cg.contentRect.top());
-    m.setRight(cg.controlSize.width() - cg.contentRect.right() - 1);
-    m.setBottom(cg.controlSize.height() - cg.contentRect.bottom() - 1);
+    m.setRight(cg.implicitSize.width() - cg.contentRect.right() - 1);
+    m.setBottom(cg.implicitSize.height() - cg.contentRect.bottom() - 1);
     return QQuickStylePadding(m);
 }
 

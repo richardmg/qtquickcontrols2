@@ -55,10 +55,10 @@ ControlGeometry QQuickStyleItemSliderGroove::calculateControlGeometry()
     initStyleOption(styleOption);
 
     ControlGeometry cg;
-    cg.controlSize = style()->sizeFromContents(QStyle::CT_Slider, &styleOption, QSize());
-    styleOption.rect.setSize(cg.controlSize);
+    cg.implicitSize = style()->sizeFromContents(QStyle::CT_Slider, &styleOption, QSize());
+    styleOption.rect.setSize(cg.implicitSize);
     cg.backgroundRect = style()->subControlRect(QStyle::CC_Slider, &styleOption, QStyle::SC_SliderGroove);
-    cg.imageSize = cg.backgroundRect.size();
+    cg.minimumSize = cg.backgroundRect.size();
 
     return cg;
 }
