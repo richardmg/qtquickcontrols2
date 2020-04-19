@@ -54,7 +54,13 @@ ControlGeometry QQuickStyleItemGroupBox::calculateControlGeometry()
     cg.implicitSize = style()->sizeFromContents(QStyle::CT_GroupBox, &styleOption, contentSize());
     styleOption.rect.setSize(cg.implicitSize);
     cg.contentRect = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxContents);
-    cg.backgroundRect = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxFrame);
+
+    const QQuickStylePadding oldGroupBoxPadding = m_groupBoxPadding;
+    const QRect frame = style()->subControlRect(QStyle::CC_GroupBox, &styleOption, QStyle::SC_GroupBoxFrame);
+    m_groupBoxPadding = padding(QRect(QPoint(), cg.implicitSize), frame);
+    if (m_groupBoxPadding != oldGroupBoxPadding)
+        emit groupBoxPaddingChanged();
+
     return cg;
 }
 
@@ -70,4 +76,9 @@ void QQuickStyleItemGroupBox::initStyleOption(QStyleOptionGroupBox &styleOption)
     initStyleOptionBase(styleOption);
     styleOption.subControls = QStyle::SC_GroupBoxFrame;
     styleOption.lineWidth = 1;
+}
+
+QQuickStylePadding QQuickStyleItemGroupBox::groupBoxPadding() const
+{
+    return m_groupBoxPadding;
 }

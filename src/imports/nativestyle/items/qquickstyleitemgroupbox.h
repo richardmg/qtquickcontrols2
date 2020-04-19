@@ -43,13 +43,22 @@
 class QQuickStyleItemGroupBox : public QQuickStyleItem
 {
     Q_OBJECT
+    Q_PROPERTY(QQuickStylePadding groupBoxPadding READ groupBoxPadding() NOTIFY groupBoxPaddingChanged)
     QML_NAMED_ELEMENT(GroupBox)
+
+public:
+    QQuickStylePadding groupBoxPadding() const;
+
+signals:
+    void groupBoxPaddingChanged();
 
 protected:
     void paintEvent(QPainter *painter) override;
     ControlGeometry calculateControlGeometry() override;
 
 private:
+    QQuickStylePadding m_groupBoxPadding;
+
     void initStyleOption(QStyleOptionGroupBox &styleOption);
 };
 
