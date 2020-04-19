@@ -50,8 +50,7 @@ ControlGeometry QQuickStyleItemSliderHandle::calculateControlGeometry()
     initStyleOption(styleOption);
 
     ControlGeometry cg;
-    cg.backgroundRect = style()->subControlRect(QStyle::CC_Slider, &styleOption, QStyle::SC_SliderHandle);
-    cg.minimumSize = cg.backgroundRect.size();
+    cg.minimumSize = style()->subControlRect(QStyle::CC_Slider, &styleOption, QStyle::SC_SliderHandle).size();
     cg.implicitSize = cg.minimumSize;
     return cg;
 }

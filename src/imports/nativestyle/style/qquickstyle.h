@@ -70,12 +70,6 @@ struct ControlGeometry
     // given content size (as set from QML) into account (But note that not all controls
     // have contents, e.g slider).
 
-    // 'backgroundRect' should reflect where inside the control the background/QQuickItem
-    // should be placed. Often this is the same as the control rect, but sometimes the
-    // background will not cover the whole control. E.g for a GroupBox with a title, the
-    // control rect will include both the title and the background frame, but the background
-    // frame will usually be below the title).
-
     // 'contentRect' should be the free space where the contents can be placed. Note that
     // this rect does not need to have the same size as the contentSize provided as input
     // to the style item. QStyle will typically calculate a rect that is bigger.
@@ -83,7 +77,6 @@ struct ControlGeometry
 
     QSize minimumSize;
     QSize implicitSize;
-    QRect backgroundRect;
     QRect contentRect;
 };
 

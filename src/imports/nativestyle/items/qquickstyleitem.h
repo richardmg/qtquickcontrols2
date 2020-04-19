@@ -90,14 +90,11 @@ QDebug operator<<(QDebug debug, const QQuickStylePadding &padding);
 class QQuickStyleItem : public QQuickItem
 {
     Q_OBJECT
-    Q_PROPERTY(QQuickControl *control MEMBER m_control)
 
+    Q_PROPERTY(QQuickControl *control MEMBER m_control)
     Q_PROPERTY(qreal contentWidth READ contentWidth WRITE setContentWidth)
     Q_PROPERTY(qreal contentHeight READ contentHeight WRITE setContentHeight)
-
-    Q_PROPERTY(QQuickStylePadding backgroundPadding READ backgroundPadding() NOTIFY backgroundPaddingChanged)
     Q_PROPERTY(QQuickStylePadding contentPadding READ contentPadding() NOTIFY contentPaddingChanged)
-
     Q_PROPERTY(bool useNinePatchImage MEMBER m_useNinePatchImage)
 
     QML_NAMED_ELEMENT(StyleItem)
@@ -120,14 +117,12 @@ public:
     qreal contentHeight();
     void setContentHeight(qreal contentHeight);
 
-    QQuickStylePadding backgroundPadding() const;
     QQuickStylePadding contentPadding() const;
 
     void markGeometryDirty();
     void markImageDirty();
 
 signals:
-    void backgroundPaddingChanged();
     void contentPaddingChanged();
 
 protected:

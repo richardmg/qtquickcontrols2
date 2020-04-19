@@ -164,7 +164,6 @@ void QQuickStyleItem::geometryChanged(const QRectF &newGeometry, const QRectF &o
 void QQuickStyleItem::updateControlGeometry()
 {
     m_dirty.setFlag(DirtyFlag::Geometry, false);
-    const QQuickStylePadding oldBackgroundPadding = backgroundPadding();
     const QQuickStylePadding oldContentPadding = contentPadding();
     m_controlGeometry = calculateControlGeometry();
 
@@ -175,15 +174,9 @@ void QQuickStyleItem::updateControlGeometry()
         qmlWarning(this) << "imageSize is not set (or is empty)";
 #endif
 
-    if (backgroundPadding() != oldBackgroundPadding)
-        emit backgroundPaddingChanged();
-
     if (contentPadding() != oldContentPadding)
         emit contentPaddingChanged();
 
-    // Implicitt size is the size of the whole item, and not only
-    // background that we end up drawing. The size of the latter can
-    // be found by later subtracting backgroundPadding from implicit size.
     setImplicitSize(m_controlGeometry.implicitSize.width(), m_controlGeometry.implicitSize.height());
     // Clear the dirty flag after setting implicit size, since the following call
     // to geometryChanged() might set it again, which is unnecessary.
@@ -197,7 +190,6 @@ void QQuickStyleItem::updateControlGeometry()
         qDebug() << Q_FUNC_INFO
                  << m_controlGeometry
                  << "bounding rect:" << boundingRect()
-                 << "background padding:" << backgroundPadding()
                  << "content padding:" << contentPadding();
 #endif
 }
@@ -284,11 +276,6 @@ QQuickStylePadding QQuickStyleItem::padding(const QRect &outer, const QRect &inn
     const int right = outer.right() - inner.right();
     const int bottom = outer.bottom() - inner.bottom();
     return QQuickStylePadding(QMargins(left, top, right, bottom));
-}
-
-QQuickStylePadding QQuickStyleItem::backgroundPadding() const
-{
-    return padding(QRect(QPoint(0, 0), m_controlGeometry.implicitSize), m_controlGeometry.backgroundRect);
 }
 
 QQuickStylePadding QQuickStyleItem::contentPadding() const
