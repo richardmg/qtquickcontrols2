@@ -144,6 +144,7 @@ protected:
     inline QSize contentSize() { return m_contentSize.toSize(); }
     inline static QStyle *style() { return QQuickNativeStyle::style(); }
     template <class T> inline const T* control() const { return static_cast<T *>(m_control.data()); }
+    inline QQuickStylePadding padding(const QRect &outer, const QRect &inner) const;
 
 #ifdef QT_DEBUG
     bool m_debug = false;

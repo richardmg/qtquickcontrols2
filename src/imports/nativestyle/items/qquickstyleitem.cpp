@@ -277,26 +277,23 @@ void QQuickStyleItem::setContentHeight(qreal contentHeight)
     markGeometryDirty();
 }
 
+QQuickStylePadding QQuickStyleItem::padding(const QRect &outer, const QRect &inner) const
+{
+    const int left = inner.left() - outer.left();
+    const int top = inner.top() - outer.top();
+    const int right = outer.right() - inner.right();
+    const int bottom = outer.bottom() - inner.bottom();
+    return QQuickStylePadding(QMargins(left, top, right, bottom));
+}
+
 QQuickStylePadding QQuickStyleItem::backgroundPadding() const
 {
-    QMargins m;
-    const ControlGeometry &cg = m_controlGeometry;
-    m.setLeft(cg.backgroundRect.left());
-    m.setTop(cg.backgroundRect.top());
-    m.setRight(cg.implicitSize.width() - cg.backgroundRect.right() - 1);
-    m.setBottom(cg.implicitSize.height() - cg.backgroundRect.bottom() - 1);
-    return QQuickStylePadding(m);
+    return padding(QRect(QPoint(0, 0), m_controlGeometry.implicitSize), m_controlGeometry.backgroundRect);
 }
 
 QQuickStylePadding QQuickStyleItem::contentPadding() const
 {
-    QMargins m;
-    const ControlGeometry &cg = m_controlGeometry;
-    m.setLeft(cg.contentRect.left());
-    m.setTop(cg.contentRect.top());
-    m.setRight(cg.implicitSize.width() - cg.contentRect.right() - 1);
-    m.setBottom(cg.implicitSize.height() - cg.contentRect.bottom() - 1);
-    return QQuickStylePadding(m);
+    return padding(QRect(QPoint(0, 0), m_controlGeometry.implicitSize), m_controlGeometry.contentRect);
 }
 
 QT_END_NAMESPACE
