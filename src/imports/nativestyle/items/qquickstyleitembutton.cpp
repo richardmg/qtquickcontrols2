@@ -53,6 +53,7 @@ ControlGeometry QQuickStyleItemButton::calculateControlGeometry()
     cg.implicitSize = style()->sizeFromContents(QStyle::CT_PushButton, &styleOption, contentSize());
     styleOption.rect = QRect(QPoint(0, 0), cg.implicitSize);
     cg.contentRect = style()->subElementRect(QStyle::SE_PushButtonContents, &styleOption);
+    cg.layoutRect = style()->subElementRect(QStyle::SE_PushButtonLayoutItem, &styleOption);
 
     return cg;
 }

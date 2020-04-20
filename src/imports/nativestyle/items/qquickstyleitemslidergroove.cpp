@@ -57,6 +57,7 @@ ControlGeometry QQuickStyleItemSliderGroove::calculateControlGeometry()
     ControlGeometry cg;
     cg.minimumSize = style()->sizeFromContents(QStyle::CT_Slider, &styleOption, QSize());
     cg.implicitSize = cg.minimumSize;
+    cg.layoutRect = style()->subElementRect(QStyle::SE_SliderLayoutItem, &styleOption);
 
     return cg;
 }

@@ -109,9 +109,13 @@ struct ControlGeometry
     // this rect does not need to have the same size as the contentSize provided as input
     // to the style item. QStyle will typically calculate a rect that is bigger.
 
+    // 'layoutRect' can be set to shift the position of the whole control so
+    // that aligns correctly with other controls.
+
     QSize minimumSize;
     QSize implicitSize;
     QRect contentRect;
+    QRect layoutRect;
 };
 
 QDebug operator<<(QDebug debug, const ControlGeometry &cg);
@@ -124,6 +128,7 @@ class QQuickStyleItem : public QQuickItem
     Q_PROPERTY(qreal contentWidth READ contentWidth WRITE setContentWidth)
     Q_PROPERTY(qreal contentHeight READ contentHeight WRITE setContentHeight)
     Q_PROPERTY(QQuickStylePadding contentPadding READ contentPadding() NOTIFY contentPaddingChanged)
+    Q_PROPERTY(QQuickStylePadding insets READ insets() NOTIFY insetsChanged)
     Q_PROPERTY(bool useNinePatchImage MEMBER m_useNinePatchImage)
 
     QML_NAMED_ELEMENT(StyleItem)
@@ -147,12 +152,14 @@ public:
     void setContentHeight(qreal contentHeight);
 
     QQuickStylePadding contentPadding() const;
+    QQuickStylePadding insets() const;
 
     void markGeometryDirty();
     void markImageDirty();
 
 signals:
     void contentPaddingChanged();
+    void insetsChanged();
 
 protected:
     void componentComplete() override;

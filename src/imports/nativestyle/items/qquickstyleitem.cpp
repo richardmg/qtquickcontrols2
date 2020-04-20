@@ -72,6 +72,7 @@ QDebug operator<<(QDebug debug, const ControlGeometry &cg)
     debug << "ControlGeometry(";
     debug << "controlSize:" << cg.implicitSize << ", ";
     debug << "contentRect:" << cg.contentRect << ", ";
+    debug << "layoutRect:" << cg.layoutRect << ", ";
     debug << "imageSize:" << cg.minimumSize;
     debug << ')';
     return debug;
@@ -175,6 +176,7 @@ void QQuickStyleItem::updateControlGeometry()
     qqc2Debug() << "BEGIN";
     m_dirty.setFlag(DirtyFlag::Geometry, false);
     const QQuickStylePadding oldContentPadding = contentPadding();
+    const QQuickStylePadding oldInsets = insets();
     m_controlGeometry = calculateControlGeometry();
 
 #ifdef QT_DEBUG
@@ -186,6 +188,8 @@ void QQuickStyleItem::updateControlGeometry()
 
     if (contentPadding() != oldContentPadding)
         emit contentPaddingChanged();
+    if (insets() != oldInsets)
+        emit insetsChanged();
 
     setImplicitSize(m_controlGeometry.implicitSize.width(), m_controlGeometry.implicitSize.height());
     // Clear the dirty flag after setting implicit size, since the following call
@@ -197,7 +201,8 @@ void QQuickStyleItem::updateControlGeometry()
 
     qqc2Debug() << m_controlGeometry
                 << "bounding rect:" << boundingRect()
-                << "content padding:" << contentPadding();
+                << "content padding:" << contentPadding()
+                << "insets:" << insets();
 }
 
 void QQuickStyleItem::paintControlToImage()
@@ -297,6 +302,13 @@ QQuickStylePadding QQuickStyleItem::padding(const QRect &outer, const QRect &inn
 QQuickStylePadding QQuickStyleItem::contentPadding() const
 {
     return padding(QRect(QPoint(0, 0), m_controlGeometry.implicitSize), m_controlGeometry.contentRect);
+}
+
+QQuickStylePadding QQuickStyleItem::insets() const
+{
+    if (m_controlGeometry.layoutRect.isEmpty())
+        return QQuickStylePadding();
+    return padding(QRect(QPoint(0, 0), m_controlGeometry.implicitSize), m_controlGeometry.layoutRect);
 }
 
 QT_END_NAMESPACE
