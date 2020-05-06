@@ -143,7 +143,7 @@ protected:
     QQuickStylePadding padding(const QRect &outer, const QRect &inner) const;
 
 #ifdef QT_DEBUG
-    bool m_debug = false;
+    QString m_debug;
 #endif
 
 private:

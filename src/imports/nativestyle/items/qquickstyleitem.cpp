@@ -138,8 +138,8 @@ void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
         styleOption.state |= QStyle::State_Mini;
 
 #ifdef QT_DEBUG
-    if (m_debug)
-        qDebug() << Q_FUNC_INFO << styleOption;
+    if (!m_debug.isEmpty())
+        qDebug() << m_debug << Q_FUNC_INFO << styleOption;
 #endif
 }
 
@@ -186,8 +186,9 @@ void QQuickStyleItem::updateControlGeometry()
         m_controlGeometry.minimumSize = size().toSize();
 
 #ifdef QT_DEBUG
-    if (m_debug)
-        qDebug() << Q_FUNC_INFO
+    if (!m_debug.isEmpty())
+        qDebug() << m_debug
+                 << Q_FUNC_INFO
                  << m_controlGeometry
                  << "bounding rect:" << boundingRect()
                  << "content padding:" << contentPadding();
@@ -209,7 +210,7 @@ void QQuickStyleItem::paintControlToImage()
     paintEvent(&painter);
 
 #ifdef QT_DEBUG
-    if (m_debug)
+    if (!m_debug.isEmpty())
         painter.fillRect(m_paintedImage.rect(), QColor(rand() % 255, rand() % 255, rand() % 255, 50));
 #endif
 
@@ -231,9 +232,15 @@ void QQuickStyleItem::componentComplete()
 #ifdef QT_DEBUG
     if (qEnvironmentVariable("QQC2_USE_NINEPATCH_IMAGE") == QStringLiteral("false"))
         m_useNinePatchImage = false;
-    if (qEnvironmentVariable("QQC2_DEBUG") == QStringLiteral("true")
-            && m_control->objectName() == QLatin1String("debug"))
-        m_debug = true;
+    if (qEnvironmentVariable("QQC2_DEBUG") == QStringLiteral("true")) {
+        // Set the object name of any QML item to "debug" to print out
+        // extra information about that item. Optionally add some extra
+        // text to prefix the output (e.g "debug myButton").
+        const QString prefix(QLatin1String("debug"));
+        const QString name = m_control->objectName();
+        if (name.startsWith(prefix))
+            m_debug = m_control->objectName().mid(prefix.length() + 1);
+    }
 #endif
 
     QQuickItem::componentComplete();
