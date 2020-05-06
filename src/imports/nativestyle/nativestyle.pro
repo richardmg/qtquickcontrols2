@@ -11,7 +11,7 @@ DEFINES += QT_NO_CAST_TO_ASCII QT_NO_CAST_FROM_ASCII
 
 include(items/items.pri)
 include(qstyle/qstyle.pri)
-include(nativestyle.pri)
+include(controls/controls.pri)
 
 OTHER_FILES += \
     qmldir \
