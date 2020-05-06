@@ -9,27 +9,16 @@ ApplicationWindow {
     height: 600
     title: qsTr("Desktop Gallery")
 
-    TabBar {
-        id: bar
-        width: parent.width
-        TabButton {
-            text: qsTr("Buttons")
-        }
-        TabButton {
-            text: qsTr("Sliders")
-        }
-        TabButton {
-            text: qsTr("Misc")
-        }
-    }
+    ScrollView {
+        anchors.fill: parent
+        anchors.margins: 20
 
-    StackLayout {
-        anchors.top: bar.bottom
-        width: parent.width
-        currentIndex: bar.currentIndex
-        ButtonsTab { }
-        SlidersTab { }
-        Item { }
+        Column {
+            spacing: 20
+
+            Buttons { }
+            Sliders { }
+        }
     }
 
 }

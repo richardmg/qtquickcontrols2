@@ -3,11 +3,11 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 2.15
 
 Item {
+    implicitWidth: groupBox.width
+    implicitHeight: groupBox.height
 
     GroupBox {
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.margins: 50
+        id: groupBox
         title: "Buttons"
 
         ColumnLayout {

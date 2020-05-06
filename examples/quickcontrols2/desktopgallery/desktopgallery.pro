@@ -5,8 +5,8 @@ SOURCES += \
 
 QML_FILES = \
     main.qml \
-    ButtonsTab.qml \
-    SlidersTab.qml \
+    Buttons.qml \
+    Sliders.qml \
 
 OTHER_FILES += $$QML_FILES
 RESOURCES += $$QML_FILES
