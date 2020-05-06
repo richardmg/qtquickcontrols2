@@ -137,10 +137,7 @@ void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
     if (m_control->metaObject()->indexOfProperty("qqc2_style_mini") != -1)
         styleOption.state |= QStyle::State_Mini;
 
-#ifdef QT_DEBUG
-    if (!m_debug.isEmpty())
-        qDebug() << m_debug << Q_FUNC_INFO << styleOption;
-#endif
+    qqc2Debug() << styleOption;
 }
 
 void QQuickStyleItem::geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry)
@@ -163,6 +160,7 @@ void QQuickStyleItem::geometryChange(const QRectF &newGeometry, const QRectF &ol
 
 void QQuickStyleItem::updateControlGeometry()
 {
+    qqc2Debug() << "BEGIN";
     m_dirty.setFlag(DirtyFlag::Geometry, false);
     const QQuickStylePadding oldContentPadding = contentPadding();
     m_controlGeometry = calculateControlGeometry();
@@ -185,18 +183,14 @@ void QQuickStyleItem::updateControlGeometry()
     if (!m_useNinePatchImage)
         m_controlGeometry.minimumSize = size().toSize();
 
-#ifdef QT_DEBUG
-    if (!m_debug.isEmpty())
-        qDebug() << m_debug
-                 << Q_FUNC_INFO
-                 << m_controlGeometry
-                 << "bounding rect:" << boundingRect()
-                 << "content padding:" << contentPadding();
-#endif
+    qqc2Debug() << m_controlGeometry
+                << "bounding rect:" << boundingRect()
+                << "content padding:" << contentPadding();
 }
 
 void QQuickStyleItem::paintControlToImage()
 {
+    qqc2Debug() << "BEGIN";
     if (m_controlGeometry.minimumSize.isEmpty())
         return;
 
@@ -238,8 +232,11 @@ void QQuickStyleItem::componentComplete()
         // text to prefix the output (e.g "debug myButton").
         const QString prefix(QLatin1String("debug"));
         const QString name = m_control->objectName();
-        if (name.startsWith(prefix))
+        if (name.startsWith(prefix)) {
             m_debug = m_control->objectName().mid(prefix.length() + 1);
+            if (m_debug.isEmpty())
+                m_debug = QStringLiteral("-");
+        }
     }
 #endif
 

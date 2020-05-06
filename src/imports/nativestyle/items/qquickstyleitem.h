@@ -54,6 +54,12 @@
 #define QML_UNCREATABLE(NAME)
 #endif
 
+#ifdef QT_DEBUG
+#define qqc2Debug() if (!m_debug.isEmpty()) qDebug() << m_debug << __FUNCTION__
+#else
+#define qqc2Debug() if (false) qDebug()
+#endif
+
 QT_BEGIN_NAMESPACE
 
 using namespace QQC2;
