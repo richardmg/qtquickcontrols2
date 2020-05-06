@@ -52,11 +52,11 @@ QT_BEGIN_NAMESPACE
 
 QStyle *QQuickStyleItem::s_style = nullptr;
 
-QDebug operator<<(QDebug debug, const QQuickStylePadding &padding)
+QDebug operator<<(QDebug debug, const QQuickStyleMargins &padding)
 {
     QDebugStateSaver saver(debug);
     debug.nospace();
-    debug << "StylePadding(";
+    debug << "StyleMargins(";
     debug << padding.left() << ", ";
     debug << padding.top() << ", ";
     debug << padding.right() << ", ";
@@ -175,8 +175,8 @@ void QQuickStyleItem::updateControlGeometry()
 {
     qqc2Debug() << "BEGIN";
     m_dirty.setFlag(DirtyFlag::Geometry, false);
-    const QQuickStylePadding oldContentPadding = contentPadding();
-    const QQuickStylePadding oldInsets = insets();
+    const QQuickStyleMargins oldContentPadding = contentPadding();
+    const QQuickStyleMargins oldInsets = insets();
     m_controlGeometry = calculateControlGeometry();
 
 #ifdef QT_DEBUG
@@ -290,25 +290,18 @@ void QQuickStyleItem::setContentHeight(qreal contentHeight)
     markGeometryDirty();
 }
 
-QQuickStylePadding QQuickStyleItem::padding(const QRect &outer, const QRect &inner) const
+QQuickStyleMargins QQuickStyleItem::contentPadding() const
 {
-    const int left = inner.left() - outer.left();
-    const int top = inner.top() - outer.top();
-    const int right = outer.right() - inner.right();
-    const int bottom = outer.bottom() - inner.bottom();
-    return QQuickStylePadding(QMargins(left, top, right, bottom));
+    const QRect outerRect(QPoint(0, 0), m_controlGeometry.implicitSize);
+    return QQuickStyleMargins(outerRect, m_controlGeometry.contentRect);
 }
 
-QQuickStylePadding QQuickStyleItem::contentPadding() const
-{
-    return padding(QRect(QPoint(0, 0), m_controlGeometry.implicitSize), m_controlGeometry.contentRect);
-}
-
-QQuickStylePadding QQuickStyleItem::insets() const
+QQuickStyleMargins QQuickStyleItem::insets() const
 {
     if (m_controlGeometry.layoutRect.isEmpty())
-        return QQuickStylePadding();
-    return padding(QRect(QPoint(0, 0), m_controlGeometry.implicitSize), m_controlGeometry.layoutRect);
+        return QQuickStyleMargins();
+    const QRect outerRect(QPoint(0, 0), m_controlGeometry.implicitSize);
+    return QQuickStyleMargins(outerRect, m_controlGeometry.layoutRect);
 }
 
 QT_END_NAMESPACE

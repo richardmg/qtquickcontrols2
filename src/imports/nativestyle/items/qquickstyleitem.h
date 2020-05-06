@@ -64,7 +64,7 @@ QT_BEGIN_NAMESPACE
 
 using namespace QQC2;
 
-class QQuickStylePadding
+class QQuickStyleMargins
 {
     Q_GADGET
 
@@ -73,15 +73,24 @@ class QQuickStylePadding
     Q_PROPERTY(int top READ top())
     Q_PROPERTY(int bottom READ bottom())
 
-    QML_NAMED_ELEMENT(StylePadding)
+    QML_NAMED_ELEMENT(StyleMargins)
 
 public:
-    QQuickStylePadding() {}
-    QQuickStylePadding(const QQuickStylePadding &other) : m_margins(other.m_margins) {}
-    QQuickStylePadding(const QMargins &margins) : m_margins(margins) {}
-    inline void operator=(const QQuickStylePadding &other) { m_margins = other.m_margins; }
-    inline bool operator==(const QQuickStylePadding &other) const { return other.m_margins == m_margins; }
-    inline bool operator!=(const QQuickStylePadding &other) const { return other.m_margins != m_margins; }
+    QQuickStyleMargins() {}
+    QQuickStyleMargins(const QQuickStyleMargins &other) : m_margins(other.m_margins) {}
+    QQuickStyleMargins(const QMargins &margins) : m_margins(margins) {}
+    QQuickStyleMargins(const QRect &outer, const QRect &inner)
+    {
+        const int left = inner.left() - outer.left();
+        const int top = inner.top() - outer.top();
+        const int right = outer.right() - inner.right();
+        const int bottom = outer.bottom() - inner.bottom();
+        m_margins = QMargins(left, top, right, bottom);
+    }
+
+    inline void operator=(const QQuickStyleMargins &other) { m_margins = other.m_margins; }
+    inline bool operator==(const QQuickStyleMargins &other) const { return other.m_margins == m_margins; }
+    inline bool operator!=(const QQuickStyleMargins &other) const { return other.m_margins != m_margins; }
 
     inline int left() const { return m_margins.left(); }
     inline int right() const { return m_margins.right(); }
@@ -91,7 +100,7 @@ public:
     QMargins m_margins;
 };
 
-QDebug operator<<(QDebug debug, const QQuickStylePadding &padding);
+QDebug operator<<(QDebug debug, const QQuickStyleMargins &padding);
 
 struct ControlGeometry
 {
@@ -127,8 +136,8 @@ class QQuickStyleItem : public QQuickItem
     Q_PROPERTY(QQuickControl *control MEMBER m_control)
     Q_PROPERTY(qreal contentWidth READ contentWidth WRITE setContentWidth)
     Q_PROPERTY(qreal contentHeight READ contentHeight WRITE setContentHeight)
-    Q_PROPERTY(QQuickStylePadding contentPadding READ contentPadding() NOTIFY contentPaddingChanged)
-    Q_PROPERTY(QQuickStylePadding insets READ insets() NOTIFY insetsChanged)
+    Q_PROPERTY(QQuickStyleMargins contentPadding READ contentPadding() NOTIFY contentPaddingChanged)
+    Q_PROPERTY(QQuickStyleMargins insets READ insets() NOTIFY insetsChanged)
     Q_PROPERTY(bool useNinePatchImage MEMBER m_useNinePatchImage)
 
     QML_NAMED_ELEMENT(StyleItem)
@@ -151,8 +160,8 @@ public:
     qreal contentHeight();
     void setContentHeight(qreal contentHeight);
 
-    QQuickStylePadding contentPadding() const;
-    QQuickStylePadding insets() const;
+    QQuickStyleMargins contentPadding() const;
+    QQuickStyleMargins insets() const;
 
     void markGeometryDirty();
     void markImageDirty();
@@ -176,7 +185,6 @@ protected:
     inline QSize contentSize() { return m_contentSize.toSize(); }
     inline static QStyle *style() { return QQuickNativeStyle::style(); }
     template <class T> inline const T* control() const { return static_cast<T *>(m_control.data()); }
-    QQuickStylePadding padding(const QRect &outer, const QRect &inner) const;
 
 #ifdef QT_DEBUG
     QString m_debug;
