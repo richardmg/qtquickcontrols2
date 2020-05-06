@@ -93,6 +93,29 @@ public:
 
 QDebug operator<<(QDebug debug, const QQuickStylePadding &padding);
 
+struct ControlGeometry
+{
+    // 'minimumSize' size should be the minimum possible size that the item can have
+    // (_without_ taking content size into consideration) and still render correctly.
+    // This will also then be the size of the nine patch image. If the
+    // QQuickStyleItem::useNinePatchImage is set to false, the image size will be overwritten
+    // to be the same as the control size (since we we're then not supposed to scale the image).
+
+    // 'implicitSize' should reflect the preferred size of the item, taking the
+    // given content size (as set from QML) into account (But note that not all controls
+    // have contents, e.g slider).
+
+    // 'contentRect' should be the free space where the contents can be placed. Note that
+    // this rect does not need to have the same size as the contentSize provided as input
+    // to the style item. QStyle will typically calculate a rect that is bigger.
+
+    QSize minimumSize;
+    QSize implicitSize;
+    QRect contentRect;
+};
+
+QDebug operator<<(QDebug debug, const ControlGeometry &cg);
+
 class QQuickStyleItem : public QQuickItem
 {
     Q_OBJECT

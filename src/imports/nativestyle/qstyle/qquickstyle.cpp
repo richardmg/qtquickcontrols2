@@ -405,18 +405,6 @@ bool QStylePrivate::useFullScreenForPopup()
     return theme && theme->themeHint(QPlatformTheme::UseFullScreenForPopupMenu).toBool();
 }
 
-QDebug operator<<(QDebug debug, const ControlGeometry &cg)
-{
-    QDebugStateSaver saver(debug);
-    debug.nospace();
-    debug << "ControlGeometry(";
-    debug << "controlSize:" << cg.implicitSize << ", ";
-    debug << "contentRect:" << cg.contentRect << ", ";
-    debug << "imageSize:" << cg.minimumSize;
-    debug << ')';
-    return debug;
-}
-
 } // namespace QQC2
 
 QT_END_NAMESPACE
