@@ -3,7 +3,7 @@ SUBDIRS += \
     controls \
     calendar \
     platform \
-    templates
+    templates \
     nativestyle
 
 SUBDIRS += \

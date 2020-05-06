@@ -143,9 +143,9 @@ void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
 #endif
 }
 
-void QQuickStyleItem::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
+void QQuickStyleItem::geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry)
 {
-    QQuickItem::geometryChanged(newGeometry, oldGeometry);
+    QQuickItem::geometryChange(newGeometry, oldGeometry);
 
     // Note that a change in geometry should not lead us into
     // recalculating the styling based geometry, as that will
