@@ -4,6 +4,9 @@
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QGuiApplication app(argc, argv);
+
     // Todo: rename the "default" style to e.g "simple"
     // and use "default" as a phony style name instad
     // to mean "get me the default style on the current
@@ -15,9 +18,6 @@ int main(int argc, char *argv[])
 #else
     QQuickStyle::setStyle("FusionDesktop");
 #endif
-
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
