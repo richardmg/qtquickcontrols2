@@ -1,0 +1,23 @@
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 2.15
+
+Item {
+    anchors.left: parent.left
+    anchors.right: parent.right
+    implicitHeight: groupBox.height
+
+    property alias title: groupBox.title
+    default property alias children: layout.children
+
+    GroupBox {
+        id: groupBox
+        anchors.left: parent.left
+        anchors.right: parent.right
+
+        ColumnLayout {
+            id: layout
+            spacing: 15
+        }
+    }
+}

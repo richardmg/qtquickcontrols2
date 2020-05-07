@@ -12,8 +12,11 @@ ApplicationWindow {
     ScrollView {
         anchors.fill: parent
         anchors.margins: 20
+        contentWidth: width
 
         Column {
+            anchors.left: parent.left
+            anchors.right: parent.right
             spacing: 20
 
             Buttons { }

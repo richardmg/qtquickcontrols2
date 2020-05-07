@@ -8,6 +8,7 @@ QML_FILES = \
     Buttons.qml \
     Sliders.qml \
     CheckBoxes.qml \
+    ControlContainer.qml \
 
 OTHER_FILES += $$QML_FILES
 RESOURCES += $$QML_FILES
