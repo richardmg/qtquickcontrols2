@@ -6,6 +6,7 @@ HEADERS += \
     $$PWD/qquickstyleitemslidergroove.h \
     $$PWD/qquickstyleitemsliderhandle.h \
     $$PWD/qquickstyleitemgroupbox.h \
+    $$PWD/qquickstyleitemcheckbox.h \
 
 SOURCES += \
     $$PWD/qquickstyleitem.cpp \
@@ -13,5 +14,6 @@ SOURCES += \
     $$PWD/qquickstyleitemslidergroove.cpp \
     $$PWD/qquickstyleitemsliderhandle.cpp \
     $$PWD/qquickstyleitemgroupbox.cpp \
+    $$PWD/qquickstyleitemcheckbox.cpp \
 
 

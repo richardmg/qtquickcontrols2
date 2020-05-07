@@ -17,6 +17,7 @@ ApplicationWindow {
             spacing: 20
 
             Buttons { }
+            CheckBoxes { }
             Sliders { }
         }
     }

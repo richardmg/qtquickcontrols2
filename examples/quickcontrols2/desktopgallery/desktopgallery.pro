@@ -7,6 +7,7 @@ QML_FILES = \
     main.qml \
     Buttons.qml \
     Sliders.qml \
+    CheckBoxes.qml \
 
 OTHER_FILES += $$QML_FILES
 RESOURCES += $$QML_FILES
