@@ -50,10 +50,10 @@ T.Slider {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitHandleHeight + topPadding + bottomPadding)
 
-    topInset: nativeBackground ? -background.insets.top : 0
-    bottomInset: nativeBackground ? -background.insets.bottom : 0
-    leftInset: nativeBackground ? -background.insets.left : 0
-    rightInset: nativeBackground ? -background.insets.right : 0
+    topInset: nativeBackground ? background.insets.top : 0
+    bottomInset: nativeBackground ? background.insets.bottom : 0
+    leftInset: nativeBackground ? background.insets.left : 0
+    rightInset: nativeBackground ? background.insets.right : 0
 
     background: NativeStyle.SliderGroove {
         control: control

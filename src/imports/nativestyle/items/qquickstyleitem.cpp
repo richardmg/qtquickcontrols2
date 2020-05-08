@@ -300,8 +300,8 @@ QQuickStyleMargins QQuickStyleItem::insets() const
 {
     if (m_controlGeometry.layoutRect.isEmpty())
         return QQuickStyleMargins();
-    const QRect outerRect(QPoint(0, 0), m_controlGeometry.implicitSize);
-    return QQuickStyleMargins(outerRect, m_controlGeometry.layoutRect);
+    const QRect innerRect(QPoint(0, 0), m_controlGeometry.implicitSize);
+    return QQuickStyleMargins(m_controlGeometry.layoutRect, innerRect);
 }
 
 QT_END_NAMESPACE

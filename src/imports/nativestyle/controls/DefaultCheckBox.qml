@@ -65,10 +65,10 @@ T.CheckBox {
             indicator && mirrored ? indicator.width + spacing : 0
     }
 
-    topInset: nativeIndicator ? -indicator.insets.top : 0
-    bottomInset: nativeIndicator ? -indicator.insets.bottom : 0
-    leftInset: nativeIndicator ? -indicator.insets.left : 0
-    rightInset: nativeIndicator ? -indicator.insets.right : 0
+    topInset: nativeIndicator ? indicator.insets.top : 0
+    bottomInset: nativeIndicator ? indicator.insets.bottom : 0
+    leftInset: nativeIndicator ? indicator.insets.left : 0
+    rightInset: nativeIndicator ? indicator.insets.right : 0
 
     indicator: NativeStyle.CheckBox {
         control: control
