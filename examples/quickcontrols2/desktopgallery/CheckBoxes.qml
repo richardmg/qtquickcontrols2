@@ -4,6 +4,8 @@ import QtQuick.Layouts 2.15
 import QtQuick.Controls.impl 2.12
 
 ControlContainer {
+    title: "CheckBoxes"
+
     Row {
         spacing: 5
 
@@ -33,9 +35,7 @@ ControlContainer {
         CheckBox {
             id: customContentItem
             text: "Custom content item"
-            contentItem: CheckLabel {
-                leftPadding: customContentItem.indicator.width + customContentItem.spacing
-                rightPadding: customContentItem.indicator.width + customContentItem.spacing
+            contentItem: Text {
                 text: customContentItem.text
                 color: "green"
             }
@@ -48,12 +48,9 @@ ControlContainer {
                 implicitWidth: 15
                 implicitHeight: 15
 
-                x: customIndicator.text ? (customIndicator.mirrored ? customIndicator.width - width - customIndicator.rightPadding : customIndicator.leftPadding) : customIndicator.leftPadding + (customIndicator.availableWidth - width) / 2
-                y: customIndicator.topPadding + (customIndicator.availableHeight - height) / 2
-
                 color: customIndicator.down ? customIndicator.palette.light : customIndicator.palette.base
-                border.width: 2
                 border.color: "green"
+                border.width: 2
 
                 ColorImage {
                     x: (parent.width - width) / 2
@@ -80,9 +77,7 @@ ControlContainer {
             id: allCustom
             text: "All custom"
 
-            contentItem: CheckLabel {
-                leftPadding: allCustom.indicator.width + allCustom.spacing
-                rightPadding: allCustom.indicator.width + allCustom.spacing
+            contentItem: Text {
                 text: allCustom.text
                 color: "green"
             }
@@ -91,12 +86,9 @@ ControlContainer {
                 implicitWidth: 15
                 implicitHeight: 15
 
-                x: allCustom.text ? (allCustom.mirrored ? allCustom.width - width - allCustom.rightPadding : allCustom.leftPadding) : allCustom.leftPadding + (allCustom.availableWidth - width) / 2
-                y: allCustom.topPadding + (allCustom.availableHeight - height) / 2
-
                 color: allCustom.down ? allCustom.palette.light : allCustom.palette.base
-                border.width: 2
                 border.color: "green"
+                border.width: 2
 
                 ColorImage {
                     x: (parent.width - width) / 2

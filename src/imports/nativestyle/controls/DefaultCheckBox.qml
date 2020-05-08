@@ -43,11 +43,32 @@ import QtQuick.NativeStyle 6.0 as NativeStyle
 T.CheckBox {
     id: control
 
+    property bool nativeIndicator: indicator instanceof NativeStyle.StyleItem
+
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
+    spacing: 5
+    leftPadding: {
+        if (nativeIndicator)
+            indicator.contentPadding.left
+        else
+            indicator && !mirrored ? indicator.width + spacing : 0
+    }
+
+    rightPadding: {
+        if (nativeIndicator)
+            indicator.contentPadding.right
+        else
+            indicator && mirrored ? indicator.width + spacing : 0
+    }
+
+    topInset: nativeIndicator ? -indicator.insets.top : 0
+    bottomInset: nativeIndicator ? -indicator.insets.bottom : 0
+    leftInset: nativeIndicator ? -indicator.insets.left : 0
+    rightInset: nativeIndicator ? -indicator.insets.right : 0
 
     indicator: NativeStyle.CheckBox {
         control: control
@@ -56,9 +77,6 @@ T.CheckBox {
     }
 
     contentItem: CheckLabel {
-        leftPadding: control.indicator && !control.mirrored ? control.indicator.width + control.spacing : 0
-        rightPadding: control.indicator && control.mirrored ? control.indicator.width + control.spacing : 0
-
         text: control.text
         font: control.font
         color: control.palette.windowText
