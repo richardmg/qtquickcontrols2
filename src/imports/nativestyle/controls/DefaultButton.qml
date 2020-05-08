@@ -45,6 +45,9 @@ T.Button {
 
     property bool nativeBackground: background instanceof NativeStyle.StyleItem
 
+    // Since QQuickControl will subtract the insets from the control size to
+    // figure out the background size, we need to reverse that here, otherwise
+    // the control ends up too big.
     implicitWidth: implicitBackgroundWidth + leftInset + rightInset
     implicitHeight: implicitBackgroundHeight + topInset + bottomInset
 
