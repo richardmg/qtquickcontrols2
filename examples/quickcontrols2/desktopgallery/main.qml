@@ -9,20 +9,59 @@ ApplicationWindow {
     height: 600
     title: qsTr("Desktop Gallery")
 
-    ScrollView {
-        anchors.fill: parent
+    TabBar {
+        id: bar
+        anchors.left: parent.left
+        anchors.right: parent.right
         anchors.margins: 20
-        contentWidth: width
 
-        Column {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            spacing: 20
+        TabButton {
+            text: qsTr("Default controls")
+        }
 
-            Buttons { }
-            CheckBoxes { }
-            RadioButtons { }
-            Sliders { }
+        TabButton {
+            text: qsTr("Customized controls")
+        }
+    }
+
+    StackLayout {
+        currentIndex: bar.currentIndex
+        anchors.top: bar.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.margins: 20
+
+        ScrollView {
+            contentWidth: width
+            clip: true
+
+            Column {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 20
+
+                Buttons { }
+                CheckBoxes { }
+                RadioButtons { }
+                Sliders { }
+            }
+        }
+
+        ScrollView {
+            contentWidth: width
+            clip: true
+
+            Column {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 20
+
+                CustomButtons { }
+                CustomCheckBoxes { }
+                CustomRadioButtons { }
+                CustomSliders { }
+            }
         }
     }
 

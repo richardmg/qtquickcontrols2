@@ -7,9 +7,13 @@ QML_FILES = \
     main.qml \
     ControlContainer.qml \
     Buttons.qml \
+    CustomButtons.qml \
     Sliders.qml \
+    CustomSliders.qml \
     CheckBoxes.qml \
+    CustomCheckBoxes.qml \
     RadioButtons.qml \
+    CustomRadioButtons.qml \
 
 OTHER_FILES += $$QML_FILES
 RESOURCES += $$QML_FILES
