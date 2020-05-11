@@ -3,3 +3,4 @@ QML_FILES += \
     $$PWD/Slider.qml \
     $$PWD/GroupBox.qml \
     $$PWD/CheckBox.qml \
+    $$PWD/RadioButton.qml \

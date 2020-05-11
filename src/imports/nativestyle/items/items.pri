@@ -7,6 +7,7 @@ HEADERS += \
     $$PWD/qquickstyleitemsliderhandle.h \
     $$PWD/qquickstyleitemgroupbox.h \
     $$PWD/qquickstyleitemcheckbox.h \
+    $$PWD/qquickstyleitemradiobutton.h \
 
 SOURCES += \
     $$PWD/qquickstyleitem.cpp \
@@ -15,5 +16,6 @@ SOURCES += \
     $$PWD/qquickstyleitemsliderhandle.cpp \
     $$PWD/qquickstyleitemgroupbox.cpp \
     $$PWD/qquickstyleitemcheckbox.cpp \
+    $$PWD/qquickstyleitemradiobutton.cpp \
 
 

@@ -21,6 +21,7 @@ ApplicationWindow {
 
             Buttons { }
             CheckBoxes { }
+            RadioButtons { }
             Sliders { }
         }
     }

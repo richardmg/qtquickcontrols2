@@ -5,10 +5,11 @@ SOURCES += \
 
 QML_FILES = \
     main.qml \
+    ControlContainer.qml \
     Buttons.qml \
     Sliders.qml \
     CheckBoxes.qml \
-    ControlContainer.qml \
+    RadioButtons.qml \
 
 OTHER_FILES += $$QML_FILES
 RESOURCES += $$QML_FILES

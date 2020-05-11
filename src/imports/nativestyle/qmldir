@@ -5,5 +5,6 @@ depends QtQuick.Controls 2.5
 
 DefaultButton 6.0 controls/DefaultButton.qml
 DefaultCheckBox 6.0 controls/DefaultCheckBox.qml
+DefaultRadioButton 6.0 controls/DefaultRadioButton.qml
 DefaultSlider 6.0 controls/DefaultSlider.qml
 DefaultGroupBox 6.0 controls/DefaultGroupBox.qml
