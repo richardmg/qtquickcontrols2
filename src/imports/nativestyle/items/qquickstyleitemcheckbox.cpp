@@ -56,6 +56,9 @@ ControlGeometry QQuickStyleItemCheckBox::calculateControlGeometry()
     cg.contentRect = style()->subElementRect(QStyle::SE_CheckBoxContents, &styleOption);
     cg.layoutRect = style()->subElementRect(QStyle::SE_CheckBoxLayoutItem, &styleOption);
 
+    // Spacing seems to already be baked into SE_CheckBoxContents, so ignore until needed
+    //const int space = style()->pixelMetric(QStyle::PM_CheckBoxLabelSpacing, &styleOption);
+
     return cg;
 }
 
