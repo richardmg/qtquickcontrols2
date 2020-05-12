@@ -14,6 +14,11 @@ ControlContainer {
         }
 
         CheckBox {
+            text: "Disabled"
+            enabled: false
+        }
+
+        CheckBox {
             text: "Tri-state"
             tristate: true
         }

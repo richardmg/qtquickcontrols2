@@ -8,16 +8,21 @@ ControlContainer {
         spacing: 5
 
         Button {
-            text: "Default button"
+            text: "Default"
         }
 
         Button {
-            text: "Small button"
+            text: "Disabled"
+            enabled: false
+        }
+
+        Button {
+            text: "Small"
             property bool qqc2_style_small
         }
 
         Button {
-            text: "Mini button"
+            text: "Mini"
             property bool qqc2_style_mini
         }
     }

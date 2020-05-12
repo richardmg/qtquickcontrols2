@@ -11,11 +11,18 @@ ControlContainer {
         spacing: 5
 
         Slider {
-            id: control
             width: sliderWidth
             from: 0
             to: 10
             value: 5
+        }
+
+        Slider {
+            width: sliderWidth
+            from: 0
+            to: 10
+            value: 5
+            enabled: false
         }
 
         Slider {
@@ -48,6 +55,15 @@ ControlContainer {
             from: 0
             to: 10
             value: 5
+        }
+
+        Slider {
+            height: sliderHeight
+            orientation: Qt.Vertical
+            from: 0
+            to: 10
+            value: 5
+            enabled: false
         }
 
         Slider {

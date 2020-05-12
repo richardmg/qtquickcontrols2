@@ -23,6 +23,21 @@ ControlContainer {
 
         Column {
             RadioButton {
+                text: "Disabled"
+                enabled: false
+            }
+            RadioButton {
+                text: "Disabled"
+                enabled: false
+            }
+            RadioButton {
+                text: "Disabled"
+                enabled: false
+            }
+        }
+
+        Column {
+            RadioButton {
                 text: "Small"
                 property bool qqc2_style_small
             }
