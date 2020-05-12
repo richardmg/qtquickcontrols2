@@ -4,3 +4,4 @@ QML_FILES += \
     $$PWD/GroupBox.qml \
     $$PWD/CheckBox.qml \
     $$PWD/RadioButton.qml \
+    $$PWD/SpinBox.qml \

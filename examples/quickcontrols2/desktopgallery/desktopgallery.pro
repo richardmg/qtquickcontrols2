@@ -14,6 +14,8 @@ QML_FILES = \
     CustomCheckBoxes.qml \
     RadioButtons.qml \
     CustomRadioButtons.qml \
+    SpinBoxes.qml \
+    CustomSpinBoxes.qml \
 
 OTHER_FILES += $$QML_FILES
 RESOURCES += $$QML_FILES

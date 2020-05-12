@@ -56,8 +56,10 @@
 
 #ifdef QT_DEBUG
 #define qqc2Debug() if (!m_debug.isEmpty()) qDebug() << m_debug << __FUNCTION__
+#define qqc2DebugHeading(HEADING) if (!m_debug.isEmpty()) qDebug() << "--------" << HEADING << "--------"
 #else
 #define qqc2Debug() if (false) qDebug()
+#define qqc2DebugHeading(HEADING) if (false) qDebug()
 #endif
 
 QT_BEGIN_NAMESPACE

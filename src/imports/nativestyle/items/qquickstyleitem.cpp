@@ -173,7 +173,7 @@ void QQuickStyleItem::geometryChange(const QRectF &newGeometry, const QRectF &ol
 
 void QQuickStyleItem::updateControlGeometry()
 {
-    qqc2Debug() << "BEGIN";
+    qqc2DebugHeading("GEOMETRY");
     m_dirty.setFlag(DirtyFlag::Geometry, false);
     const QQuickStyleMargins oldContentPadding = contentPadding();
     const QQuickStyleMargins oldInsets = insets();
@@ -202,12 +202,13 @@ void QQuickStyleItem::updateControlGeometry()
     qqc2Debug() << m_controlGeometry
                 << "bounding rect:" << boundingRect()
                 << "content padding:" << contentPadding()
-                << "insets:" << insets();
+                << "insets:" << insets()
+                << "input content size:" << m_contentSize;
 }
 
 void QQuickStyleItem::paintControlToImage()
 {
-    qqc2Debug() << "BEGIN";
+    qqc2DebugHeading("PAINT");
     if (m_controlGeometry.minimumSize.isEmpty())
         return;
 

@@ -562,7 +562,7 @@ class QStyleOptionSpinBox : public QStyleOptionComplex
 public:
     enum StyleOptionType { Type = SO_SpinBox };
     enum StyleOptionVersion { Version = 1 };
-    enum StepEnabledFlag { StepNone = 0x00, StepUpEnabled = 0x01, StepDownEnabled = 0x02 };
+    enum StepEnabledFlag { StepNone = 0x00, StepUpEnabled = 0x01, StepDownEnabled = 0x02, StepEnabled = 0xFF };
     enum ButtonSymbols { UpDownArrows, PlusMinus, NoButtons };
 
     ButtonSymbols buttonSymbols;

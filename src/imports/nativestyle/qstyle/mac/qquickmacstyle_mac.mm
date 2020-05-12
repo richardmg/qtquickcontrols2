@@ -5813,18 +5813,26 @@ QRect QMacStyle::subControlRect(ComplexControl cc, const QStyleOptionComplex *op
             QStyleHelper::WidgetSizePolicy aquaSize = d->effectiveAquaSizeConstrain(spin);
             const auto fw = proxy()->pixelMetric(PM_SpinBoxFrameWidth, spin);
             int spinner_w;
+            int spinner_h;
+            int adjust_y;
             int spinBoxSep;
             switch (aquaSize) {
             case QStyleHelper::SizeLarge:
                 spinner_w = 14;
+                spinner_h = 24;
+                adjust_y = -1;
                 spinBoxSep = 2;
                 break;
             case QStyleHelper::SizeSmall:
                 spinner_w = 12;
+                spinner_h = 20;
+                adjust_y = -1;
                 spinBoxSep = 2;
                 break;
             case QStyleHelper::SizeMini:
                 spinner_w = 10;
+                spinner_h = 16;
+                adjust_y = -1;
                 spinBoxSep = 1;
                 break;
             default:
@@ -5839,21 +5847,7 @@ QRect QMacStyle::subControlRect(ComplexControl cc, const QStyleOptionComplex *op
 
                 const int y = fw;
                 const int x = spin->rect.width() - spinner_w;
-                ret.setRect(x + spin->rect.x(), y + spin->rect.y(), spinner_w, spin->rect.height() - y * 2);
-                int hackTranslateX;
-                switch (aquaSize) {
-                case QStyleHelper::SizeLarge:
-                    hackTranslateX = 0;
-                    break;
-                case QStyleHelper::SizeSmall:
-                    hackTranslateX = -2;
-                    break;
-                case QStyleHelper::SizeMini:
-                    hackTranslateX = -1;
-                    break;
-                default:
-                    Q_UNREACHABLE();
-                }
+                ret.setRect(x + spin->rect.x(), y + spin->rect.y(), spinner_w, spinner_h);
 
                 const auto cw = QMacStylePrivate::CocoaControl(QMacStylePrivate::Stepper, aquaSize);
                 NSStepperCell *cell = static_cast<NSStepperCell *>(d->cocoaCell(cw));
@@ -5871,13 +5865,15 @@ QRect QMacStyle::subControlRect(ComplexControl cc, const QStyleOptionComplex *op
                     Q_ASSERT(0);
                     break;
                 }
-                ret.translate(hackTranslateX, 0); // hack: position the buttons correctly (weird that we need this)
+                // The buttons are drawn with a top-margin (for some reason) into
+                // the rect. So undo that margin here:
+                ret.translate(0, adjust_y);
                 ret = visualRect(spin->direction, spin->rect, ret);
                 break;
             }
             case SC_SpinBoxEditField:
                 ret = spin->rect.adjusted(fw, fw, -fw, -fw);
-                if (spin->buttonSymbols != QStyleOptionSpinBox::NoButtons) {
+                if (spin->subControls & SC_SpinBoxUp || spin->subControls & SC_SpinBoxDown) {
                     ret.setWidth(spin->rect.width() - spinBoxSep - spinner_w);
                     ret = visualRect(spin->direction, spin->rect, ret);
                 }
@@ -5915,9 +5911,17 @@ QSize QMacStyle::sizeFromContents(ContentsType ct, const QStyleOption *opt, cons
     switch (ct) {
     case CT_SpinBox:
         if (const QStyleOptionSpinBox *vopt = qstyleoption_cast<const QStyleOptionSpinBox *>(opt)) {
-            const bool hasButtons = (vopt->buttonSymbols != QStyleOptionSpinBox::NoButtons);
-            const int buttonWidth = hasButtons ? proxy()->subControlRect(CC_SpinBox, vopt, SC_SpinBoxUp).width() : 0;
-            sz += QSize(buttonWidth, 0);
+            if (vopt->subControls == SC_SpinBoxFrame) {
+                const QSize minimumSize(10, 10);
+                if (sz.width() < minimumSize.width())
+                    sz.setWidth(minimumSize.width());
+                if (sz.height() < minimumSize.height())
+                    sz.setHeight(minimumSize.height());
+            } else {
+                const QSize buttonSize = proxy()->subControlRect(CC_SpinBox, vopt, SC_SpinBoxUp).size();
+                const int upAndDownTogetherHeight = buttonSize.height() * 2;
+                sz += QSize(buttonSize.width(), upAndDownTogetherHeight);
+            }
         }
         break;
     case QStyle::CT_TabWidget:
