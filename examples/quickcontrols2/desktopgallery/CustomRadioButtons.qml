@@ -15,6 +15,7 @@ ControlContainer {
             contentItem: Text {
                 text: customContentItem.text
                 color: "green"
+                leftPadding: customContentItem.indicator.width + customContentItem.spacing
             }
         }
 
@@ -24,6 +25,9 @@ ControlContainer {
             indicator: Rectangle {
                 implicitWidth: 14
                 implicitHeight: 14
+
+                x: customIndicator.text ? customIndicator.leftPadding : customIndicator.leftPadding + (customIndicator.availableWidth - width) / 2
+                y: customIndicator.topPadding + (customIndicator.availableHeight - height) / 2
 
                 radius: width / 2
                 color: customIndicator.down ? customIndicator.palette.light : customIndicator.palette.base
@@ -49,11 +53,15 @@ ControlContainer {
             contentItem: Text {
                 text: allCustom.text
                 color: "green"
+                leftPadding: allCustom.indicator.width + allCustom.spacing
             }
 
             indicator: Rectangle {
                 implicitWidth: 14
                 implicitHeight: 14
+
+                x: allCustom.text ? allCustom.leftPadding : allCustom.leftPadding + (allCustom.availableWidth - width) / 2
+                y: allCustom.topPadding + (allCustom.availableHeight - height) / 2
 
                 radius: width / 2
                 color: allCustom.down ? allCustom.palette.light : allCustom.palette.base

@@ -50,20 +50,9 @@ T.CheckBox {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
-    spacing: 5
-    leftPadding: {
-        if (nativeIndicator)
-            indicator.contentPadding.left
-        else
-            indicator && !mirrored ? indicator.width + spacing : 0
-    }
 
-    rightPadding: {
-        if (nativeIndicator)
-            indicator.contentPadding.right
-        else
-            indicator && mirrored ? indicator.width + spacing : 0
-    }
+    spacing: nativeIndicator ? 0 : 6
+    padding: nativeIndicator ? 0 : 6
 
     topInset: nativeIndicator ? indicator.insets.top : 0
     bottomInset: nativeIndicator ? indicator.insets.bottom : 0
@@ -80,5 +69,25 @@ T.CheckBox {
         text: control.text
         font: control.font
         color: control.palette.windowText
+
+        // For some reason, the other styles set padding here (in the delegate), instead of in
+        // the control above. And they also adjust the indicator position by setting x and y
+        // explicitly (instead of using insets). So we follow the same pattern to ensure that
+        // setting a custom contentItem delegate from the app will end up looking the same for
+        // all styles. But this should probably be fixed for all styles (to make them work the
+        // same way as e.g Buttons).
+        leftPadding: {
+            if (nativeIndicator)
+                indicator.contentPadding.left
+            else
+                indicator && !mirrored ? indicator.width + spacing : 0
+        }
+
+        rightPadding: {
+            if (nativeIndicator)
+                indicator.contentPadding.right
+            else
+                indicator && mirrored ? indicator.width + spacing : 0
+        }
     }
 }
