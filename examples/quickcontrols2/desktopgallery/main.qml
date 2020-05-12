@@ -14,6 +14,7 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.margins: 20
+        anchors.rightMargin: 40
 
         TabButton {
             text: qsTr("Default controls")
@@ -35,6 +36,7 @@ ApplicationWindow {
         ScrollView {
             contentWidth: width
             clip: true
+            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
             Column {
                 anchors.left: parent.left
@@ -51,6 +53,7 @@ ApplicationWindow {
         ScrollView {
             contentWidth: width
             clip: true
+            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
             Column {
                 anchors.left: parent.left
