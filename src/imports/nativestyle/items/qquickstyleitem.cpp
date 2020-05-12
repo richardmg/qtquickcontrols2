@@ -181,9 +181,9 @@ void QQuickStyleItem::updateControlGeometry()
 
 #ifdef QT_DEBUG
     if (m_controlGeometry.implicitSize.isEmpty())
-        qmlWarning(this) << "controlSize is not set (or is empty)";
+        qmlWarning(this) << "implicitSize is empty!";
     if (m_controlGeometry.minimumSize.isEmpty())
-        qmlWarning(this) << "imageSize is not set (or is empty)";
+        qmlWarning(this) << "minimumSize is empty!";
 #endif
 
     if (contentPadding() != oldContentPadding)
