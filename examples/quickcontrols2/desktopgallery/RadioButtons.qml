@@ -39,15 +39,15 @@ ControlContainer {
         Column {
             RadioButton {
                 text: "Mini"
-                property bool qqc2_style_small
+                property bool qqc2_style_mini
             }
             RadioButton {
                 text: "Mini"
-                property bool qqc2_style_small
+                property bool qqc2_style_mini
             }
             RadioButton {
                 text: "Mini"
-                property bool qqc2_style_small
+                property bool qqc2_style_mini
             }
         }
     }
