@@ -34,7 +34,7 @@ ControlContainer {
                     y: (parent.height - height) / 2
                     defaultColor: "#353637"
                     scale: 0.5
-                    color: customIndicator.palette.text
+                    color: "green"
                     source: "qrc:/qt-project.org/imports/QtQuick/Controls.2/images/check.png"
                     visible: customIndicator.checkState === Qt.Checked
                 }
@@ -72,7 +72,7 @@ ControlContainer {
                     y: (parent.height - height) / 2
                     defaultColor: "#353637"
                     scale: 0.5
-                    color: allCustom.palette.text
+                    color: "green"
                     source: "qrc:/qt-project.org/imports/QtQuick/Controls.2/images/check.png"
                     visible: allCustom.checkState === Qt.Checked
                 }
@@ -82,7 +82,7 @@ ControlContainer {
                     y: (parent.height - height) / 2
                     width: 16
                     height: 3
-                    color: allCustom.palette.text
+                    color: "green"
                     visible: allCustom.checkState === Qt.PartiallyChecked
                 }
             }
