@@ -55,8 +55,9 @@ T.Slider {
     leftInset: nativeBackground ? background.insets.left : 0
     rightInset: nativeBackground ? background.insets.right : 0
 
-    background: NativeStyle.SliderGroove {
+    background: NativeStyle.Slider {
         control: control
+        subControl: NativeStyle.Slider.Groove
         // We normally cannot use a nine patch image for the
         // groove if we draw tickmarks (since then the scaling
         // would scale the tickmarks too). The groove might
@@ -65,8 +66,9 @@ T.Slider {
         useNinePatchImage: false
     }
 
-    handle: NativeStyle.SliderHandle {
+    handle: NativeStyle.Slider {
         control: control
+        subControl: NativeStyle.Slider.Handle
         x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
         y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height))
         useNinePatchImage: false

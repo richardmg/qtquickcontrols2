@@ -34,42 +34,48 @@
 **
 ****************************************************************************/
 
-#include "qquickstyleitemsliderhandle.h"
+#include "qquickstyleitemslider.h"
 
-void QQuickStyleItemSliderHandle::connectToControl()
+void QQuickStyleItemSlider::connectToControl()
 {
     QQuickStyleItem::connectToControl();
     auto slider = control<QQuickSlider>();
+    connect(slider, &QQuickSlider::fromChanged, this, &QQuickStyleItem::markImageDirty);
+    connect(slider, &QQuickSlider::toChanged, this, &QQuickStyleItem::markImageDirty);
+    connect(slider, &QQuickSlider::positionChanged, this, &QQuickStyleItem::markImageDirty);
+    connect(slider, &QQuickSlider::valueChanged, this, &QQuickStyleItem::markImageDirty);
+    connect(slider, &QQuickSlider::stepSizeChanged, this, &QQuickStyleItem::markImageDirty);
     connect(slider, &QQuickSlider::pressedChanged, this, &QQuickStyleItem::markImageDirty);
     connect(slider, &QQuickSlider::orientationChanged, this, &QQuickStyleItem::markImageDirty);
 }
 
-ControlGeometry QQuickStyleItemSliderHandle::calculateControlGeometry()
+ControlGeometry QQuickStyleItemSlider::calculateControlGeometry()
 {
     QStyleOptionSlider styleOption;
     initStyleOption(styleOption);
 
     ControlGeometry cg;
-    cg.minimumSize = style()->subControlRect(QStyle::CC_Slider, &styleOption, QStyle::SC_SliderHandle).size();
+    cg.minimumSize = style()->sizeFromContents(QStyle::CT_Slider, &styleOption, QSize());
     cg.implicitSize = cg.minimumSize;
+    cg.layoutRect = style()->subElementRect(QStyle::SE_SliderLayoutItem, &styleOption);
+
     return cg;
 }
 
-void QQuickStyleItemSliderHandle::paintEvent(QPainter *painter)
+void QQuickStyleItemSlider::paintEvent(QPainter *painter)
 {
     QStyleOptionSlider styleOption;
     initStyleOption(styleOption);
     style()->drawComplexControl(QStyle::CC_Slider, &styleOption, painter);
 }
 
-void QQuickStyleItemSliderHandle::initStyleOption(QStyleOptionSlider &styleOption)
+void QQuickStyleItemSlider::initStyleOption(QStyleOptionSlider &styleOption)
 {
     initStyleOptionBase(styleOption);
     auto slider = control<QQuickSlider>();
 
-    styleOption.subControls = QStyle::SC_SliderHandle;
+    styleOption.subControls = m_subControl == Groove ? QStyle::SC_SliderGroove : QStyle::SC_SliderHandle;
     styleOption.activeSubControls = QStyle::SC_None;
-    styleOption.direction = Qt::LeftToRight;
     styleOption.orientation = slider->orientation();
     styleOption.tickInterval = slider->stepSize();
 

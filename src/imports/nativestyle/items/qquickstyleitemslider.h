@@ -34,16 +34,26 @@
 **
 ****************************************************************************/
 
-#ifndef QQUICKSTYLEITEMSLIDERHANDLE_H
-#define QQUICKSTYLEITEMSLIDERHANDLE_H
+#ifndef QQUICKSTYLEITEMSLIDER_H
+#define QQUICKSTYLEITEMSLIDER_H
 
 #include "qquickstyleitem.h"
 #include <QtQuickTemplates2/private/qquickslider_p.h>
 
-class QQuickStyleItemSliderHandle : public QQuickStyleItem
+class QQuickStyleItemSlider : public QQuickStyleItem
 {
     Q_OBJECT
-    QML_NAMED_ELEMENT(SliderHandle)
+
+    Q_PROPERTY(SubControl subControl MEMBER m_subControl)
+
+    QML_NAMED_ELEMENT(Slider)
+
+public:
+    enum SubControl {
+        Groove = 1,
+        Handle,
+    };
+    Q_ENUM(SubControl)
 
 protected:
     void connectToControl() override;
@@ -52,6 +62,9 @@ protected:
 
 private:
     void initStyleOption(QStyleOptionSlider &styleOption);
+
+private:
+   SubControl m_subControl = Groove;
 };
 
-#endif // QQUICKSTYLEITEMSLIDERHANDLE_H
+#endif // QQUICKSTYLEITEMSLIDER_H
