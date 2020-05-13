@@ -104,27 +104,37 @@ QDebug operator<<(QDebug debug, const QQuickStyleMargins &padding);
 
 struct ControlGeometry
 {
-    // 'minimumSize' should be the minimum possible size that the item can have
-    // _without_ taking content size into consideration (and still render correctly).
-    // This will also then be the size of the nine patch image. If the
-    // QQuickStyleItem::useNinePatchImage is set to false, the image size will be overwritten
-    // to be the same as the control size (since we we're then not supposed to scale the image).
+    /*
+    A QQuickItem is responsible for drawing a control, or a part of it.
+    'minimumSize' should be the minimum possible size that the item can
+    have _without_ taking content size into consideration (and still render
+    correctly). This will also be the size of the image that the item is drawn
+    to, unless QQuickStyleItem::useNinePatchImage is set to false. In that
+    case, the size of the image will be set to the size of the item instead
+    (which is set from QML, and will typically be the same as the size of the control).
+    The default way to calculate minimumSize is to call style()->sizeFromContents()
+    with an empty content size. This is not always well supported by the legacy QStyle
+    implementations, which means that you might e.g get an empty size in return).
+    For those cases, the correct solution is to go into the specific platform style
+    and change it so that it returns a valid size also for this special case.
 
-    // 'implicitSize' should reflect the preferred size of the item, taking the
-    // given content size (as set from QML) into account. But that not all controls
-    // have contents (slider), and for many controls, the content/label is instead placed
-    // outside the item/background image (radiobutton). In both cases, the size of the item will
-    // not include the content size, and implicitSize can usually be set equal to minimumSize.
+    'implicitSize' should reflect the preferred size of the item, taking the
+    given content size (as set from QML) into account. But not all controls
+    have contents (slider), and for many controls, the content/label is instead
+    placed outside the item/background image (radiobutton). In both cases, the
+    size of the item will not include the content size, and implicitSize can
+    usually be set equal to minimumSize instead.
 
-    // 'contentRect' should be the free space where the contents can be placed. Note that
-    // this rect doesn't need to have the same size as the contentSize provided as input
-    // to the style item. Instead, QStyle can typically calculate a rect that is bigger, to
-    // e.g center the contents inside the control.
+    'contentRect' should be the free space where the contents can be placed. Note that
+    this rect doesn't need to have the same size as the contentSize provided as input
+    to the style item. Instead, QStyle can typically calculate a rect that is bigger, to
+    e.g center the contents inside the control.
 
-    // 'layoutRect' can be set to shift the position of the whole control so
-    // that aligns correctly with the other controls. This is important for controls that
-    // draws e.g shadows or focus rings. Such adornments should be painted, but
-    // not be included when aligning the controls.
+    'layoutRect' can be set to shift the position of the whole control so
+    that aligns correctly with the other controls. This is important for
+    controls that draws e.g shadows or focus rings. Such adornments should
+    be painted, but not be included when aligning the controls.
+    */
 
     QSize minimumSize;
     QSize implicitSize;
