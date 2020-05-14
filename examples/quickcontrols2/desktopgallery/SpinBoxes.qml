@@ -8,9 +8,8 @@ ControlContainer {
         spacing: 5
 
         SpinBox {
-            value: 1000
+            value: 500
             to: 2000
-            width: 80
         }
 
         SpinBox {
@@ -19,16 +18,16 @@ ControlContainer {
         }
 
         SpinBox {
-            width: 50
-            value: 10
-            from: 5
-            to: 15
+            value: 5
+            from: 0
+            to: 9
             property bool qqc2_style_small
         }
 
         SpinBox {
-            width: 50
             value: 0
+            from: -9
+            to: 9
             property bool qqc2_style_mini
         }
     }

@@ -11,7 +11,6 @@ ControlContainer {
             id: custombg
             value: 1000
             to: 2000
-            width: 80
             background: Rectangle {
                 border.color: "green"
             }
@@ -19,10 +18,8 @@ ControlContainer {
 
         SpinBox {
             id: customIndicator
-            value: 1000
+            value: 500
             to: 2000
-            width: 80
-            height: 28
 
             rightPadding: 17
 
@@ -30,7 +27,7 @@ ControlContainer {
                 x: customIndicator.width - width - 4
                 y: 3
                 implicitWidth: customIndicator.rightPadding - 4
-                implicitHeight: width - 2
+                implicitHeight: 8
                 border.width: 1
                 border.color: "green"
                 color: customIndicator.up.pressed ? "gray" : "transparent"
@@ -46,7 +43,7 @@ ControlContainer {
                 x: customIndicator.width - width - 4
                 y: height + 2
                 implicitWidth: customIndicator.rightPadding - 4
-                implicitHeight: width - 2
+                implicitHeight: 8
                 border.width: 1
                 border.color: "green"
                 color: customIndicator.down.pressed ? "gray" : "transparent"
@@ -61,10 +58,8 @@ ControlContainer {
 
         SpinBox {
             id: allCustom
-            value: 1000
+            value: 500
             to: 2000
-            width: 80
-            height: 28
 
             rightPadding: 17
 
@@ -76,7 +71,7 @@ ControlContainer {
                 x: allCustom.width - width - 4
                 y: 3
                 implicitWidth: allCustom.rightPadding - 4
-                implicitHeight: width - 2
+                implicitHeight: 8
                 border.width: 1
                 border.color: "green"
                 color: allCustom.up.pressed ? "gray" : "transparent"
@@ -92,7 +87,7 @@ ControlContainer {
                 x: allCustom.width - width - 4
                 y: height + 2
                 implicitWidth: allCustom.rightPadding - 4
-                implicitHeight: width - 2
+                implicitHeight: 8
                 border.width: 1
                 border.color: "green"
                 color: allCustom.down.pressed ? "gray" : "transparent"
