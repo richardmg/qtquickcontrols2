@@ -11,12 +11,16 @@ int main(int argc, char *argv[])
     // and use "default" as a phony style name instad
     // to mean "get me the default style on the current
     // platform".
+    const QString style = qEnvironmentVariable("DESKTOPGALLERY_STYLE");
+    if (!style.isEmpty())
+        QQuickStyle::setStyle(style);
+    else
 #if defined(Q_OS_OSX)
-    QQuickStyle::setStyle("macOS");
+        QQuickStyle::setStyle("macOS");
 #elif defined(Q_OS_WINDOWS)
-    QQuickStyle::setStyle("Windows");
+        QQuickStyle::setStyle("Windows");
 #else
-    QQuickStyle::setStyle("FusionDesktop");
+        QQuickStyle::setStyle("FusionDesktop");
 #endif
 
     QQmlApplicationEngine engine;
