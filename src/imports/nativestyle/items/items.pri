@@ -8,6 +8,7 @@ HEADERS += \
     $$PWD/qquickstyleitemradiobutton.h \
     $$PWD/qquickstyleitemslider.h \
     $$PWD/qquickstyleitemspinbox.h \
+    $$PWD/qquickstyleitemtextfield.h \
 
 SOURCES += \
     $$PWD/qquickstyleitem.cpp \
@@ -17,3 +18,4 @@ SOURCES += \
     $$PWD/qquickstyleitemradiobutton.cpp \
     $$PWD/qquickstyleitemslider.cpp \
     $$PWD/qquickstyleitemspinbox.cpp \
+    $$PWD/qquickstyleitemtextfield.cpp \

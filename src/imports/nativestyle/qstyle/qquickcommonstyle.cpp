@@ -4610,8 +4610,15 @@ QSize QCommonStyle::sizeFromContents(ContentsType ct, const QStyleOption *opt, c
         sz += QSize(4, 4);
         break;
     case CT_LineEdit:
-        if (const QStyleOptionFrame *f = qstyleoption_cast<const QStyleOptionFrame *>(opt))
-            sz += QSize(2*f->lineWidth, 2*f->lineWidth);
+        if (const QStyleOptionFrame *f = qstyleoption_cast<const QStyleOptionFrame *>(opt)) {
+            const int borderSize = 2 * f->lineWidth;
+            sz += QSize(borderSize, borderSize);
+            const int minSize = 10;
+            if (sz.width() < minSize)
+                sz.rwidth() = minSize;
+            if (sz.height() < minSize)
+                sz.rheight() = minSize;
+        }
         break;
     case CT_GroupBox:
         if (const QStyleOptionGroupBox *styleOpt = qstyleoption_cast<const QStyleOptionGroupBox *>(opt)) {

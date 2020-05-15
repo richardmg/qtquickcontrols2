@@ -5,3 +5,4 @@ QML_FILES += \
     $$PWD/CheckBox.qml \
     $$PWD/RadioButton.qml \
     $$PWD/SpinBox.qml \
+    $$PWD/TextField.qml \

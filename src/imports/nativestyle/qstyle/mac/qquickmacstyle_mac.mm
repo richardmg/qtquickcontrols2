@@ -4591,15 +4591,22 @@ QRect QMacStyle::subElementRect(SubElement sr, const QStyleOption *opt) const
             }
         }
         break;
-    case SE_LineEditContents:
-        rect = QCommonStyle::subElementRect(sr, opt);
-//#if QT_CONFIG(combobox)
-//        if (widget && qobject_cast<const QComboBox*>(widget->parentWidget()))
-//            rect.adjust(-1, -2, 0, 0);
-//        else
-//#endif
-            rect.adjust(-1, -1, 0, +1);
-        break;
+    case SE_LineEditContents: {
+        // From using pixelTool with XCode/NSTextTextField
+        int leftPadding = 4;
+        int rightPadding = 4;
+        int topPadding = 4;
+        int bottomPadding = 0;
+
+        if (opt->state & QStyle::State_Small) {
+            topPadding = 3;
+        } else if (opt->state & QStyle::State_Mini) {
+            topPadding = 2;
+        }
+
+        rect = QRect(leftPadding, topPadding, opt->rect.width() - leftPadding - rightPadding,
+                     opt->rect.height() - topPadding - bottomPadding);
+        break; }
     case SE_CheckBoxLayoutItem:
         rect = opt->rect;
         if (controlSize == QStyleHelper::SizeLarge) {

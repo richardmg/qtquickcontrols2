@@ -47,6 +47,7 @@ ApplicationWindow {
                 CheckBoxes { }
                 RadioButtons { }
                 SpinBoxes { }
+                TextFields { }
                 Sliders { }
             }
         }
@@ -65,6 +66,7 @@ ApplicationWindow {
                 CustomCheckBoxes { }
                 CustomRadioButtons { }
                 CustomSpinBoxes { }
+                CustomTextFields { }
                 CustomSliders { }
             }
         }

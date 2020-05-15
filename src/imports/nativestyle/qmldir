@@ -9,3 +9,4 @@ DefaultRadioButton 6.0 controls/DefaultRadioButton.qml
 DefaultSlider 6.0 controls/DefaultSlider.qml
 DefaultGroupBox 6.0 controls/DefaultGroupBox.qml
 DefaultSpinBox 6.0 controls/DefaultSpinBox.qml
+DefaultTextField 6.0 controls/DefaultTextField.qml

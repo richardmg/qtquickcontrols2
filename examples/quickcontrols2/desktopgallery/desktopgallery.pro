@@ -16,6 +16,8 @@ QML_FILES = \
     CustomRadioButtons.qml \
     SpinBoxes.qml \
     CustomSpinBoxes.qml \
+    TextFields.qml \
+    CustomTextFields.qml \
 
 OTHER_FILES += $$QML_FILES
 RESOURCES += $$QML_FILES
