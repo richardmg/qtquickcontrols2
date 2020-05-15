@@ -53,12 +53,9 @@ T.SpinBox {
                 && down.indicator.hasOwnProperty("_qt_default")
     }
 
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            contentItem.implicitWidth + 2 * padding +
-                            up.implicitIndicatorWidth +
-                            down.implicitIndicatorWidth)
-    implicitHeight: Math.max(implicitContentHeight + topPadding + bottomPadding,
-                             up.implicitIndicatorHeight + down.implicitIndicatorHeight)
+    implicitWidth: implicitBackgroundWidth + leftInset + rightInset
+    implicitHeight: Math.max(implicitBackgroundHeight, up.implicitIndicatorHeight + down.implicitIndicatorHeight)
+                    + topInset + bottomInset
 
     spacing: 2
 

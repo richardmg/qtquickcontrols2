@@ -13,6 +13,7 @@ ControlContainer {
             to: 2000
             background: Rectangle {
                 border.color: "green"
+                implicitWidth: 50
             }
         }
 
@@ -22,10 +23,13 @@ ControlContainer {
             to: 2000
 
             rightPadding: 17
+            spacing: 0
+            implicitWidth: 60
+            implicitHeight: 25
 
             up.indicator: Rectangle {
                 x: customIndicator.width - width - 4
-                y: 3
+                y: 4
                 implicitWidth: customIndicator.rightPadding - 4
                 implicitHeight: 8
                 border.width: 1
@@ -41,7 +45,7 @@ ControlContainer {
 
             down.indicator: Rectangle {
                 x: customIndicator.width - width - 4
-                y: height + 2
+                y: height + 6
                 implicitWidth: customIndicator.rightPadding - 4
                 implicitHeight: 8
                 border.width: 1
@@ -62,14 +66,18 @@ ControlContainer {
             to: 2000
 
             rightPadding: 17
+            spacing: 0
+            implicitWidth: 60
+            implicitHeight: 25
 
             background: Rectangle {
                 border.color: "green"
+                implicitWidth: 50
             }
 
             up.indicator: Rectangle {
                 x: allCustom.width - width - 4
-                y: 3
+                y: 4
                 implicitWidth: allCustom.rightPadding - 4
                 implicitHeight: 8
                 border.width: 1
@@ -85,7 +93,7 @@ ControlContainer {
 
             down.indicator: Rectangle {
                 x: allCustom.width - width - 4
-                y: height + 2
+                y: height + 6
                 implicitWidth: allCustom.rightPadding - 4
                 implicitHeight: 8
                 border.width: 1
@@ -98,6 +106,26 @@ ControlContainer {
                     anchors.centerIn: parent
                 }
             }
+
+            contentItem: TextInput {
+                text: allCustom.displayText
+                font: allCustom.font
+                color: "green"
+                selectionColor: allCustom.palette.highlight
+                selectedTextColor: allCustom.palette.highlightedText
+                horizontalAlignment: Qt.AlignLeft
+                verticalAlignment: Qt.AlignVCenter
+
+                topPadding: 2
+                bottomPadding: 2
+                leftPadding: 10
+                rightPadding: 10
+
+                readOnly: !allCustom.editable
+                validator: allCustom.validator
+                inputMethodHints: allCustom.inputMethodHints
+            }
+
         }
 
     }

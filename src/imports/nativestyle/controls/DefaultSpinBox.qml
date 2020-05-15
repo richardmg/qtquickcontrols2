@@ -45,22 +45,17 @@ T.SpinBox {
 
     property bool nativeBackground: background instanceof NativeStyle.StyleItem
 
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            contentItem.implicitWidth + 2 * padding +
-                            up.implicitIndicatorWidth +
-                            down.implicitIndicatorWidth)
-    implicitHeight: Math.max(implicitContentHeight + topPadding + bottomPadding,
-                             up.implicitIndicatorHeight + down.implicitIndicatorHeight)
+    implicitWidth: implicitBackgroundWidth + spacing + up.implicitIndicatorWidth
+                   + leftInset + rightInset
+    implicitHeight: Math.max(implicitBackgroundHeight, up.implicitIndicatorHeight + down.implicitIndicatorHeight
+                    + (spacing * 3)) + topInset + bottomInset
 
-    spacing: 4
+    spacing: 2
 
-    // Push the background right to make room for the indicators
-    rightInset: up.implicitIndicatorWidth + spacing
-
-    leftPadding: nativeBackground ? background.contentPadding.left: 0
-    topPadding: nativeBackground ? background.contentPadding.top: 0
-    rightPadding: nativeBackground ? background.contentPadding.right + rightInset: 0
-    bottomPadding: nativeBackground ? background.contentPadding.bottom: 0
+    leftPadding: (nativeBackground ? background.contentPadding.left: 0)
+    topPadding: (nativeBackground ? background.contentPadding.top: 0)
+    rightPadding: (nativeBackground ? background.contentPadding.right : 0) + up.implicitIndicatorWidth + spacing
+    bottomPadding: (nativeBackground ? background.contentPadding.bottom: 0) + spacing
 
     validator: IntValidator {
         locale: control.locale.name
@@ -87,30 +82,20 @@ T.SpinBox {
         inputMethodHints: control.inputMethodHints
     }
 
-    NativeStyle.SpinBox {
-        id: upAndDown
+    up.indicator: NativeStyle.SpinBox {
         control: control
         subControl: NativeStyle.SpinBox.Up
-        visible: up.indicator.hasOwnProperty("_qt_default") && down.indicator.hasOwnProperty("_qt_default")
-        x: up.indicator.x
-        y: up.indicator.y
+        x: parent.width - width - spacing
+        y: (parent.height / 2) - height
         useNinePatchImage: false
     }
 
-    up.indicator: Item {
-        x: parent.width - width
-        y: (parent.height / 2) - height
-        implicitWidth: upAndDown.width
-        implicitHeight: upAndDown.height / 2
-        property bool _qt_default
-    }
-
-    down.indicator: Item {
-        x: parent.width - width
-        y: up.indicator.y + upAndDown.height / 2
-        implicitWidth: upAndDown.width
-        implicitHeight: upAndDown.height / 2
-        property bool _qt_default
+    down.indicator: NativeStyle.SpinBox {
+        control: control
+        subControl: NativeStyle.SpinBox.Down
+        x: up.indicator.x
+        y: up.indicator.y + up.indicator.height
+        useNinePatchImage: false
     }
 
     background: NativeStyle.SpinBox {
