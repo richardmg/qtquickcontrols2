@@ -127,22 +127,25 @@ QSGNode *QQuickStyleItem::updatePaintNode(QSGNode *oldNode, QQuickItem::UpdatePa
 
 void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
 {
-    styleOption.control = m_control;
+    styleOption.control = const_cast<QQuickItem *>(control<QQuickItem>());
     styleOption.window = window();
     styleOption.palette = QQuickItemPrivate::get(m_control)->palette()->toQPalette();
     styleOption.rect = QRect(QPoint(0, 0), m_controlGeometry.minimumSize);
-    styleOption.direction = m_control->isMirrored() ? Qt::RightToLeft : Qt::LeftToRight;
 
     styleOption.state = QStyle::State_None;
-
-    if (m_control->isEnabled())
-        styleOption.state |= QStyle::State_Enabled;
-    if (m_control->hasVisualFocus())
-        styleOption.state |= QStyle::State_HasFocus;
-    if (m_control->isUnderMouse())
-        styleOption.state |= QStyle::State_MouseOver;
     if (styleOption.window->isActive())
         styleOption.state |= QStyle::State_Active;
+
+    // Note: not all controls inherit from QQuickControl (e.g QQuickTextField)
+    if (const auto quickControl = dynamic_cast<QQuickControl *>(m_control.data())) {
+        styleOption.direction = quickControl->isMirrored() ? Qt::RightToLeft : Qt::LeftToRight;
+        if (quickControl->isEnabled())
+            styleOption.state |= QStyle::State_Enabled;
+        if (quickControl->hasVisualFocus())
+            styleOption.state |= QStyle::State_HasFocus;
+        if (quickControl->isUnderMouse())
+            styleOption.state |= QStyle::State_MouseOver;
+    }
 
     // TODO: add proper API for small and mini
     if (m_control->metaObject()->indexOfProperty("qqc2_style_small") != -1)

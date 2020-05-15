@@ -150,7 +150,7 @@ class QQuickStyleItem : public QQuickItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(QQuickControl *control MEMBER m_control)
+    Q_PROPERTY(QQuickItem *control MEMBER m_control)
     Q_PROPERTY(qreal contentWidth READ contentWidth WRITE setContentWidth)
     Q_PROPERTY(qreal contentHeight READ contentHeight WRITE setContentHeight)
     Q_PROPERTY(QQuickStyleMargins contentPadding READ contentPadding() NOTIFY contentPaddingChanged)
@@ -212,7 +212,7 @@ private:
     inline void paintControlToImage();
 
 private:
-    QPointer<QQuickControl> m_control;
+    QPointer<QQuickItem> m_control;
     QImage m_paintedImage;
     ControlGeometry m_controlGeometry;
     QSizeF m_contentSize;

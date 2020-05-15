@@ -49,7 +49,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class QQuickControl;
+class QQuickItem;
 
 namespace QQC2 {
 
@@ -85,7 +85,7 @@ public:
     // QQC2 additions. Remember to also update copy
     // constructor and assignment operator when adding
     // new variables here.
-    QQuickControl *control;
+    QQuickItem *control;
     QWindow *window;
 
     QStyleOption(int version = QStyleOption::Version, int type = SO_Default);
