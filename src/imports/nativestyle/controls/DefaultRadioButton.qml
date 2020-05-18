@@ -63,6 +63,7 @@ T.RadioButton {
         control: control
         contentWidth: contentItem.implicitWidth
         contentHeight: contentItem.implicitHeight
+        useNinePatchImage: false
     }
 
     contentItem: CheckLabel {

@@ -63,6 +63,7 @@ T.CheckBox {
         control: control
         contentWidth: contentItem.implicitWidth
         contentHeight: contentItem.implicitHeight
+        useNinePatchImage: false
     }
 
     contentItem: CheckLabel {
