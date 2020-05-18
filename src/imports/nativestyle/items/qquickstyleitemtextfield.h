@@ -45,6 +45,9 @@ class QQuickStyleItemTextField : public QQuickStyleItem
     Q_OBJECT
     QML_NAMED_ELEMENT(TextField)
 
+public:
+    QFont styleFont(QQuickItem *control) override;
+
 protected:
     void connectToControl() override;
     void paintEvent(QPainter *painter) override;

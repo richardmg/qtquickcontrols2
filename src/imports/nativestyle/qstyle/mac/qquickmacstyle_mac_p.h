@@ -75,6 +75,7 @@ public:
     SubControl hitTestComplexControl(ComplexControl cc, const QStyleOptionComplex *opt, const QPoint &pt) const;
 
     QSize sizeFromContents(ContentsType ct, const QStyleOption *opt, const QSize &contentsSize) const;
+    QFont font(ControlElement element, const QStyle::State state) const;
 
     int pixelMetric(PixelMetric pm, const QStyleOption *opt = 0) const;
     virtual int styleHint(StyleHint sh, const QStyleOption *opt = 0, QStyleHintReturn *shret = 0) const;

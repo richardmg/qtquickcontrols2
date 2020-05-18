@@ -125,6 +125,16 @@ QSGNode *QQuickStyleItem::updatePaintNode(QSGNode *oldNode, QQuickItem::UpdatePa
     return node;
 }
 
+QStyle::State QQuickStyleItem::controlSize(QQuickItem *item)
+{
+    // TODO: add proper API for small and mini
+    if (item->metaObject()->indexOfProperty("qqc2_style_small") != -1)
+        return QStyle::State_Small;
+    if (item->metaObject()->indexOfProperty("qqc2_style_mini") != -1)
+        return QStyle::State_Mini;
+    return QStyle::State_None;
+}
+
 void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
 {
     styleOption.control = const_cast<QQuickItem *>(control<QQuickItem>());
@@ -133,6 +143,7 @@ void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
     styleOption.rect = QRect(QPoint(0, 0), m_controlGeometry.minimumSize);
 
     styleOption.state = QStyle::State_None;
+    styleOption.state |= controlSize(styleOption.control);
     if (styleOption.window->isActive())
         styleOption.state |= QStyle::State_Active;
 
@@ -146,12 +157,6 @@ void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
         if (quickControl->isUnderMouse())
             styleOption.state |= QStyle::State_MouseOver;
     }
-
-    // TODO: add proper API for small and mini
-    if (m_control->metaObject()->indexOfProperty("qqc2_style_small") != -1)
-        styleOption.state |= QStyle::State_Small;
-    if (m_control->metaObject()->indexOfProperty("qqc2_style_mini") != -1)
-        styleOption.state |= QStyle::State_Mini;
 
     qqc2Debug() << styleOption;
 }
@@ -178,8 +183,10 @@ void QQuickStyleItem::updateControlGeometry()
 {
     qqc2DebugHeading("GEOMETRY");
     m_dirty.setFlag(DirtyFlag::Geometry, false);
+
     const QQuickStyleMargins oldContentPadding = contentPadding();
     const QQuickStyleMargins oldInsets = insets();
+
     m_controlGeometry = calculateControlGeometry();
 
 #ifdef QT_DEBUG
@@ -306,6 +313,22 @@ QQuickStyleMargins QQuickStyleItem::insets() const
         return QQuickStyleMargins();
     const QRect innerRect(QPoint(0, 0), m_controlGeometry.implicitSize);
     return QQuickStyleMargins(m_controlGeometry.layoutRect, innerRect);
+}
+
+QFont QQuickStyleItem::styleFont(QQuickItem *control)
+{
+    Q_ASSERT(control);
+    // Note: This function should be treated as if it was static
+    // (meaning, don't assume anything in this object to be initialized).
+    // Resolving the font/font size should be done early on from QML, before we get
+    // around to calculate geometry and paint. Otherwise we typically need to do it
+    // all over again when/if the font changes. In practice this means that other
+    // items in QML that uses a style font, and at the same time, affects our input
+    // contentSize, cannot wait for this item to be fully constructed before it
+    // gets the font. So we need to resolve it here and now, even if this
+    // object might be in a half initialized state (hence also the control
+    // argument, instead of relying on m_control to be set).
+    return QGuiApplication::font();
 }
 
 QT_END_NAMESPACE

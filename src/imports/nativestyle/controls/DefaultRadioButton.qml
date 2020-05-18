@@ -51,6 +51,8 @@ T.RadioButton {
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
 
+    font.pixelSize: nativeIndicator ? indicator.styleFont(control).pixelSize : undefined
+
     spacing: nativeIndicator ? 0 : 6
     padding: nativeIndicator ? 0 : 6
 
@@ -64,6 +66,11 @@ T.RadioButton {
         contentWidth: contentItem.implicitWidth
         contentHeight: contentItem.implicitHeight
         useNinePatchImage: false
+//        Component.onCompleted: {
+//            var f = indicator.font(control)
+//            control.font.pixelSize = f.pixelSize
+//            print(f)
+//        }
     }
 
     contentItem: CheckLabel {

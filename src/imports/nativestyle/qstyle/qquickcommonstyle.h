@@ -61,6 +61,7 @@ public:
     QRect subControlRect(ComplexControl cc, const QStyleOptionComplex *opt, SubControl sc) const override;
 
     QSize sizeFromContents(ContentsType ct, const QStyleOption *opt, const QSize &contentsSize) const override;
+    QFont font(ControlElement element, const QStyle::State state) const override;
 
     int pixelMetric(PixelMetric m, const QStyleOption *opt = nullptr) const override;
     int styleHint(StyleHint sh, const QStyleOption *opt = nullptr, QStyleHintReturn *shret = nullptr) const override;

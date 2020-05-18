@@ -6227,6 +6227,19 @@ QSize QMacStyle::sizeFromContents(ContentsType ct, const QStyleOption *opt, cons
     return sz;
 }
 
+QFont QMacStyle::font(QStyle::ControlElement element, const QStyle::State state) const
+{
+    QFont font = QCommonStyle::font(element, state);
+
+    if (state & QStyle::State_Small) {
+        font.setPixelSize(11);
+    } else if (state & QStyle::State_Mini) {
+        font.setPixelSize(9);
+    }
+
+    return font;
+}
+
 void QMacStyle::drawItemText(QPainter *p, const QRect &r, int flags, const QPalette &pal,
                              bool enabled, const QString &text, QPalette::ColorRole textRole) const
 {

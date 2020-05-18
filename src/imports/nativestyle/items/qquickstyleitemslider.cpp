@@ -36,6 +36,11 @@
 
 #include "qquickstyleitemslider.h"
 
+QFont QQuickStyleItemSlider::styleFont(QQuickItem *control)
+{
+    return style()->font(QStyle::CE_ProgressBarLabel, controlSize(control));
+}
+
 void QQuickStyleItemSlider::connectToControl()
 {
     QQuickStyleItem::connectToControl();

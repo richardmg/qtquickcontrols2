@@ -51,6 +51,8 @@ T.GroupBox {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              contentHeight + topPadding + bottomPadding)
 
+    font.pixelSize: nativeBackground ? background.styleFont(control).pixelSize : undefined
+
     label: Text {
         x: control.leftPadding
         width: control.availableWidth

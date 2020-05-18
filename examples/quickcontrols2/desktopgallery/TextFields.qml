@@ -24,13 +24,11 @@ ControlContainer {
 
         TextField {
             text: "Small"
-            font.pixelSize: 11
             property bool qqc2_style_small
         }
 
         TextField {
             text: "Mini"
-            font.pixelSize: 9
             property bool qqc2_style_mini
         }
     }

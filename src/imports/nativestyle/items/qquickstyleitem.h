@@ -151,12 +151,15 @@ class QQuickStyleItem : public QQuickItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(QQuickItem *control MEMBER m_control)
+    // Input
     Q_PROPERTY(qreal contentWidth READ contentWidth WRITE setContentWidth)
     Q_PROPERTY(qreal contentHeight READ contentHeight WRITE setContentHeight)
+    Q_PROPERTY(bool useNinePatchImage MEMBER m_useNinePatchImage)
+
+    // Output
+    Q_PROPERTY(QQuickItem *control MEMBER m_control)
     Q_PROPERTY(QQuickStyleMargins contentPadding READ contentPadding() NOTIFY contentPaddingChanged)
     Q_PROPERTY(QQuickStyleMargins insets READ insets() NOTIFY insetsChanged)
-    Q_PROPERTY(bool useNinePatchImage MEMBER m_useNinePatchImage)
 
     QML_NAMED_ELEMENT(StyleItem)
     QML_UNCREATABLE("StyleItem is an abstract base class.")
@@ -181,12 +184,15 @@ public:
     QQuickStyleMargins contentPadding() const;
     QQuickStyleMargins insets() const;
 
+    Q_INVOKABLE virtual QFont styleFont(QQuickItem *control);
+
     void markGeometryDirty();
     void markImageDirty();
 
 signals:
     void contentPaddingChanged();
     void insetsChanged();
+    void fontChanged();
 
 protected:
     void componentComplete() override;
@@ -198,6 +204,7 @@ protected:
     virtual void paintEvent(QPainter *painter) = 0;
     virtual ControlGeometry calculateControlGeometry() = 0;
 
+    static QStyle::State controlSize(QQuickItem *item);
     void initStyleOptionBase(QStyleOption &styleOption);
 
     inline QSize contentSize() { return m_contentSize.toSize(); }

@@ -36,6 +36,11 @@
 
 #include "qquickstyleitemspinbox.h"
 
+QFont QQuickStyleItemSpinBox::styleFont(QQuickItem *control)
+{
+    return style()->font(QStyle::CE_ComboBoxLabel, controlSize(control));
+}
+
 void QQuickStyleItemSpinBox::connectToControl()
 {
     QQuickStyleItem::connectToControl();

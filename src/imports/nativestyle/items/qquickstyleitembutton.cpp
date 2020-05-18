@@ -36,6 +36,11 @@
 
 #include "qquickstyleitembutton.h"
 
+QFont QQuickStyleItemButton::styleFont(QQuickItem *control)
+{
+    return style()->font(QStyle::CE_PushButtonLabel, controlSize(control));
+}
+
 void QQuickStyleItemButton::connectToControl()
 {
     QQuickStyleItem::connectToControl();

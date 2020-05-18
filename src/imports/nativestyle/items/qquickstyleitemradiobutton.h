@@ -45,6 +45,9 @@ class QQuickStyleItemRadioButton : public QQuickStyleItem
     Q_OBJECT
     QML_NAMED_ELEMENT(RadioButton)
 
+public:
+    QFont styleFont(QQuickItem *control) override;
+
 protected:
     void connectToControl() override;
     void paintEvent(QPainter *painter) override;

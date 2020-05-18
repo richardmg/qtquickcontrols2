@@ -48,6 +48,7 @@ class QQuickStyleItemGroupBox : public QQuickStyleItem
 
 public:
     QQuickStyleMargins groupBoxPadding() const;
+    QFont styleFont(QQuickItem *control) override;
 
 signals:
     void groupBoxPaddingChanged();

@@ -51,6 +51,8 @@ T.Button {
     implicitWidth: implicitBackgroundWidth + leftInset + rightInset
     implicitHeight: implicitBackgroundHeight + topInset + bottomInset
 
+    font.pixelSize: nativeBackground ? background.styleFont(control).pixelSize : undefined
+
     leftPadding: nativeBackground ? background.contentPadding.left + leftInset: 5
     rightPadding: nativeBackground ? background.contentPadding.right + rightInset: 5
     topPadding: nativeBackground ? background.contentPadding.top + topInset: 5

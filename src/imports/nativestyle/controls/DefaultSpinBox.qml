@@ -50,6 +50,8 @@ T.SpinBox {
     implicitHeight: Math.max(implicitBackgroundHeight, up.implicitIndicatorHeight + down.implicitIndicatorHeight
                     + (spacing * 3)) + topInset + bottomInset
 
+    font.pixelSize: nativeBackground ? background.styleFont(control).pixelSize : undefined
+
     spacing: 2
 
     leftPadding: (nativeBackground ? background.contentPadding.left: 0)
@@ -65,7 +67,7 @@ T.SpinBox {
 
     contentItem: TextInput {
         text: control.displayText
-        font: control.font
+        font: font.font
         color: control.palette.text
         selectionColor: control.palette.highlight
         selectedTextColor: control.palette.highlightedText

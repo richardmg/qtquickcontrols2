@@ -55,6 +55,8 @@ public:
     };
     Q_ENUM(SubControl)
 
+    QFont styleFont(QQuickItem *control) override;
+
 protected:
     void connectToControl() override;
     void paintEvent(QPainter *painter) override;

@@ -4680,6 +4680,13 @@ QSize QCommonStyle::sizeFromContents(ContentsType ct, const QStyleOption *opt, c
     return sz;
 }
 
+QFont QCommonStyle::font(QStyle::ControlElement element, const QStyle::State state) const
+{
+    Q_UNUSED(element);
+    Q_UNUSED(state);
+    return QGuiApplication::font();
+}
+
 int QCommonStyle::styleHint(StyleHint sh, const QStyleOption *opt, QStyleHintReturn *hret) const
 {
     int ret = 0;

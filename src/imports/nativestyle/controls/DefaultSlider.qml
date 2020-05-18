@@ -50,6 +50,8 @@ T.Slider {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitHandleHeight + topPadding + bottomPadding)
 
+    font.pixelSize: nativeBackground ? background.styleFont(control).pixelSize : undefined
+
     topInset: nativeBackground ? background.insets.top : 0
     bottomInset: nativeBackground ? background.insets.bottom : 0
     leftInset: nativeBackground ? background.insets.left : 0

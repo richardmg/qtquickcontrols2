@@ -36,6 +36,11 @@
 
 #include "qquickstyleitemtextfield.h"
 
+QFont QQuickStyleItemTextField::styleFont(QQuickItem *control)
+{
+    return style()->font(QStyle::CE_ComboBoxLabel, controlSize(control));
+}
+
 void QQuickStyleItemTextField::connectToControl()
 {
     QQuickStyleItem::connectToControl();

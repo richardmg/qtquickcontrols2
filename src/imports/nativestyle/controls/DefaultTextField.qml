@@ -48,6 +48,8 @@ T.TextField {
     implicitWidth: Math.max(96, background.implicitWidth + leftPadding + rightPadding + leftInset + rightInset)
     implicitHeight: background.implicitHeight + topPadding + bottomPadding + topInset + bottomInset
 
+    font.pixelSize: nativeBackground ? background.styleFont(control).pixelSize : undefined
+
     leftPadding: nativeBackground ? background.contentPadding.left: 7
     rightPadding: nativeBackground ? background.contentPadding.right: 7
     topPadding: nativeBackground ? background.contentPadding.top: 3

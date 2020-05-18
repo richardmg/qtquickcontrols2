@@ -36,6 +36,11 @@
 
 #include "qquickstyleitemcheckbox.h"
 
+QFont QQuickStyleItemCheckBox::styleFont(QQuickItem *control)
+{
+    return style()->font(QStyle::CE_RadioButtonLabel, controlSize(control));
+}
+
 void QQuickStyleItemCheckBox::connectToControl()
 {
     QQuickStyleItem::connectToControl();

@@ -36,6 +36,11 @@
 
 #include "qquickstyleitemradiobutton.h"
 
+QFont QQuickStyleItemRadioButton::styleFont(QQuickItem *control)
+{
+    return style()->font(QStyle::CE_RadioButtonLabel, controlSize(control));
+}
+
 void QQuickStyleItemRadioButton::connectToControl()
 {
     QQuickStyleItem::connectToControl();

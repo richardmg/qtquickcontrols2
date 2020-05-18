@@ -36,6 +36,11 @@
 
 #include "qquickstyleitemgroupbox.h"
 
+QFont QQuickStyleItemGroupBox::styleFont(QQuickItem *control)
+{
+    return style()->font(QStyle::CE_HeaderLabel, controlSize(control));
+}
+
 ControlGeometry QQuickStyleItemGroupBox::calculateControlGeometry()
 {
     QStyleOptionGroupBox styleOption;
