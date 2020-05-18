@@ -50,7 +50,7 @@ ControlGeometry QQuickStyleItemCheckBox::calculateControlGeometry()
     initStyleOption(styleOption);
     ControlGeometry cg;
 
-    cg.minimumSize = style()->sizeFromContents(QStyle::CT_CheckBox, &styleOption, QSize());
+    cg.minimumSize = style()->sizeFromContents(QStyle::CT_CheckBox, &styleOption, QSize(0, 0));
     cg.implicitSize = cg.minimumSize;
     styleOption.rect = QRect(QPoint(0, 0), cg.implicitSize);
     cg.contentRect = style()->subElementRect(QStyle::SE_CheckBoxContents, &styleOption);

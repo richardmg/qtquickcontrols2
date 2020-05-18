@@ -50,7 +50,7 @@ ControlGeometry QQuickStyleItemSpinBox::calculateControlGeometry()
     initStyleOption(styleOption);
     ControlGeometry cg;
 
-    cg.minimumSize = style()->sizeFromContents(QStyle::CT_SpinBox, &styleOption, QSize());
+    cg.minimumSize = style()->sizeFromContents(QStyle::CT_SpinBox, &styleOption, QSize(0, 0));
 
     if (styleOption.subControls == QStyle::SC_SpinBoxFrame) {
         cg.implicitSize = style()->sizeFromContents(QStyle::CT_SpinBox, &styleOption, contentSize());

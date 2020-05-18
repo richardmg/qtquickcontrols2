@@ -108,6 +108,7 @@ struct ControlGeometry
 {
     /*
     A QQuickItem is responsible for drawing a control, or a part of it.
+
     'minimumSize' should be the minimum possible size that the item can
     have _without_ taking content size into consideration (and still render
     correctly). This will also be the size of the image that the item is drawn
