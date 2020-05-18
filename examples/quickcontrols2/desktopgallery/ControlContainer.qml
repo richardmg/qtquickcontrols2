@@ -9,6 +9,8 @@ Item {
     implicitHeight: groupBox.height
 
     property alias title: groupBox.title
+    property real rowSpacing: 20
+
     default property alias children: layout.children
 
     GroupBox {

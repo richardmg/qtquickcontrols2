@@ -4,10 +4,11 @@ import QtQuick.Layouts 2.15
 import QtQuick.Controls.impl 2.12
 
 ControlContainer {
+    id: container
     title: "RadioButtons"
 
     Row {
-        spacing: 5
+        spacing: container.rowSpacing
 
         Column {
             RadioButton {

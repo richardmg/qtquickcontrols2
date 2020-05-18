@@ -3,9 +3,11 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 2.15
 
 ControlContainer {
+    id: container
     title: "SpinBoxes"
+
     Row {
-        spacing: 5
+        spacing: container.rowSpacing
 
         SpinBox {
             id: custombg

@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 2.15
 
 ControlContainer {
+    id: container
     title: "Sliders"
     property int sliderWidth: 300
     property int sliderHeight: 140

@@ -3,9 +3,11 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 2.15
 
 ControlContainer {
+    id: container
     title: "Buttons"
+
     Row {
-        spacing: 5
+        spacing: container.rowSpacing
 
         Button {
             text: "Default"
@@ -28,7 +30,7 @@ ControlContainer {
     }
 
     Row {
-        spacing: 5
+        spacing: container.rowSpacing
 
         Button {
             text: "Explicit height"
@@ -42,7 +44,7 @@ ControlContainer {
     }
 
     Row {
-        spacing: 5
+        spacing: container.rowSpacing
 
         Button {
             text: "Highlighted"
