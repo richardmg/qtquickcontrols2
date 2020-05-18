@@ -14,7 +14,7 @@ ControlContainer {
             contentItem: Rectangle {
                 implicitWidth: 120
                 implicitHeight: il.implicitHeight
-                color: buttonWithCustomContentItem.pressed ? "lightBlue" : "orange"
+                color: buttonWithCustomContentItem.pressed ? "green" : "lightGreen"
                 Text {
                     id: il
                     text: buttonWithCustomContentItem.text
