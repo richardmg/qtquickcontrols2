@@ -49,11 +49,11 @@ void QQuickStyleItemRadioButton::connectToControl()
     connect(checkbox, &QQuickRadioButton::checkedChanged, this, &QQuickStyleItem::markImageDirty);
 }
 
-ControlGeometry QQuickStyleItemRadioButton::calculateControlGeometry()
+StyleItemGeometry QQuickStyleItemRadioButton::calculateGeometry()
 {
     QStyleOptionButton styleOption;
     initStyleOption(styleOption);
-    ControlGeometry cg;
+    StyleItemGeometry cg;
 
     cg.minimumSize = style()->sizeFromContents(QStyle::CT_RadioButton, &styleOption, QSize(0, 0));
     cg.implicitSize = cg.minimumSize;

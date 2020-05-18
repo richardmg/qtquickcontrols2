@@ -60,7 +60,7 @@ public:
 protected:
     void connectToControl() override;
     void paintEvent(QPainter *painter) override;
-    ControlGeometry calculateControlGeometry() override;
+    StyleItemGeometry calculateGeometry() override;
 
 private:
     void initStyleOption(QStyleOptionSlider &styleOption);

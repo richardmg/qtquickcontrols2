@@ -49,11 +49,11 @@ void QQuickStyleItemCheckBox::connectToControl()
     connect(checkbox, &QQuickCheckBox::checkStateChanged, this, &QQuickStyleItem::markImageDirty);
 }
 
-ControlGeometry QQuickStyleItemCheckBox::calculateControlGeometry()
+StyleItemGeometry QQuickStyleItemCheckBox::calculateGeometry()
 {
     QStyleOptionButton styleOption;
     initStyleOption(styleOption);
-    ControlGeometry cg;
+    StyleItemGeometry cg;
 
     cg.minimumSize = style()->sizeFromContents(QStyle::CT_CheckBox, &styleOption, QSize(0, 0));
     cg.implicitSize = cg.minimumSize;

@@ -49,11 +49,11 @@ void QQuickStyleItemTextField::connectToControl()
     connect(textField, &QQuickTextField::focusChanged, this, &QQuickStyleItem::markImageDirty);
 }
 
-ControlGeometry QQuickStyleItemTextField::calculateControlGeometry()
+StyleItemGeometry QQuickStyleItemTextField::calculateGeometry()
 {
     QStyleOptionFrame styleOption;
     initStyleOption(styleOption);
-    ControlGeometry cg;
+    StyleItemGeometry cg;
 
     cg.minimumSize = style()->sizeFromContents(QStyle::CT_LineEdit, &styleOption, QSize(0, 0));
     cg.implicitSize = style()->sizeFromContents(QStyle::CT_LineEdit, &styleOption, contentSize());

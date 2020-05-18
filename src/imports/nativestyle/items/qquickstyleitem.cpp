@@ -65,11 +65,11 @@ QDebug operator<<(QDebug debug, const QQuickStyleMargins &padding)
     return debug;
 }
 
-QDebug operator<<(QDebug debug, const ControlGeometry &cg)
+QDebug operator<<(QDebug debug, const StyleItemGeometry &cg)
 {
     QDebugStateSaver saver(debug);
     debug.nospace();
-    debug << "ControlGeometry(";
+    debug << "StyleItemGeometry(";
     debug << "implicitSize:" << cg.implicitSize << ", ";
     debug << "contentRect:" << cg.contentRect << ", ";
     debug << "layoutRect:" << cg.layoutRect << ", ";
@@ -114,7 +114,7 @@ QSGNode *QQuickStyleItem::updatePaintNode(QSGNode *oldNode, QQuickItem::UpdatePa
         node = window()->createNinePatchNode();
 
     auto texture = window()->createTextureFromImage(m_paintedImage, QQuickWindow::TextureCanUseAtlas);
-    const QSize padding = m_useNinePatchImage ? m_controlGeometry.minimumSize / 2 : QSize(0, 0);
+    const QSize padding = m_useNinePatchImage ? m_styleItemGeometry.minimumSize / 2 : QSize(0, 0);
 
     node->setTexture(texture);
     node->setBounds(boundingRect());
@@ -140,7 +140,7 @@ void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
     styleOption.control = const_cast<QQuickItem *>(control<QQuickItem>());
     styleOption.window = window();
     styleOption.palette = QQuickItemPrivate::get(m_control)->palette()->toQPalette();
-    styleOption.rect = QRect(QPoint(0, 0), m_controlGeometry.minimumSize);
+    styleOption.rect = QRect(QPoint(0, 0), m_styleItemGeometry.minimumSize);
 
     styleOption.state = QStyle::State_None;
     styleOption.state |= controlSize(styleOption.control);
@@ -179,7 +179,7 @@ void QQuickStyleItem::geometryChange(const QRectF &newGeometry, const QRectF &ol
     }
 }
 
-void QQuickStyleItem::updateControlGeometry()
+void QQuickStyleItem::updateGeometry()
 {
     qqc2DebugHeading("GEOMETRY");
     m_dirty.setFlag(DirtyFlag::Geometry, false);
@@ -187,12 +187,12 @@ void QQuickStyleItem::updateControlGeometry()
     const QQuickStyleMargins oldContentPadding = contentPadding();
     const QQuickStyleMargins oldInsets = insets();
 
-    m_controlGeometry = calculateControlGeometry();
+    m_styleItemGeometry = calculateGeometry();
 
 #ifdef QT_DEBUG
-    if (m_controlGeometry.implicitSize.isEmpty())
+    if (m_styleItemGeometry.implicitSize.isEmpty())
         qmlWarning(this) << "implicitSize is empty!";
-    if (m_controlGeometry.minimumSize.isEmpty())
+    if (m_styleItemGeometry.minimumSize.isEmpty())
         qmlWarning(this) << "minimumSize is empty!";
 #endif
 
@@ -201,15 +201,15 @@ void QQuickStyleItem::updateControlGeometry()
     if (insets() != oldInsets)
         emit insetsChanged();
 
-    setImplicitSize(m_controlGeometry.implicitSize.width(), m_controlGeometry.implicitSize.height());
+    setImplicitSize(m_styleItemGeometry.implicitSize.width(), m_styleItemGeometry.implicitSize.height());
     // Clear the dirty flag after setting implicit size, since the following call
     // to geometryChanged() might set it again, which is unnecessary.
     m_dirty.setFlag(DirtyFlag::Geometry, false);
 
     if (!m_useNinePatchImage)
-        m_controlGeometry.minimumSize = size().toSize();
+        m_styleItemGeometry.minimumSize = size().toSize();
 
-    qqc2Debug() << m_controlGeometry
+    qqc2Debug() << m_styleItemGeometry
                 << "bounding rect:" << boundingRect()
                 << "content padding:" << contentPadding()
                 << "insets:" << insets()
@@ -219,12 +219,12 @@ void QQuickStyleItem::updateControlGeometry()
 void QQuickStyleItem::paintControlToImage()
 {
     qqc2DebugHeading("PAINT");
-    if (m_controlGeometry.minimumSize.isEmpty())
+    if (m_styleItemGeometry.minimumSize.isEmpty())
         return;
 
     m_dirty.setFlag(DirtyFlag::Image, false);
     const qreal scale = window()->devicePixelRatio();
-    m_paintedImage = QImage(m_controlGeometry.minimumSize * scale, QImage::Format_ARGB32_Premultiplied);
+    m_paintedImage = QImage(m_styleItemGeometry.minimumSize * scale, QImage::Format_ARGB32_Premultiplied);
     m_paintedImage.setDevicePixelRatio(scale);
     m_paintedImage.fill(Qt::transparent);
 
@@ -242,7 +242,7 @@ void QQuickStyleItem::paintControlToImage()
 void QQuickStyleItem::updatePolish()
 {
     if (m_dirty.testFlag(DirtyFlag::Geometry))
-        updateControlGeometry();
+        updateGeometry();
     if (m_dirty.testFlag(DirtyFlag::Image))
         paintControlToImage();
 }
@@ -303,16 +303,16 @@ void QQuickStyleItem::setContentHeight(qreal contentHeight)
 
 QQuickStyleMargins QQuickStyleItem::contentPadding() const
 {
-    const QRect outerRect(QPoint(0, 0), m_controlGeometry.implicitSize);
-    return QQuickStyleMargins(outerRect, m_controlGeometry.contentRect);
+    const QRect outerRect(QPoint(0, 0), m_styleItemGeometry.implicitSize);
+    return QQuickStyleMargins(outerRect, m_styleItemGeometry.contentRect);
 }
 
 QQuickStyleMargins QQuickStyleItem::insets() const
 {
-    if (m_controlGeometry.layoutRect.isEmpty())
+    if (m_styleItemGeometry.layoutRect.isEmpty())
         return QQuickStyleMargins();
-    const QRect innerRect(QPoint(0, 0), m_controlGeometry.implicitSize);
-    return QQuickStyleMargins(m_controlGeometry.layoutRect, innerRect);
+    const QRect innerRect(QPoint(0, 0), m_styleItemGeometry.implicitSize);
+    return QQuickStyleMargins(m_styleItemGeometry.layoutRect, innerRect);
 }
 
 QFont QQuickStyleItem::styleFont(QQuickItem *control)

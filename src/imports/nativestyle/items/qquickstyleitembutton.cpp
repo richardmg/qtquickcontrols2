@@ -48,11 +48,11 @@ void QQuickStyleItemButton::connectToControl()
     connect(button, &QQuickButton::downChanged, this, &QQuickStyleItem::markImageDirty);
 }
 
-ControlGeometry QQuickStyleItemButton::calculateControlGeometry()
+StyleItemGeometry QQuickStyleItemButton::calculateGeometry()
 {
     QStyleOptionButton styleOption;
     initStyleOption(styleOption);
-    ControlGeometry cg;
+    StyleItemGeometry cg;
 
     cg.minimumSize = style()->sizeFromContents(QStyle::CT_PushButton, &styleOption, QSize(0, 0));
     cg.implicitSize = style()->sizeFromContents(QStyle::CT_PushButton, &styleOption, contentSize());

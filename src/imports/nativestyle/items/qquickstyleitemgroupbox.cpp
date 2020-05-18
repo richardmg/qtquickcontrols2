@@ -41,12 +41,12 @@ QFont QQuickStyleItemGroupBox::styleFont(QQuickItem *control)
     return style()->font(QStyle::CE_HeaderLabel, controlSize(control));
 }
 
-ControlGeometry QQuickStyleItemGroupBox::calculateControlGeometry()
+StyleItemGeometry QQuickStyleItemGroupBox::calculateGeometry()
 {
     QStyleOptionGroupBox styleOption;
     initStyleOption(styleOption);
 
-    ControlGeometry cg;
+    StyleItemGeometry cg;
     cg.minimumSize = style()->sizeFromContents(QStyle::CT_GroupBox, &styleOption, QSize(0, 0));
 
     if (!control<QQuickGroupBox>()->title().isEmpty()) {

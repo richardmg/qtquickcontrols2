@@ -55,7 +55,7 @@ signals:
 
 protected:
     void paintEvent(QPainter *painter) override;
-    ControlGeometry calculateControlGeometry() override;
+    StyleItemGeometry calculateGeometry() override;
 
 private:
     QQuickStyleMargins m_groupBoxPadding;

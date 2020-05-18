@@ -49,11 +49,11 @@ void QQuickStyleItemSpinBox::connectToControl()
     connect(spinbox->down(), &QQuickSpinButton::pressedChanged, this, &QQuickStyleItem::markImageDirty);
 }
 
-ControlGeometry QQuickStyleItemSpinBox::calculateControlGeometry()
+StyleItemGeometry QQuickStyleItemSpinBox::calculateGeometry()
 {
     QStyleOptionSpinBox styleOption;
     initStyleOption(styleOption);
-    ControlGeometry cg;
+    StyleItemGeometry cg;
 
     cg.minimumSize = style()->sizeFromContents(QStyle::CT_SpinBox, &styleOption, QSize(0, 0));
 

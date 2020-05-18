@@ -104,7 +104,7 @@ public:
 
 QDebug operator<<(QDebug debug, const QQuickStyleMargins &padding);
 
-struct ControlGeometry
+struct StyleItemGeometry
 {
     /*
     A QQuickItem is responsible for drawing a control, or a part of it.
@@ -145,7 +145,7 @@ struct ControlGeometry
     QRect layoutRect;
 };
 
-QDebug operator<<(QDebug debug, const ControlGeometry &cg);
+QDebug operator<<(QDebug debug, const StyleItemGeometry &cg);
 
 class QQuickStyleItem : public QQuickItem
 {
@@ -202,7 +202,7 @@ protected:
 
     virtual void connectToControl();
     virtual void paintEvent(QPainter *painter) = 0;
-    virtual ControlGeometry calculateControlGeometry() = 0;
+    virtual StyleItemGeometry calculateGeometry() = 0;
 
     static QStyle::State controlSize(QQuickItem *item);
     void initStyleOptionBase(QStyleOption &styleOption);
@@ -216,13 +216,13 @@ protected:
 #endif
 
 private:
-    inline void updateControlGeometry();
+    inline void updateGeometry();
     inline void paintControlToImage();
 
 private:
     QPointer<QQuickItem> m_control;
     QImage m_paintedImage;
-    ControlGeometry m_controlGeometry;
+    StyleItemGeometry m_styleItemGeometry;
     QSizeF m_contentSize;
 
     DirtyFlags m_dirty = Everything;
