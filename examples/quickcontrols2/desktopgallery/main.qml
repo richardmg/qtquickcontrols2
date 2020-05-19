@@ -49,6 +49,8 @@ ApplicationWindow {
                 SpinBoxes { }
                 TextFields { }
                 Sliders { }
+                SlidersSmall { }
+                SlidersMini { }
             }
         }
 

@@ -137,6 +137,8 @@ QStyle::State QQuickStyleItem::controlSize(QQuickItem *item)
 
 void QQuickStyleItem::initStyleOptionBase(QStyleOption &styleOption)
 {
+    Q_ASSERT(m_control);
+
     styleOption.control = const_cast<QQuickItem *>(control<QQuickItem>());
     styleOption.window = window();
     styleOption.palette = QQuickItemPrivate::get(m_control)->palette()->toQPalette();

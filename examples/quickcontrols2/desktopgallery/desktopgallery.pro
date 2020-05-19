@@ -9,6 +9,8 @@ QML_FILES = \
     Buttons.qml \
     CustomButtons.qml \
     Sliders.qml \
+    SlidersSmall.qml \
+    SlidersMini.qml \
     CustomSliders.qml \
     CheckBoxes.qml \
     CustomCheckBoxes.qml \

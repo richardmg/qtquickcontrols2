@@ -4,9 +4,9 @@ import QtQuick.Layouts 2.15
 
 ControlContainer {
     id: container
-    title: "Sliders normal"
-    property int sliderWidth: 300
-    property int sliderHeight: 140
+    title: "Sliders mini"
+    property int sliderWidth: 100
+    property int sliderHeight: 90
 
     Row {
         spacing: 40
@@ -19,6 +19,7 @@ ControlContainer {
                 from: 0
                 to: 10
                 value: 5
+                property bool qqc2_style_mini
             }
 
             Slider {
@@ -27,6 +28,7 @@ ControlContainer {
                 to: 10
                 value: 5
                 enabled: false
+                property bool qqc2_style_mini
             }
 
             Slider {
@@ -36,6 +38,7 @@ ControlContainer {
                 value: 20
                 stepSize: 20
 
+                property bool qqc2_style_mini
                 property int qqc2_style_tickPosition: 1
             }
 
@@ -46,6 +49,7 @@ ControlContainer {
                 stepSize: 5
                 value: 65
 
+                property bool qqc2_style_mini
                 property int qqc2_style_tickPosition: 2
             }
         }
@@ -59,6 +63,7 @@ ControlContainer {
                 from: 0
                 to: 10
                 value: 5
+                property bool qqc2_style_mini
             }
 
             Slider {
@@ -68,6 +73,7 @@ ControlContainer {
                 to: 10
                 value: 5
                 enabled: false
+                property bool qqc2_style_mini
             }
 
             Slider {
@@ -78,6 +84,7 @@ ControlContainer {
                 value: 20
                 stepSize: 20
 
+                property bool qqc2_style_mini
                 property int qqc2_style_tickPosition: 1
             }
 
@@ -89,6 +96,7 @@ ControlContainer {
                 stepSize: 5
                 value: 65
 
+                property bool qqc2_style_mini
                 property int qqc2_style_tickPosition: 2
             }
         }
