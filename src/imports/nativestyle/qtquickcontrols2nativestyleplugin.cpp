@@ -65,7 +65,7 @@ public:
 
 QtQuickControls2NativeStylePlugin::~QtQuickControls2NativeStylePlugin()
 {
-    QQuickNativeStyle::setStyle(nullptr);
+//    QQuickNativeStyle::setStyle(nullptr);
 }
 
 QString QtQuickControls2NativeStylePlugin::name() const
