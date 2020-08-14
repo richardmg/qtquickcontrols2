@@ -63,13 +63,14 @@ ControlContainer {
                   + "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         }
 
-        Flickable {
+        ScrollView {
+            id: scrollView
             width: 200
             height: defaultTextArea.height
-            clip: true
+            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
-            TextArea.flickable: TextArea {
-                text: "Inside flickable - Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
+            TextArea {
+                text: "Inside ScrollView - Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
                 + "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
                 + "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi "
                 + "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit "
@@ -78,31 +79,50 @@ ControlContainer {
                 + "mollit anim id est laborum."
                 wrapMode: TextEdit.WordWrap
                 selectByMouse: true
+                rightPadding: scrollView.ScrollBar.vertical.width
             }
-
-            ScrollBar.vertical: ScrollBar { policy: ScrollBar.AlwaysOn }
         }
     }
 
     Row {
         spacing: container.rowSpacing
 
-        TextArea {
-            width: 200
-            wrapMode: TextEdit.WordWrap
-            selectByMouse: true
-            text: "Small - Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
-                  + "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-            property bool qqc2_style_small
+        Frame {
+            contentWidth: area1.width
+            contentHeight: area1.height
+            TextArea {
+                id: area1
+                width: 200
+                wrapMode: TextEdit.WrapAnywhere
+                selectByMouse: true
+                text: "Inside frame - Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
+                      + "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            }
         }
 
-        TextArea {
-            width: 200
-            wrapMode: TextEdit.WordWrap
-            selectByMouse: true
-            text: "Mini - Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
-                  + "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-            property bool qqc2_style_mini
+        Frame {
+            contentWidth: scrollView2.width
+            contentHeight: scrollView2.height
+            ScrollView {
+                id: scrollView2
+                width: 200
+                height: 100
+                ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+
+                TextArea {
+                    id: area2
+                    text: "Inside Frame and ScrollView - Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
+                          + "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+                          + "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi "
+                          + "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit "
+                          + "in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur "
+                          + "sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt "
+                          + "mollit anim id est laborum."
+                    wrapMode: TextEdit.WordWrap
+                    selectByMouse: true
+                    rightPadding: scrollView2.ScrollBar.vertical.width
+                }
+            }
         }
 
         TextArea {
