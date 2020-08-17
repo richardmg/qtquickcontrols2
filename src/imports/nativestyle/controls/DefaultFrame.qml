@@ -57,7 +57,5 @@ T.Frame {
 
     background: NativeStyle.Frame {
         control: control
-        contentWidth: control.contentWidth
-        contentHeight: control.contentHeight
     }
 }

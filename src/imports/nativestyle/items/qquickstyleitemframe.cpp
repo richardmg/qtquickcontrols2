@@ -43,7 +43,7 @@ StyleItemGeometry QQuickStyleItemFrame::calculateGeometry()
     StyleItemGeometry geometry;
 
     geometry.minimumSize = style()->sizeFromContents(QStyle::CT_Frame, &styleOption, QSize(0, 0));
-    geometry.implicitSize = contentSize();
+    geometry.implicitSize = geometry.minimumSize;
     styleOption.rect = QRect(QPoint(0, 0), geometry.implicitSize);
     geometry.contentRect = style()->subElementRect(QStyle::SE_FrameContents, &styleOption);
     geometry.ninePatchMargins = style()->ninePatchMargins(QStyle::CE_ShapedFrame, &styleOption, geometry.minimumSize);
