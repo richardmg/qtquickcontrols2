@@ -36,6 +36,7 @@
 
 #include <QtQml/qqml.h>
 #include <QtQuickControls2/private/qquickstyleplugin_p.h>
+#include <QtGui/qguiapplication.h>
 
 #include "qquicknativestyle.h"
 #include "qquickcommonstyle.h"
@@ -65,7 +66,17 @@ public:
 
 QtQuickControls2NativeStylePlugin::~QtQuickControls2NativeStylePlugin()
 {
-//    QQuickNativeStyle::setStyle(nullptr);
+#if defined(Q_OS_MACOS)
+    // When we delete QMacStyle (which we indirectly do below), it will
+    // release a lot of NSViews/Cells. This plugin is unloaded from the
+    // Q_DESTRUCTOR_FUNCTION in QLibrary, which happens after QApplication
+    // has ended, and NSApplication has stopped. Currently, this is also our
+    // best bet as to why a crash happens inside AppKit while doing so.
+    // As the plugin is anyway being unloaded, we choose to dodge this
+    // for now by not deleting QMacStyle.
+    return;
+#endif
+    QQuickNativeStyle::setStyle(nullptr);
 }
 
 QString QtQuickControls2NativeStylePlugin::name() const
