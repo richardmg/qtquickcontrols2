@@ -70,8 +70,7 @@ public:
     qreal getContentWidth() const override;
     qreal getContentHeight() const override;
 
-    void itemImplicitWidthChanged(QQuickItem *item) override;
-    void itemImplicitHeightChanged(QQuickItem *item) override;
+    void itemGeometryChanged(QQuickItem *item, QQuickGeometryChange change, const QRectF &oldGeometry) override;
 
     void contentChildrenChange();
 

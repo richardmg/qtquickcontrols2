@@ -152,20 +152,16 @@ QQuickItem *QQuickPanePrivate::getContentItem()
     return new QQuickContentItem(q);
 }
 
-void QQuickPanePrivate::itemImplicitWidthChanged(QQuickItem *item)
+void QQuickPanePrivate::itemGeometryChanged(QQuickItem *item, QQuickGeometryChange change, const QRectF &oldGeometry)
 {
-    QQuickControlPrivate::itemImplicitWidthChanged(item);
+    QQuickControlPrivate::itemGeometryChanged(item, change, oldGeometry);
 
-    if (item == firstChild)
-        updateImplicitContentWidth();
-}
-
-void QQuickPanePrivate::itemImplicitHeightChanged(QQuickItem *item)
-{
-    QQuickControlPrivate::itemImplicitHeightChanged(item);
-
-    if (item == firstChild)
-        updateImplicitContentHeight();
+    if (item == firstChild) {
+        if (item->width() != oldGeometry.width())
+            updateImplicitContentWidth();
+        if (item->height() != oldGeometry.height())
+            updateImplicitContentHeight();
+    }
 }
 
 void QQuickPanePrivate::contentChildrenChange()
@@ -174,9 +170,9 @@ void QQuickPanePrivate::contentChildrenChange()
     QQuickItem *newFirstChild = contentChildItems().value(0);
     if (newFirstChild != firstChild) {
         if (firstChild)
-            removeImplicitSizeListener(firstChild);
+            removeImplicitSizeListener(firstChild, Geometry | Destroyed);
         if (newFirstChild)
-            addImplicitSizeListener(newFirstChild);
+            addImplicitSizeListener(newFirstChild, Geometry | Destroyed);
         firstChild = newFirstChild;
     }
 
@@ -189,13 +185,19 @@ qreal QQuickPanePrivate::getContentWidth() const
     if (!contentItem)
         return 0;
 
+    // If the application sets a custom implicit size on the contentItem, we use
+    // that. Otherwise we use the size of the contentItem's first child. Note that
+    // this value will only be used to set implicitContentSize, which is typically
+    // used by the QML style implementation to set the implicit size of the control.
+    // The actual size of the contentItem will be calculated to be the size of the
+    // control minus the padding (QQuickControl::availableWidth/Height).
     const qreal cw = contentItem->implicitWidth();
     if (!qFuzzyIsNull(cw))
         return cw;
 
     const auto contentChildren = contentChildItems();
     if (contentChildren.count() == 1)
-        return contentChildren.first()->implicitWidth();
+        return contentChildren.first()->width();
 
     return 0;
 }
@@ -211,7 +213,7 @@ qreal QQuickPanePrivate::getContentHeight() const
 
     const auto contentChildren = contentChildItems();
     if (contentChildren.count() == 1)
-        return contentChildren.first()->implicitHeight();
+        return contentChildren.first()->height();
 
     return 0;
 }
@@ -251,7 +253,7 @@ QQuickPane::~QQuickPane()
 {
     Q_D(QQuickPane);
     d->removeImplicitSizeListener(d->contentItem);
-    d->removeImplicitSizeListener(d->firstChild);
+    d->removeImplicitSizeListener(d->firstChild, QQuickItemPrivate::Geometry | QQuickItemPrivate::Destroyed);
 }
 
 QQuickPane::QQuickPane(QQuickPanePrivate &dd, QQuickItem *parent)
